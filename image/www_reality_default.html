@@ -1,0 +1,2134 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html" lang="sk" xml:lang="sk" class="no-js">
+<head>
+    <script type="text/javascript">
+        (function () {
+    const QUEUE = {};
+
+    function queueAdd(type, data) {
+        if (QUEUE[type] === undefined) {
+            QUEUE[type] = [];
+        }
+
+        QUEUE[type].push(data);
+    }
+
+    function queueGetAll() {
+        const allItems = [];
+
+        for (const type in QUEUE) {
+            for (const item of QUEUE[type]) {
+                allItems.push({
+                    type,
+                    data: item,
+                });
+            }
+
+            QUEUE[type] = [];
+        }
+
+        return allItems;
+    }
+
+    let eventTrackingApiCalls = [];
+
+    function eventTrackingApiCall(data, type) {
+        eventTrackingApiCalls.push({
+            data,
+            type,
+        });
+    }
+
+    function fbConvApiMakeRandomId(length) {
+        const result = [];
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        const charactersLength = characters.length;
+        for (let i = 0; i < length; i++) {
+            result.push(characters.charAt(Math.floor(Math.random()
+                * charactersLength)));
+        }
+        return result.join('');
+    }
+
+    function fbConvApiSendAjaxEvent(eventName, eventData = {}, eventId, contact = {}) {
+        let fbp = document.cookie.split(';')
+            .filter(c => c.includes('_fbp='))
+            .map(c => c.split('_fbp=')[1]);
+        let fbc = document.cookie.split(';')
+            .filter(c => c.includes('_fbc='))
+            .map(c => c.split('_fbc=')[1]);
+        fbp = (fbp.length && fbp[0]) || null;
+        fbc = (fbc.length && fbc[0]) || null;
+
+
+        const data = {
+            event_name: eventName,
+            event_id: eventId,
+            source_url: window.location.href,
+            fbp,
+            fbc,
+        };
+
+        // add custom eventData
+        for (const property in eventData) {
+            if (eventData.hasOwnProperty(property)) {
+                data[property] = eventData[property];
+            }
+        }
+
+        if (Object.keys(contact).length !== 0) {
+            data.email = contact.hasOwnProperty('email') ? contact.email : '';
+            data.phone = contact.hasOwnProperty('phone') ? contact.phone : '';
+        }
+
+        const type = 'fbq';
+
+        eventTrackingApiCall(data, type);
+    }
+
+    function fbConvApi(eventName, eventData = {}, contact = {}) {
+        const eventId = fbConvApiMakeRandomId(100);
+
+        if (eventName === 'init') {
+            fbq(eventName, eventData);
+        } else {
+            fbq('track', eventName, eventData, { eventID: eventId });
+            fbConvApiSendAjaxEvent(eventName, eventData, eventId, contact);
+        }
+    }
+
+    function eventTracker(type, data) {
+        if (type === 'ga') {
+            if (typeof ga === 'undefined') {
+                queueAdd(type, data);
+                return;
+            }
+
+            ga(
+                data[0] ?? undefined, /* send */
+                data[1] ?? undefined, /* event */
+                data[2] ?? undefined, /* category */
+                data[3] ?? undefined, /* action */
+                data[4] ?? undefined, /* label */
+                data[5] ?? undefined, /* value */
+            );
+
+            return;
+        }
+
+        if (type === 'azTracker') {
+            if (typeof __azTracker === 'undefined') {
+                queueAdd(type, data);
+                return;
+            }
+
+            __azTracker.push(data);
+            return;
+        }
+
+        if (type === 'googleTagCmdPush') {
+            if (typeof googletag === 'undefined') {
+                queueAdd(type, data);
+                return;
+            }
+
+            googletag.cmd.push(data);
+            return;
+        }
+
+        if (type === 'fbq') {
+            if (typeof fbq === 'undefined') {
+                queueAdd(type, data);
+                return;
+            }
+
+            fbConvApi(data[0], data[1] ?? {}, data[2] ?? {});
+        }
+        if (type === 'fbq-ajax-event') {
+            if (typeof fbq === 'undefined') {
+                queueAdd(type, data);
+                return;
+            }
+            $.ajax({url: `${data[0]}?eventId=${data[1]}`});
+        }
+        if (type === 'fbq-ajax') {
+            if (typeof fbq === 'undefined') {
+                queueAdd(type, data);
+                return;
+            }
+
+            $.ajax({url: data[0]});
+        }
+    }
+
+    document.addEventListener('eventTracker:refresh', () => {
+        const items = queueGetAll();
+
+        for (const item of items) {
+            eventTracker(item.type, item.data);
+        }
+    });
+
+    window.eventTracker = eventTracker;
+}());
+
+    </script>
+    <script>
+        document.documentElement.classList.remove("no-js");
+    </script>
+                <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/><script type="text/javascript">(window.NREUM||(NREUM={})).init={ajax:{deny_list:["bam.nr-data.net"]}};(window.NREUM||(NREUM={})).loader_config={xpid:"XQ8OVFJACgoEU1BTBgMP",licenseKey:"7c5ab22466",applicationID:"294711128"};;(()=>{var e,t,r={9071:(e,t,r)=>{"use strict";r.d(t,{I:()=>n});var n=0,i=navigator.userAgent.match(/Firefox[\/\s](\d+\.\d+)/);i&&(n=+i[1])},6900:(e,t,r)=>{"use strict";let n;if(r.d(t,{H:()=>i}),r(2374).il){const e=document.createElement("div");e.innerHTML="\x3c!--[if lte IE 6]><div></div><![endif]--\x3e\x3c!--[if lte IE 7]><div></div><![endif]--\x3e\x3c!--[if lte IE 8]><div></div><![endif]--\x3e\x3c!--[if lte IE 9]><div></div><![endif]--\x3e",n=e.getElementsByTagName("div").length}var i;i=4===n?6:3===n?7:2===n?8:1===n?9:0},6562:(e,t,r)=>{"use strict";r.d(t,{P_:()=>p,Mt:()=>v,C5:()=>d,DL:()=>y,OP:()=>L,lF:()=>z,Yu:()=>E,Dg:()=>g,CX:()=>f,GE:()=>w,sU:()=>H});var n={};r.r(n),r.d(n,{agent:()=>A,match:()=>D,version:()=>T});var i=r(6797),o=r(909),a=r(8610);class s{constructor(e,t){try{if(!e||"object"!=typeof e)return(0,a.Z)("New setting a Configurable requires an object as input");if(!t||"object"!=typeof t)return(0,a.Z)("Setting a Configurable requires a model to set its initial properties");Object.assign(this,t),Object.entries(e).forEach((e=>{let[t,r]=e;const n=(0,o.q)(t);n.length&&r&&"object"==typeof r&&n.forEach((e=>{e in r&&((0,a.Z)(`"${e}" is a protected attribute and can not be changed in feature ${t}.  It will have no effect.`),delete r[e])})),this[t]=r}))}catch(e){(0,a.Z)("An error occured while setting a Configurable",e)}}}const c={beacon:i.ce.beacon,errorBeacon:i.ce.errorBeacon,licenseKey:void 0,applicationID:void 0,sa:void 0,queueTime:void 0,applicationTime:void 0,ttGuid:void 0,user:void 0,account:void 0,product:void 0,extra:void 0,jsAttributes:{},userAttributes:void 0,atts:void 0,transactionName:void 0,tNamePlain:void 0},u={};function d(e){if(!e)throw new Error("All info objects require an agent identifier!");if(!u[e])throw new Error(`Info for ${e} was never set`);return u[e]}function f(e,t){if(!e)throw new Error("All info objects require an agent identifier!");u[e]=new s(t,c),(0,i.Qy)(e,u[e],"info")}const l={allow_bfcache:!1,privacy:{cookies_enabled:!0},ajax:{deny_list:void 0,enabled:!0,harvestTimeSeconds:10},distributed_tracing:{enabled:void 0,exclude_newrelic_header:void 0,cors_use_newrelic_header:void 0,cors_use_tracecontext_headers:void 0,allowed_origins:void 0},ssl:void 0,obfuscate:void 0,jserrors:{enabled:!0,harvestTimeSeconds:10},metrics:{enabled:!0,harvestTimeSeconds:10},page_action:{enabled:!0,harvestTimeSeconds:30},page_view_event:{enabled:!0},page_view_timing:{enabled:!0,harvestTimeSeconds:30},session_trace:{enabled:!0,harvestTimeSeconds:10},spa:{enabled:!0,harvestTimeSeconds:10}},h={};function p(e){if(!e)throw new Error("All configuration objects require an agent identifier!");if(!h[e])throw new Error(`Configuration for ${e} was never set`);return h[e]}function g(e,t){if(!e)throw new Error("All configuration objects require an agent identifier!");h[e]=new s(t,l),(0,i.Qy)(e,h[e],"config")}function v(e,t){if(!e)throw new Error("All configuration objects require an agent identifier!");var r=p(e);if(r){for(var n=t.split("."),i=0;i<n.length-1;i++)if("object"!=typeof(r=r[n[i]]))return;r=r[n[n.length-1]]}return r}const m={accountID:void 0,trustKey:void 0,agentID:void 0,licenseKey:void 0,applicationID:void 0,xpid:void 0},b={};function y(e){if(!e)throw new Error("All loader-config objects require an agent identifier!");if(!b[e])throw new Error(`LoaderConfig for ${e} was never set`);return b[e]}function w(e,t){if(!e)throw new Error("All loader-config objects require an agent identifier!");b[e]=new s(t,m),(0,i.Qy)(e,b[e],"loader_config")}const E=(0,i.mF)().o;var x=r(6900),O=r(2053),A=null,T=null;if(navigator.userAgent){var _=navigator.userAgent,S=_.match(/Version\/(\S+)\s+Safari/);S&&-1===_.indexOf("Chrome")&&-1===_.indexOf("Chromium")&&(A="Safari",T=S[1])}function D(e,t){if(!A)return!1;if(e!==A)return!1;if(!t)return!0;if(!T)return!1;for(var r=T.split("."),n=t.split("."),i=0;i<n.length;i++)if(n[i]!==r[i])return!1;return!0}var P=r(5526),R=r(2374);const j="NRBA_SESSION_ID";function I(){if(!R.il)return null;try{let e;return null===(e=window.sessionStorage.getItem(j))&&(e=(0,P.ky)(16),window.sessionStorage.setItem(j,e)),e}catch(e){return null}}var C=R._A?.XMLHttpRequest,N=C&&C.prototype;const k={};function L(e){if(!e)throw new Error("All runtime objects require an agent identifier!");if(!k[e])throw new Error(`Runtime for ${e} was never set`);return k[e]}function H(e,t){if(!e)throw new Error("All runtime objects require an agent identifier!");var r;k[e]=new s(t,(r=e,{customTransaction:void 0,disabled:!1,features:{},isolatedBacklog:!1,loaderType:void 0,maxBytes:6===x.H?2e3:3e4,offset:(0,O.yf)(),onerror:void 0,origin:""+R._A?.location,ptid:void 0,releaseIds:{},sessionId:1==v(r,"privacy.cookies_enabled")?I():null,xhrWrappable:C&&N&&N.addEventListener&&!/CriOS/.test(navigator.userAgent),userAgent:n})),(0,i.Qy)(e,k[e],"runtime")}function z(e){return function(e){try{const t=d(e);return!!t.licenseKey&&!!t.errorBeacon&&!!t.applicationID}catch(e){return!1}}(e)}},8226:(e,t,r)=>{"use strict";r.d(t,{q:()=>n});const n="1223.PROD"},9557:(e,t,r)=>{"use strict";r.d(t,{w:()=>o});var n=r(8610);const i={agentIdentifier:""};class o{constructor(e){try{if("object"!=typeof e)return(0,n.Z)("shared context requires an object as input");this.sharedContext={},Object.assign(this.sharedContext,i),Object.entries(e).forEach((e=>{let[t,r]=e;Object.keys(i).includes(t)&&(this.sharedContext[t]=r)}))}catch(e){(0,n.Z)("An error occured while setting SharedContext",e)}}}},4329:(e,t,r)=>{"use strict";r.d(t,{L:()=>d,R:()=>c});var n=r(3752),i=r(7022),o=r(4045),a=r(2325);const s={};function c(e,t){const r={staged:!1,priority:a.p[t]||0};u(e),s[e].get(t)||s[e].set(t,r)}function u(e){e&&(s[e]||(s[e]=new Map))}function d(){let e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:"",t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:"feature";if(u(e),!e||!s[e].get(t))return a(t);s[e].get(t).staged=!0;const r=Array.from(s[e]);function a(t){const r=e?n.ee.get(e):n.ee,a=o.X.handlers;if(r.backlog&&a){var s=r.backlog[t],c=a[t];if(c){for(var u=0;s&&u<s.length;++u)f(s[u],c);(0,i.D)(c,(function(e,t){(0,i.D)(t,(function(t,r){r[0].on(e,r[1])}))}))}delete a[t],r.backlog[t]=null,r.emit("drain-"+t,[])}}r.every((e=>{let[t,r]=e;return r.staged}))&&(r.sort(((e,t)=>e[1].priority-t[1].priority)),r.forEach((e=>{let[t]=e;a(t)})))}function f(e,t){var r=e[1];(0,i.D)(t[r],(function(t,r){var n=e[0];if(r[0]===n){var i=r[1],o=e[3],a=e[2];i.apply(o,a)}}))}},3752:(e,t,r)=>{"use strict";r.d(t,{ee:()=>u});var n=r(6797),i=r(3916),o=r(7022),a=r(6562),s="nr@context";let c=(0,n.fP)();var u;function d(){}function f(){return new d}function l(){(u.backlog.api||u.backlog.feature)&&(u.aborted=!0,u.backlog={})}c.ee?u=c.ee:(u=function e(t,r){var n={},c={},h={},p=!1;try{p=16===r.length&&(0,a.OP)(r).isolatedBacklog}catch(e){}var g={on:b,addEventListener:b,removeEventListener:y,emit:m,get:E,listeners:w,context:v,buffer:x,abort:l,aborted:!1,isBuffering:O,debugId:r,backlog:p?{}:t&&"object"==typeof t.backlog?t.backlog:{}};return g;function v(e){return e&&e instanceof d?e:e?(0,i.X)(e,s,f):f()}function m(e,r,n,i,o){if(!1!==o&&(o=!0),!u.aborted||i){t&&o&&t.emit(e,r,n);for(var a=v(n),s=w(e),d=s.length,f=0;f<d;f++)s[f].apply(a,r);var l=A()[c[e]];return l&&l.push([g,e,r,a]),a}}function b(e,t){n[e]=w(e).concat(t)}function y(e,t){var r=n[e];if(r)for(var i=0;i<r.length;i++)r[i]===t&&r.splice(i,1)}function w(e){return n[e]||[]}function E(t){return h[t]=h[t]||e(g,t)}function x(e,t){var r=A();g.aborted||(0,o.D)(e,(function(e,n){t=t||"feature",c[n]=t,t in r||(r[t]=[])}))}function O(e){return!!A()[c[e]]}function A(){return g.backlog}}(void 0,"globalEE"),c.ee=u)},9252:(e,t,r)=>{"use strict";r.d(t,{E:()=>n,p:()=>i});var n=r(3752).ee.get("handle");function i(e,t,r,i,o){o?(o.buffer([e],i),o.emit(e,t,r)):(n.buffer([e],i),n.emit(e,t,r))}},4045:(e,t,r)=>{"use strict";r.d(t,{X:()=>o});var n=r(9252);o.on=a;var i=o.handlers={};function o(e,t,r,o){a(o||n.E,i,e,t,r)}function a(e,t,r,i,o){o||(o="feature"),e||(e=n.E);var a=t[o]=t[o]||{};(a[r]=a[r]||[]).push([e,i])}},8544:(e,t,r)=>{"use strict";r.d(t,{bP:()=>s,iz:()=>c,m$:()=>a});var n=r(2374),i=!1;try{var o=Object.defineProperty({},"passive",{get:function(){i=!0}});n._A?.addEventListener("testPassive",null,o),n._A?.removeEventListener("testPassive",null,o)}catch(e){}function a(e){return i?{passive:!0,capture:!!e}:!!e}function s(e,t){let r=arguments.length>2&&void 0!==arguments[2]&&arguments[2];window.addEventListener(e,t,a(r))}function c(e,t){let r=arguments.length>2&&void 0!==arguments[2]&&arguments[2];document.addEventListener(e,t,a(r))}},5526:(e,t,r)=>{"use strict";r.d(t,{Ht:()=>a,M:()=>o,Rl:()=>i,ky:()=>s});var n=r(2374);function i(){var e=null,t=0,r=n._A?.crypto||n._A?.msCrypto;function i(){return e?15&e[t++]:16*Math.random()|0}r&&r.getRandomValues&&(e=r.getRandomValues(new Uint8Array(31)));for(var o,a="xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx",s="",c=0;c<a.length;c++)s+="x"===(o=a[c])?i().toString(16):"y"===o?(o=3&i()|8).toString(16):o;return s}function o(){return s(16)}function a(){return s(32)}function s(e){var t=null,r=0,n=self.crypto||self.msCrypto;n&&n.getRandomValues&&Uint8Array&&(t=n.getRandomValues(new Uint8Array(31)));for(var i=[],o=0;o<e;o++)i.push(a().toString(16));return i.join("");function a(){return t?15&t[r++]:16*Math.random()|0}}},2053:(e,t,r)=>{"use strict";r.d(t,{nb:()=>c,os:()=>u,yf:()=>s,zO:()=>a});var n=r(7145),i=(new Date).getTime(),o=i;function a(){return n.G&&performance.now?Math.round(performance.now()):(i=Math.max((new Date).getTime(),i))-o}function s(){return i}function c(e){o=e}function u(){return o}},7145:(e,t,r)=>{"use strict";r.d(t,{G:()=>n});const n=void 0!==r(2374)._A?.performance?.timing?.navigationStart},6625:(e,t,r)=>{"use strict";r.d(t,{s:()=>c,v:()=>u});var n=r(8283),i=r(9071),o=r(2053),a=r(7145),s=r(2374);let c=!0;function u(e){var t=function(){if(i.I&&i.I<9)return;if(a.G)return c=!1,s._A?.performance?.timing?.navigationStart}();t&&((0,n.B)(e,"starttime",t),(0,o.nb)(t))}},8283:(e,t,r)=>{"use strict";r.d(t,{B:()=>o,L:()=>a});var n=r(2053),i={};function o(e,t,r){void 0===r&&(r=(0,n.zO)()+(0,n.os)()),i[e]=i[e]||{},i[e][t]=r}function a(e,t,r,n){const o=e.sharedContext.agentIdentifier;var a=i[o]?.[r],s=i[o]?.[n];void 0!==a&&void 0!==s&&e.store("measures",t,{value:s-a})}},6368:(e,t,r)=>{"use strict";r.d(t,{e:()=>o});var n=r(2374),i={};function o(e){if(e in i)return i[e];if(0===(e||"").indexOf("data:"))return{protocol:"data"};let t;var r=n._A?.location,o={};if(n.il)t=document.createElement("a"),t.href=e;else try{t=new URL(e,r.href)}catch(e){return o}o.port=t.port;var a=t.href.split("://");!o.port&&a[1]&&(o.port=a[1].split("/")[0].split("@").pop().split(":")[1]),o.port&&"0"!==o.port||(o.port="https"===a[0]?"443":"80"),o.hostname=t.hostname||r.hostname,o.pathname=t.pathname,o.protocol=a[0],"/"!==o.pathname.charAt(0)&&(o.pathname="/"+o.pathname);var s=!t.protocol||":"===t.protocol||t.protocol===r.protocol,c=t.hostname===r.hostname&&t.port===r.port;return o.sameOrigin=s&&(!t.hostname||c),"/"===o.pathname&&(i[e]=o),o}},9548:(e,t,r)=>{"use strict";r.d(t,{T:()=>i});var n=r(2374);const i={isFileProtocol:function(){let e=Boolean("file:"===(0,n.lW)()?.location?.protocol);e&&(i.supportabilityMetricSent=!0);return e},supportabilityMetricSent:!1}},8610:(e,t,r)=>{"use strict";function n(e,t){console&&console.warn&&"function"==typeof console.warn&&(console.warn(`New Relic: ${e}`),t&&console.warn(t))}r.d(t,{Z:()=>n})},3916:(e,t,r)=>{"use strict";r.d(t,{X:()=>i});var n=Object.prototype.hasOwnProperty;function i(e,t,r){if(n.call(e,t))return e[t];var i=r();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(e,t,{value:i,writable:!0,enumerable:!1}),i}catch(e){}return e[t]=i,i}},2374:(e,t,r)=>{"use strict";r.d(t,{_A:()=>o,il:()=>n,lW:()=>a,v6:()=>i});const n=Boolean("undefined"!=typeof window&&window.document),i=Boolean("undefined"!=typeof WorkerGlobalScope&&self.navigator instanceof WorkerNavigator);let o=(()=>{if(n)return window;if(i){if("undefined"!=typeof globalThis&&globalThis instanceof WorkerGlobalScope)return globalThis;if(self instanceof WorkerGlobalScope)return self}throw new Error("New Relic browser agent shutting down due to error: Unable to locate global scope. This is possibly due to code redefining browser global variables like `self` and `window`.")})();function a(){return o}},7022:(e,t,r)=>{"use strict";r.d(t,{D:()=>i});var n=Object.prototype.hasOwnProperty;function i(e,t){var r=[],i="",o=0;for(i in e)n.call(e,i)&&(r[o]=t(i,e[i]),o+=1);return r}},9226:(e,t,r)=>{"use strict";r.d(t,{$c:()=>u,Ng:()=>d,RR:()=>c});var n=r(6562),i=r(9557),o=r(9548),a=r(8610),s={regex:/^file:\/\/(.*)/,replacement:"file://OBFUSCATED"};class c extends i.w{constructor(e){super(e)}shouldObfuscate(){return u(this.sharedContext.agentIdentifier).length>0}obfuscateString(e){if(!e||"string"!=typeof e)return e;for(var t=u(this.sharedContext.agentIdentifier),r=e,n=0;n<t.length;n++){var i=t[n].regex,o=t[n].replacement||"*";r=r.replace(i,o)}return r}}function u(e){var t=[],r=(0,n.Mt)(e,"obfuscate")||[];return t=t.concat(r),o.T.isFileProtocol()&&t.push(s),t}function d(e){for(var t=!1,r=!1,n=0;n<e.length;n++){"regex"in e[n]?"string"!=typeof e[n].regex&&e[n].regex.constructor!==RegExp&&((0,a.Z)('An obfuscation replacement rule contains a "regex" value with an invalid type (must be a string or RegExp)'),r=!0):((0,a.Z)('An obfuscation replacement rule was detected missing a "regex" value.'),r=!0);var i=e[n].replacement;i&&"string"!=typeof i&&((0,a.Z)('An obfuscation replacement rule contains a "replacement" value with an invalid type (must be a string)'),t=!0)}return!t&&!r}},2650:(e,t,r)=>{"use strict";r.d(t,{K:()=>a,b:()=>o});var n=r(8544);function i(){return"undefined"==typeof document||"complete"===document.readyState}function o(e,t){if(i())return e();(0,n.bP)("load",e,t)}function a(e){if(i())return e();(0,n.iz)("DOMContentLoaded",e)}},6797:(e,t,r)=>{"use strict";r.d(t,{EZ:()=>u,Qy:()=>c,ce:()=>o,fP:()=>a,gG:()=>d,mF:()=>s});var n=r(2053),i=r(2374);const o={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net"};function a(){return i._A.NREUM||(i._A.NREUM={}),void 0===i._A.newrelic&&(i._A.newrelic=i._A.NREUM),i._A.NREUM}function s(){let e=a();return e.o||(e.o={ST:i._A.setTimeout,SI:i._A.setImmediate,CT:i._A.clearTimeout,XHR:i._A.XMLHttpRequest,REQ:i._A.Request,EV:i._A.Event,PR:i._A.Promise,MO:i._A.MutationObserver,FETCH:i._A.fetch}),e}function c(e,t,r){let i=a();const o=i.initializedAgents||{},s=o[e]||{};return Object.keys(s).length||(s.initializedAt={ms:(0,n.zO)(),date:new Date}),i.initializedAgents={...o,[e]:{...s,[r]:t}},i}function u(e,t){a()[e]=t}function d(){return function(){let e=a();const t=e.info||{};e.info={beacon:o.beacon,errorBeacon:o.errorBeacon,...t}}(),function(){let e=a();const t=e.init||{};e.init={...t}}(),s(),function(){let e=a();const t=e.loader_config||{};e.loader_config={...t}}(),a()}},6998:(e,t,r)=>{"use strict";r.d(t,{N:()=>i,e:()=>o});var n=r(8544);function i(e){let t=arguments.length>1&&void 0!==arguments[1]&&arguments[1];return void(0,n.iz)("visibilitychange",r);function r(){if(t){if("hidden"!=document.visibilityState)return;e()}e(document.visibilityState)}}function o(){return"hidden"===document.visibilityState?-1:1/0}},6408:(e,t,r)=>{"use strict";r.d(t,{W:()=>i});var n=r(2374);function i(){return"function"==typeof n._A?.PerformanceObserver}},8675:(e,t,r)=>{"use strict";r.d(t,{t:()=>n});const n=r(2325).D.ajax},8322:(e,t,r)=>{"use strict";r.d(t,{A:()=>i,t:()=>n});const n=r(2325).D.jserrors,i="nr@seenError"},6034:(e,t,r)=>{"use strict";r.d(t,{t:()=>n});const n=r(2325).D.metrics},6486:(e,t,r)=>{"use strict";r.d(t,{t:()=>n});const n=r(2325).D.pageAction},2484:(e,t,r)=>{"use strict";r.d(t,{t:()=>n});const n=r(2325).D.pageViewEvent},6382:(e,t,r)=>{"use strict";r.d(t,{t:()=>n});const n=r(2325).D.pageViewTiming},2628:(e,t,r)=>{"use strict";r.r(t),r.d(t,{ADD_EVENT_LISTENER:()=>a,BST_RESOURCE:()=>u,BST_TIMER:()=>g,END:()=>l,FEATURE_NAME:()=>i,FN_END:()=>p,FN_START:()=>h,ORIG_EVENT:()=>m,PUSH_STATE:()=>v,REMOVE_EVENT_LISTENER:()=>s,RESOURCE:()=>d,RESOURCE_TIMING_BUFFER_FULL:()=>c,START:()=>f,learResourceTimings:()=>o});var n=r(6562);const i=r(2325).D.sessionTrace,o="learResourceTimings",a="addEventListener",s="removeEventListener",c="resourcetimingbufferfull",u="bstResource",d="resource",f="-start",l="-end",h="fn"+f,p="fn"+l,g="bstTimer",v="pushState",m=n.Yu.EV},1509:(e,t,r)=>{"use strict";r.d(t,{W:()=>s});var n=r(6562),i=r(3752),o=r(2384),a=r(6797);class s{constructor(e,t,r){this.agentIdentifier=e,this.aggregator=t,this.ee=i.ee.get(e,(0,n.OP)(this.agentIdentifier).isolatedBacklog),this.featureName=r,this.blocked=!1,this.checkConfiguration()}checkConfiguration(){if(!(0,n.lF)(this.agentIdentifier)){let e={...(0,a.gG)().info?.jsAttributes};try{e={...e,...(0,n.C5)(this.agentIdentifier)?.jsAttributes}}catch(e){}(0,o.j)(this.agentIdentifier,{...(0,a.gG)(),info:{...(0,a.gG)().info,jsAttributes:e}})}}}},2384:(e,t,r)=>{"use strict";r.d(t,{j:()=>y});var n=r(8683),i=r.n(n),o=r(2325),a=r(6562),s=r(9252),c=r(7022),u=r(3752),d=r(2053),f=r(4329),l=r(2650),h=r(2374);function p(e,t,n){n||(0,f.R)(e,"api"),function(e){function t(t){for(var r=arguments.length,n=new Array(r>1?r-1:0),i=1;i<r;i++)n[i-1]=arguments[i];Object.values(e.initializedAgents).forEach((e=>{e.exposed&&e.api[t]&&e.api[t](...n)}))}["setErrorHandler","finished","addToTrace","inlineHit","addRelease","addPageAction","setCurrentRouteName","setPageViewName","setCustomAttribute","interaction","noticeError"].forEach((r=>{e[r]=function(){for(var e=arguments.length,n=new Array(e),i=0;i<e;i++)n[i]=arguments[i];return t(r,...n)}}))}(t);var p=u.ee.get(e),g=p.get("tracer"),v="api-",m="api-ixn-";function b(){}(0,c.D)(["setErrorHandler","finished","addToTrace","inlineHit","addRelease"],(function(e,r){t[r]=w(v,r,!0,"api")})),t.addPageAction=w(v,"addPageAction",!0,o.D.pageAction),t.setCurrentRouteName=w(v,"routeName",!0,o.D.spa),t.setPageViewName=function(t,r){if("string"==typeof t)return"/"!==t.charAt(0)&&(t="/"+t),(0,a.OP)(e).customTransaction=(r||"http://custom.transaction")+t,w(v,"setPageViewName",!0,"api")()},t.setCustomAttribute=function(t,r){const n=(0,a.C5)(e);return(0,a.CX)(e,{...n,jsAttributes:{...n.jsAttributes,[t]:r}}),w(v,"setCustomAttribute",!0,"api")()},t.interaction=function(){return(new b).get()};var y=b.prototype={createTracer:function(e,t){var r={},n=this,i="function"==typeof t;return(0,s.p)("api-ixn-tracer",[(0,d.zO)(),e,r],n,o.D.spa,p),function(){if(g.emit((i?"":"no-")+"fn-start",[(0,d.zO)(),n,i],r),i)try{return t.apply(this,arguments)}catch(e){throw g.emit("fn-err",[arguments,this,"string"==typeof e?new Error(e):e],r),e}finally{g.emit("fn-end",[(0,d.zO)()],r)}}}};function w(e,t,r,n){return function(){return(0,s.p)("record-supportability",["API/"+t+"/called"],void 0,o.D.metrics,p),(0,s.p)(e+t,[(0,d.zO)()].concat(i()(arguments)),r?null:this,n,p),r?void 0:this}}function E(){r.e(692).then(r.bind(r,5692)).then((t=>{let{setAPI:r}=t;r(e),(0,f.L)(e,"api")}))}(0,c.D)("actionText,setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","),(function(e,t){y[t]=w(m,t,void 0,o.D.spa)})),t.noticeError=function(e,t){"string"==typeof e&&(e=new Error(e)),(0,s.p)("record-supportability",["API/noticeError/called"],void 0,o.D.metrics,p),(0,s.p)("err",[e,(0,d.zO)(),!1,t],void 0,o.D.jserrors,p)},h.v6?E():(0,l.b)((()=>E()),!0)}var g=r(6797);const v={stn:o.D.sessionTrace,err:o.D.jserrors,ins:o.D.pageAction,spa:o.D.spa};function m(e,t){var r=u.ee.get(t);e&&"object"==typeof e&&((0,c.D)(e,(function(e,t){if(!t)return(0,s.p)("block-"+e,[],void 0,v[e],r);t&&!b[e]&&((0,s.p)("feat-"+e,[],void 0,v[e],r),b[e]=!0)})),(0,f.L)(t,o.D.pageViewEvent))}const b={};function y(e){let t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{},r=arguments.length>2?arguments[2]:void 0,n=arguments.length>3?arguments[3]:void 0,{init:i,info:o,loader_config:s,runtime:c={loaderType:r},exposed:u=!0}=t;const d=(0,g.gG)();let f={};return o||(i=d.init,o=d.info,s=d.loader_config,f=d),h.v6&&(o.jsAttributes={...o.jsAttributes,isWorker:!0}),(0,a.CX)(e,o),(0,a.Dg)(e,i||{}),(0,a.GE)(e,s||{}),(0,a.sU)(e,c),p(e,f,n),(0,g.Qy)(e,d,"api"),(0,g.Qy)(e,u,"exposed"),h.v6||((0,g.EZ)("activatedFeatures",b),(0,g.EZ)("setToken",(t=>m(t,e)))),f}},909:(e,t,r)=>{"use strict";r.d(t,{Z:()=>i,q:()=>o});var n=r(2325);function i(e){switch(e){case n.D.ajax:return[n.D.jserrors];case n.D.sessionTrace:return[n.D.ajax,n.D.pageViewEvent];case n.D.pageViewTiming:return[n.D.pageViewEvent];default:return[]}}function o(e){return e===n.D.jserrors?[]:["auto"]}},2325:(e,t,r)=>{"use strict";r.d(t,{D:()=>n,p:()=>i});const n={ajax:"ajax",jserrors:"jserrors",metrics:"metrics",pageAction:"page_action",pageViewEvent:"page_view_event",pageViewTiming:"page_view_timing",sessionTrace:"session_trace",spa:"spa"},i={[n.pageViewEvent]:1,[n.pageViewTiming]:2,[n.metrics]:3,[n.jserrors]:4,[n.ajax]:5,[n.sessionTrace]:6,[n.pageAction]:7,[n.spa]:8}},8683:e=>{e.exports=function(e,t,r){t||(t=0),void 0===r&&(r=e?e.length:0);for(var n=-1,i=r-t||0,o=Array(i<0?0:i);++n<i;)o[n]=e[t+n];return o}},4992:(e,t,r)=>{var n={"./ajax/aggregate":[960,779,960],"./jserrors/aggregate":[6112,779,112],"./metrics/aggregate":[4325,779,325],"./page_action/aggregate":[6817,779,817],"./page_view_event/aggregate":[4823,779,823],"./page_view_timing/aggregate":[8785,779,785],"./session_trace/aggregate":[1307,779,307],"./spa/aggregate":[9378,779,378]};function i(e){if(!r.o(n,e))return Promise.resolve().then((()=>{var t=new Error("Cannot find module '"+e+"'");throw t.code="MODULE_NOT_FOUND",t}));var t=n[e],i=t[0];return Promise.all(t.slice(1).map(r.e)).then((()=>r(i)))}i.keys=()=>Object.keys(n),i.id=4992,e.exports=i}},n={};function i(e){var t=n[e];if(void 0!==t)return t.exports;var o=n[e]={exports:{}};return r[e](o,o.exports,i),o.exports}i.m=r,i.n=e=>{var t=e&&e.__esModule?()=>e.default:()=>e;return i.d(t,{a:t}),t},i.d=(e,t)=>{for(var r in t)i.o(t,r)&&!i.o(e,r)&&Object.defineProperty(e,r,{enumerable:!0,get:t[r]})},i.f={},i.e=e=>Promise.all(Object.keys(i.f).reduce(((t,r)=>(i.f[r](e,t),t)),[])),i.u=e=>e+"."+i.h().slice(0,8)+"-1223.js",i.h=()=>"215647de1097144af948",i.o=(e,t)=>Object.prototype.hasOwnProperty.call(e,t),e={},t="NRBA:",i.l=(r,n,o,a)=>{if(e[r])e[r].push(n);else{var s,c;if(void 0!==o)for(var u=document.getElementsByTagName("script"),d=0;d<u.length;d++){var f=u[d];if(f.getAttribute("src")==r||f.getAttribute("data-webpack")==t+o){s=f;break}}s||(c=!0,(s=document.createElement("script")).charset="utf-8",s.timeout=120,i.nc&&s.setAttribute("nonce",i.nc),s.setAttribute("data-webpack",t+o),s.src=r),e[r]=[n];var l=(t,n)=>{s.onerror=s.onload=null,clearTimeout(h);var i=e[r];if(delete e[r],s.parentNode&&s.parentNode.removeChild(s),i&&i.forEach((e=>e(n))),t)return t(n)},h=setTimeout(l.bind(null,void 0,{type:"timeout",target:s}),12e4);s.onerror=l.bind(null,s.onerror),s.onload=l.bind(null,s.onload),c&&document.head.appendChild(s)}},i.r=e=>{"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},i.p="https://js-agent.newrelic.com/",(()=>{var e={994:0,774:0};i.f.j=(t,r)=>{var n=i.o(e,t)?e[t]:void 0;if(0!==n)if(n)r.push(n[2]);else{var o=new Promise(((r,i)=>n=e[t]=[r,i]));r.push(n[2]=o);var a=i.p+i.u(t),s=new Error;i.l(a,(r=>{if(i.o(e,t)&&(0!==(n=e[t])&&(e[t]=void 0),n)){var o=r&&("load"===r.type?"missing":r.type),a=r&&r.target&&r.target.src;s.message="Loading chunk "+t+" failed.\n("+o+": "+a+")",s.name="ChunkLoadError",s.type=o,s.request=a,n[1](s)}}),"chunk-"+t,t)}};var t=(t,r)=>{var n,o,[a,s,c]=r,u=0;if(a.some((t=>0!==e[t]))){for(n in s)i.o(s,n)&&(i.m[n]=s[n]);if(c)c(i)}for(t&&t(r);u<a.length;u++)o=a[u],i.o(e,o)&&e[o]&&e[o][0](),e[o]=0},r=window.webpackChunkNRBA=window.webpackChunkNRBA||[];r.forEach(t.bind(null,0)),r.push=t.bind(null,r.push.bind(r))})();var o={};(()=>{"use strict";i.r(o);var e=i(2325),t=i(6562);const r=Object.values(e.D);function n(e){const n={};return r.forEach((r=>{n[r]=function(e,r){return!1!==(0,t.Mt)(r,`${e}.enabled`)}(r,e)})),n}var a=i(2384),s=i(909),c=i(9557),u=i(7022);class d extends c.w{constructor(e){super(e),this.aggregatedData={}}store(e,t,r,n,i){var o=this.getBucket(e,t,r,i);return o.metrics=function(e,t){t||(t={count:0});return t.count+=1,(0,u.D)(e,(function(e,r){t[e]=f(r,t[e])})),t}(n,o.metrics),o}merge(e,t,r,n,i){var o=this.getBucket(e,t,n,i);if(o.metrics){var a=o.metrics;a.count+=r.count,(0,u.D)(r,(function(e,t){if("count"!==e){var n=a[e],i=r[e];i&&!i.c?a[e]=f(i.t,n):a[e]=function(e,t){if(!t)return e;t.c||(t=l(t.t));return t.min=Math.min(e.min,t.min),t.max=Math.max(e.max,t.max),t.t+=e.t,t.sos+=e.sos,t.c+=e.c,t}(i,a[e])}}))}else o.metrics=r}storeMetric(e,t,r,n){var i=this.getBucket(e,t,r);return i.stats=f(n,i.stats),i}getBucket(e,t,r,n){this.aggregatedData[e]||(this.aggregatedData[e]={});var i=this.aggregatedData[e][t];return i||(i=this.aggregatedData[e][t]={params:r||{}},n&&(i.custom=n)),i}get(e,t){return t?this.aggregatedData[e]&&this.aggregatedData[e][t]:this.aggregatedData[e]}take(e){for(var t={},r="",n=!1,i=0;i<e.length;i++)t[r=e[i]]=h(this.aggregatedData[r]),t[r].length&&(n=!0),delete this.aggregatedData[r];return n?t:null}}function f(e,t){return null==e?function(e){e?e.c++:e={c:1};return e}(t):t?(t.c||(t=l(t.t)),t.c+=1,t.t+=e,t.sos+=e*e,e>t.max&&(t.max=e),e<t.min&&(t.min=e),t):{t:e}}function l(e){return{t:e,min:e,max:e,sos:e*e,c:1}}function h(e){return"object"!=typeof e?[]:(0,u.D)(e,p)}function p(e,t){return t}var g=i(6797),v=i(5526),m=i(8610);var b=i(9252),y=i(2053),w=i(8283),E=i(6625),x=i(4329),O=i(1509),A=i(2650),T=i(2374);class _ extends O.W{constructor(e,t,r){let n=!(arguments.length>3&&void 0!==arguments[3])||arguments[3];super(e,t,r),this.completed=new Promise(((e,t)=>{this.resolve=e,this.reject=t})),this.hasAggregator=!1,this.auto=n,n&&(0,x.R)(e,r)}importAggregator(){try{if(this.hasAggregator||!this.auto)return;this.hasAggregator=!0;const e=async()=>{try{const{Aggregate:e}=await i(4992)(`./${this.featureName}/aggregate`);new e(this.agentIdentifier,this.aggregator),this.resolve()}catch(e){(0,m.Z)(`Failed to import aggregator class for ${this.featureName}`,e)}};T.v6?e():(0,A.b)((()=>e()),!0)}catch(e){this.reject(e)}}}var S,D,P,R=i(2484);class j extends _{constructor(e,t){let r=!(arguments.length>2&&void 0!==arguments[2])||arguments[2];super(e,t,R.t,r),T.il&&((0,E.v)(e),(0,w.B)(e,"firstbyte",(0,y.yf)()),(0,A.K)((()=>this.measureDomContentLoaded())),(0,A.b)((()=>this.measureWindowLoaded()),!0),this.importAggregator())}measureWindowLoaded(){var t=(0,y.zO)();(0,w.B)(this.agentIdentifier,"onload",t+(0,y.os)()),(0,b.p)("timing",["load",t],void 0,e.D.pageViewTiming,this.ee)}measureDomContentLoaded(){(0,w.B)(this.agentIdentifier,"domContent",(0,y.zO)()+(0,y.os)())}}S=j,D="featureName",P=R.t,D in S?Object.defineProperty(S,D,{value:P,enumerable:!0,configurable:!0,writable:!0}):S[D]=P;var I=i(6998),C=i(8544),N=i(6382);class k extends _{constructor(t,r){var n;let i=!(arguments.length>2&&void 0!==arguments[2])||arguments[2];if(super(t,r,N.t,i),n=this,T.il){if(this.pageHiddenTime=(0,I.e)(),this.performanceObserver,this.lcpPerformanceObserver,this.clsPerformanceObserver,this.fiRecorded=!1,"PerformanceObserver"in window&&"function"==typeof window.PerformanceObserver){this.performanceObserver=new PerformanceObserver((function(){return n.perfObserver(...arguments)}));try{this.performanceObserver.observe({entryTypes:["paint"]})}catch(e){}this.lcpPerformanceObserver=new PerformanceObserver((function(){return n.lcpObserver(...arguments)}));try{this.lcpPerformanceObserver.observe({entryTypes:["largest-contentful-paint"]})}catch(e){}this.clsPerformanceObserver=new PerformanceObserver((function(){return n.clsObserver(...arguments)}));try{this.clsPerformanceObserver.observe({type:"layout-shift",buffered:!0})}catch(e){}}this.fiRecorded=!1;["click","keydown","mousedown","pointerdown","touchstart"].forEach((e=>{(0,C.iz)(e,(function(){return n.captureInteraction(...arguments)}))})),(0,I.N)((()=>{this.pageHiddenTime=(0,y.zO)(),(0,b.p)("docHidden",[this.pageHiddenTime],void 0,e.D.pageViewTiming,this.ee)}),!0),(0,C.bP)("pagehide",(()=>(0,b.p)("winPagehide",[(0,y.zO)()],void 0,e.D.pageViewTiming,this.ee))),this.importAggregator()}}perfObserver(t,r){t.getEntries().forEach((t=>{"first-paint"===t.name?(0,b.p)("timing",["fp",Math.floor(t.startTime)],void 0,e.D.pageViewTiming,this.ee):"first-contentful-paint"===t.name&&(0,b.p)("timing",["fcp",Math.floor(t.startTime)],void 0,e.D.pageViewTiming,this.ee)}))}lcpObserver(t,r){var n=t.getEntries();if(n.length>0){var i=n[n.length-1];if(this.pageHiddenTime<i.startTime)return;var o=[i],a=this.addConnectionAttributes({});a&&o.push(a),(0,b.p)("lcp",o,void 0,e.D.pageViewTiming,this.ee)}}clsObserver(t){t.getEntries().forEach((t=>{t.hadRecentInput||(0,b.p)("cls",[t],void 0,e.D.pageViewTiming,this.ee)}))}addConnectionAttributes(e){var t=navigator.connection||navigator.mozConnection||navigator.webkitConnection;if(t)return t.type&&(e["net-type"]=t.type),t.effectiveType&&(e["net-etype"]=t.effectiveType),t.rtt&&(e["net-rtt"]=t.rtt),t.downlink&&(e["net-dlink"]=t.downlink),e}captureInteraction(r){if(r instanceof t.Yu.EV&&!this.fiRecorded){var n=Math.round(r.timeStamp),i={type:r.type};this.addConnectionAttributes(i),n<=(0,y.zO)()?i.fid=(0,y.zO)()-n:n>(0,y.os)()&&n<=Date.now()?(n-=(0,y.os)(),i.fid=(0,y.zO)()-n):n=(0,y.zO)(),this.fiRecorded=!0,(0,b.p)("timing",["fi",n,i],void 0,e.D.pageViewTiming,this.ee)}}}!function(e,t,r){t in e?Object.defineProperty(e,t,{value:r,enumerable:!0,configurable:!0,writable:!0}):e[t]=r}(k,"featureName",N.t);var L=i(4045),H="React",z="Angular",M="AngularJS",B="Backbone",F="Ember",q="Vue",G="Meteor",U="Zepto",V="Jquery";function $(){if(!T.il)return[];var e=[];try{(function(){try{if(window.React||window.ReactDOM||window.ReactRedux)return!0;if(document.querySelector("[data-reactroot], [data-reactid]"))return!0;for(var e=document.querySelectorAll("body > div"),t=0;t<e.length;t++)if(Object.keys(e[t]).indexOf("_reactRootContainer")>=0)return!0;return!1}catch(e){return!1}})()&&e.push(H),function(){try{return!!window.angular||(!!document.querySelector(".ng-binding, [ng-app], [data-ng-app], [ng-controller], [data-ng-controller], [ng-repeat], [data-ng-repeat]")||!!document.querySelector('script[src*="angular.js"], script[src*="angular.min.js"]'))}catch(e){return!1}}()&&e.push(M),function(){try{return!!(window.hasOwnProperty("ng")&&window.ng.hasOwnProperty("coreTokens")&&window.ng.coreTokens.hasOwnProperty("NgZone"))||!!document.querySelectorAll("[ng-version]").length}catch(e){return!1}}()&&e.push(z),window.Backbone&&e.push(B),window.Ember&&e.push(F),window.Vue&&e.push(q),window.Meteor&&e.push(G),window.Zepto&&e.push(U),window.jQuery&&e.push(V)}catch(e){}return e}var W=i(9548),X=i(9226),Z=i(8226);const Q=Boolean(T._A?.Worker),Y=Boolean(T._A?.SharedWorker),K=Boolean(T._A?.navigator?.serviceWorker);let J,ee,te;var re=i(6034);class ne extends _{constructor(e,t){var r;let n=arguments.length>2&&void 0!==arguments[2]?arguments[2]:{},i=!(arguments.length>3&&void 0!==arguments[3])||arguments[3];super(e,t,re.t,i),r=this,this.PfFeatStatusEnum=n,this.singleChecks(),this.eachSessionChecks(),(0,L.X)("record-supportability",(function(){return r.recordSupportability(...arguments)}),this.featureName,this.ee),(0,L.X)("record-custom",(function(){return r.recordCustom(...arguments)}),this.featureName,this.ee),this.importAggregator()}recordSupportability(e,t){var r=["sm",e,{name:e},t];return(0,b.p)("storeMetric",r,null,this.featureName,this.ee),r}recordCustom(e,t){var r=["cm",e,{name:e},t];return(0,b.p)("storeEventMetrics",r,null,this.featureName,this.ee),r}singleChecks(){this.recordSupportability(`Generic/Version/${Z.q}/Detected`);const{loaderType:e}=(0,t.OP)(this.agentIdentifier);e&&this.recordSupportability(`Generic/LoaderType/${e}/Detected`),T.il&&(0,A.K)((()=>{$().forEach((e=>{this.recordSupportability("Framework/"+e+"/Detected")}))})),W.T.isFileProtocol()&&(this.recordSupportability("Generic/FileProtocol/Detected"),W.T.supportabilityMetricSent=!0);const r=(0,X.$c)(this.agentIdentifier);r.length>0&&this.recordSupportability("Generic/Obfuscate/Detected"),r.length>0&&!(0,X.Ng)(r)&&this.recordSupportability("Generic/Obfuscate/Invalid"),T.il&&this.reportPolyfillsNeeded(),function(e){if(!J){if(Q){J=Worker;try{T._A.Worker=r(J,"Dedicated")}catch(e){o(e,"Dedicated")}if(Y){ee=SharedWorker;try{T._A.SharedWorker=r(ee,"Shared")}catch(e){o(e,"Shared")}}else n("Shared");if(K){te=navigator.serviceWorker.register;try{T._A.navigator.serviceWorker.register=(t=te,function(){for(var e=arguments.length,r=new Array(e),n=0;n<e;n++)r[n]=arguments[n];return i("Service",r[1]?.type),t.apply(navigator.serviceWorker,r)})}catch(e){o(e,"Service")}}else n("Service");var t;return}n("All")}function r(e,t){return new Proxy(e,{construct:(e,r)=>(i(t,r[1]?.type),new e(...r))})}function n(t){T.v6||e(`Workers/${t}/Unavailable`)}function i(t,r){e("module"===r?`Workers/${t}/Module`:`Workers/${t}/Classic`)}function o(t,r){e(`Workers/${r}/SM/Unsupported`),(0,m.Z)(`NR Agent: Unable to capture ${r} workers.`,t)}}(this.recordSupportability.bind(this))}reportPolyfillsNeeded(){this.recordSupportability(`Generic/Polyfill/Promise/${this.PfFeatStatusEnum.PROMISE}`),this.recordSupportability(`Generic/Polyfill/ArrayIncludes/${this.PfFeatStatusEnum.ARRAY_INCLUDES}`),this.recordSupportability(`Generic/Polyfill/ObjectAssign/${this.PfFeatStatusEnum.OBJECT_ASSIGN}`),this.recordSupportability(`Generic/Polyfill/ObjectEntries/${this.PfFeatStatusEnum.OBJECT_ENTRIES}`)}eachSessionChecks(){T.il&&(0,C.bP)("pageshow",(e=>{e.persisted&&this.recordCustom("Custom/BFCache/PageRestored")}))}}!function(e,t,r){t in e?Object.defineProperty(e,t,{value:r,enumerable:!0,configurable:!0,writable:!0}):e[t]=r}(ne,"featureName",re.t);var ie=i(3916),oe=i(3752),ae=i(8683),se=i.n(ae),ce=T._A,ue="fetch-",de="fetch-body-",fe=["arrayBuffer","blob","json","text","formData"],le=ce.Request,he=ce.Response,pe="prototype",ge="nr@context";const ve={};function me(e){const t=function(e){return(e||oe.ee).get("fetch")}(e);if(!(le&&he&&ce.fetch))return t;if(ve[t.debugId])return t;function r(e,r,n){var i=e[r];"function"==typeof i&&(e[r]=function(){var e,r=se()(arguments),o={};t.emit(n+"before-start",[r],o),o[ge]&&o[ge].dt&&(e=o[ge].dt);var a=i.apply(this,r);return t.emit(n+"start",[r,e],a),a.then((function(e){return t.emit(n+"end",[null,e],a),e}),(function(e){throw t.emit(n+"end",[e],a),e}))})}return ve[t.debugId]=!0,(0,u.D)(fe,(function(e,t){r(le[pe],t,de),r(he[pe],t,de)})),r(ce,"fetch",ue),t.on("fetch-end",(function(e,r){var n=this;if(r){var i=r.headers.get("content-length");null!==i&&(n.rxSize=i),t.emit("fetch-done",[null,r],n)}else t.emit("fetch-done",[e],n)})),t}var be="nr@original",ye=Object.prototype.hasOwnProperty,we=!1;function Ee(e,t){return e||(e=oe.ee),r.inPlace=function(e,t,n,i,o){n||(n="");var a,s,c,u="-"===n.charAt(0);for(c=0;c<t.length;c++)s=t[c],Ae(a=e[s])||(e[s]=r(a,u?s+n:n,i,s,o))},r.flag=be,r;function r(t,r,i,o,a){return Ae(t)?t:(r||(r=""),nrWrapper[be]=t,Oe(t,nrWrapper,e),nrWrapper);function nrWrapper(){var s,c,u,d;try{c=this,s=se()(arguments),u="function"==typeof i?i(s,c):i||{}}catch(t){xe([t,"",[s,c,o],u],e)}n(r+"start",[s,c,o],u,a);try{return d=t.apply(c,s)}catch(e){throw n(r+"err",[s,c,e],u,a),e}finally{n(r+"end",[s,c,d],u,a)}}}function n(r,n,i,o){if(!we||t){var a=we;we=!0;try{e.emit(r,n,i,t,o)}catch(t){xe([t,r,n,i],e)}we=a}}}function xe(e,t){t||(t=oe.ee);try{t.emit("internal-error",e)}catch(e){}}function Oe(e,t,r){if(Object.defineProperty&&Object.keys)try{return Object.keys(e).forEach((function(r){Object.defineProperty(t,r,{get:function(){return e[r]},set:function(t){return e[r]=t,t}})})),t}catch(e){xe([e],r)}for(var n in e)ye.call(e,n)&&(t[n]=e[n]);return t}function Ae(e){return!(e&&e instanceof Function&&e.apply&&!e[be])}const Te={};function _e(e){const t=function(e){return(e||oe.ee).get("timer")}(e);if(Te[t.debugId])return t;Te[t.debugId]=!0;var r=Ee(t),n="setTimeout",i="setInterval",o="clearTimeout",a="-start";return r.inPlace(T._A,[n,"setImmediate"],"setTimeout-"),r.inPlace(T._A,[i],"setInterval-"),r.inPlace(T._A,[o,"clearImmediate"],"clearTimeout-"),t.on(i+a,(function(e,t,n){e[0]=r(e[0],"fn-",null,n)})),t.on(n+a,(function(e,t,n){this.method=n,this.timerDuration=isNaN(e[1])?0:+e[1],e[0]=r(e[0],"fn-",this,n)})),t}const Se={};function De(e){const t=function(e){return(e||oe.ee).get("raf")}(e);if(Se[t.debugId]||!T.il)return t;Se[t.debugId]=!0;var r=Ee(t);return r.inPlace(window,["requestAnimationFrame","mozRequestAnimationFrame","webkitRequestAnimationFrame","msRequestAnimationFrame"],"raf-"),t.on("raf-start",(function(e){e[0]=r(e[0],"fn-")})),t}const Pe={};function Re(e){const t=function(e){return(e||oe.ee).get("history")}(e);if(Pe[t.debugId]||!T.il)return t;Pe[t.debugId]=!0;var r=Ee(t),n=window.history&&window.history.constructor&&window.history.constructor.prototype,i=window.history;return n&&n.pushState&&n.replaceState&&(i=n),r.inPlace(i,["pushState","replaceState"],"-"),t}const je={};function Ie(e){var t=function(e){return(e||oe.ee).get("events")}(e);if(je[t.debugId])return t;je[t.debugId]=!0;var r=Ee(t,!0),n=XMLHttpRequest,i="addEventListener",o="removeEventListener";function a(e){for(var t=e;t&&!t.hasOwnProperty(i);)t=Object.getPrototypeOf(t);t&&s(t)}function s(e){r.inPlace(e,[i,o],"-",c)}function c(e,t){return e[1]}return"getPrototypeOf"in Object?(T.il&&a(document),a(T._A),a(n.prototype)):n.prototype.hasOwnProperty(i)&&(s(T._A),s(n.prototype)),t.on("addEventListener-start",(function(e,t){var n=e[1];if(null!==n&&("function"==typeof n||"object"==typeof n)){var i=(0,ie.X)(n,"nr@wrapped",(function(){var e={object:function(){if("function"!=typeof n.handleEvent)return;return n.handleEvent.apply(n,arguments)},function:n}[typeof n];return e?r(e,"fn-",null,e.name||"anonymous"):n}));this.wrapped=e[1]=i}})),t.on("removeEventListener-start",(function(e){e[1]=this.wrapped||e[1]})),t}const Ce={};function Ne(e){var r=e||oe.ee;const n=function(e){return(e||oe.ee).get("xhr")}(r);if(Ce[n.debugId])return n;Ce[n.debugId]=!0,Ie(r);var i=Ee(n),o=t.Yu.XHR,a=t.Yu.MO,s=t.Yu.PR,c=t.Yu.SI,u="readystatechange",d=["onload","onerror","onabort","onloadstart","onloadend","onprogress","ontimeout"],f=[],l=T._A.XMLHttpRequest.listeners,h=T._A.XMLHttpRequest=function(e){var t=new o(e);function r(){try{n.emit("new-xhr",[t],t),t.addEventListener(u,g,(0,C.m$)(!1))}catch(e){(0,m.Z)("An error occured while intercepting XHR",e);try{n.emit("internal-error",[e])}catch(e){}}}return this.listeners=l?[...l,r]:[r],this.listeners.forEach((e=>e())),t};function p(e,t){i.inPlace(t,["onreadystatechange"],"fn-",E)}function g(){var e=this,t=n.context(e);e.readyState>3&&!t.resolved&&(t.resolved=!0,n.emit("xhr-resolved",[],e)),i.inPlace(e,d,"fn-",E)}if(function(e,t){for(var r in e)t[r]=e[r]}(o,h),h.prototype=o.prototype,i.inPlace(h.prototype,["open","send"],"-xhr-",E),n.on("send-xhr-start",(function(e,t){p(e,t),function(e){f.push(e),a&&(v?v.then(w):c?c(w):(b=-b,y.data=b))}(t)})),n.on("open-xhr-start",p),a){var v=s&&s.resolve();if(!c&&!s){var b=1,y=document.createTextNode(b);new a(w).observe(y,{characterData:!0})}}else r.on("fn-end",(function(e){e[0]&&e[0].type===u||w()}));function w(){for(var e=0;e<f.length;e++)p(0,f[e]);f.length&&(f=[])}function E(e,t){return t}return n}function ke(e){return Ie(e)}function Le(e){return De(e)}function He(e){return _e(e)}function ze(e){return Ne(e)}var Me,Be={};try{Me=localStorage.getItem("__nr_flags").split(","),console&&"function"==typeof console.log&&(Be.console=!0,-1!==Me.indexOf("dev")&&(Be.dev=!0),-1!==Me.indexOf("nr_dev")&&(Be.nrDev=!0))}catch(e){}function Fe(e){try{Be.console&&Fe(e)}catch(e){}}Be.nrDev&&oe.ee.on("internal-error",(function(e){Fe(e.stack)})),Be.dev&&oe.ee.on("fn-err",(function(e,t,r){Fe(r.stack)})),Be.dev&&(Fe("NR AGENT IN DEVELOPMENT MODE"),Fe("flags: "+(0,u.D)(Be,(function(e,t){return e})).join(", ")));var qe=i(8322);class Ge extends _{constructor(r,n){var i;let o=!(arguments.length>2&&void 0!==arguments[2])||arguments[2];super(r,n,qe.t,o),i=this,this.skipNext=0,this.handleErrors=!1,this.origOnerror=T._A?.onerror;const a=this,s=(0,t.OP)(this.agentIdentifier);s.features.err=!0,a.ee.on("fn-start",(function(e,t,r){a.handleErrors&&(a.skipNext+=1)})),a.ee.on("fn-err",(function(e,t,r){a.handleErrors&&!r[qe.A]&&((0,ie.X)(r,qe.A,(function(){return!0})),this.thrown=!0,Ve(r,void 0,a.ee))})),a.ee.on("fn-end",(function(){a.handleErrors&&!this.thrown&&a.skipNext>0&&(a.skipNext-=1)})),a.ee.on("internal-error",(t=>{(0,b.p)("ierr",[t,(0,y.zO)(),!0],void 0,e.D.jserrors,a.ee)}));const c=T._A?.onerror;T._A.onerror=function(){return c&&c(...arguments),i.onerrorHandler(...arguments),!1};try{T._A?.addEventListener("unhandledrejection",(t=>{const r=new Error(`${t.reason}`);(0,b.p)("err",[r,(0,y.zO)(),!1,{unhandledPromiseRejection:1}],void 0,e.D.jserrors,this.ee)}))}catch(e){}try{throw new Error}catch(e){"stack"in e&&(He(this.ee),Le(this.ee),"addEventListener"in T._A&&ke(this.ee),s.xhrWrappable&&ze(this.ee),a.handleErrors=!0)}this.importAggregator()}onerrorHandler(t,r,n,i,o){try{this.skipNext?this.skipNext-=1:Ve(o||new Ue(t,r,n),!0,this.ee)}catch(t){try{(0,b.p)("ierr",[t,(0,y.zO)(),!0],void 0,e.D.jserrors,this.ee)}catch(e){}}return"function"==typeof this.origOnerror&&this.origOnerror.apply(this,se()(arguments))}}function Ue(e,t,r){this.message=e||"Uncaught error with no additional information",this.sourceURL=t,this.line=r}function Ve(t,r,n){var i=r?null:(0,y.zO)();(0,b.p)("err",[t,i],void 0,e.D.jserrors,n)}!function(e,t,r){t in e?Object.defineProperty(e,t,{value:r,enumerable:!0,configurable:!0,writable:!0}):e[t]=r}(Ge,"featureName",qe.t);var $e=1;function We(e){var t=typeof e;return!e||"object"!==t&&"function"!==t?-1:e===T._A?0:(0,ie.X)(e,"nr@id",(function(){return $e++}))}var Xe=i(9071);function Ze(e){if("string"==typeof e&&e.length)return e.length;if("object"==typeof e){if("undefined"!=typeof ArrayBuffer&&e instanceof ArrayBuffer&&e.byteLength)return e.byteLength;if("undefined"!=typeof Blob&&e instanceof Blob&&e.size)return e.size;if(!("undefined"!=typeof FormData&&e instanceof FormData))try{return JSON.stringify(e).length}catch(e){return}}}var Qe=i(6368);class Ye{constructor(e){this.agentIdentifier=e,this.generateTracePayload=this.generateTracePayload.bind(this),this.shouldGenerateTrace=this.shouldGenerateTrace.bind(this)}generateTracePayload(e){if(!this.shouldGenerateTrace(e))return null;var r=(0,t.DL)(this.agentIdentifier);if(!r)return null;var n=(r.accountID||"").toString()||null,i=(r.agentID||"").toString()||null,o=(r.trustKey||"").toString()||null;if(!n||!i)return null;var a=(0,v.M)(),s=(0,v.Ht)(),c=Date.now(),u={spanId:a,traceId:s,timestamp:c};return(e.sameOrigin||this.isAllowedOrigin(e)&&this.useTraceContextHeadersForCors())&&(u.traceContextParentHeader=this.generateTraceContextParentHeader(a,s),u.traceContextStateHeader=this.generateTraceContextStateHeader(a,c,n,i,o)),(e.sameOrigin&&!this.excludeNewrelicHeader()||!e.sameOrigin&&this.isAllowedOrigin(e)&&this.useNewrelicHeaderForCors())&&(u.newrelicHeader=this.generateTraceHeader(a,s,c,n,i,o)),u}generateTraceContextParentHeader(e,t){return"00-"+t+"-"+e+"-01"}generateTraceContextStateHeader(e,t,r,n,i){return i+"@nr=0-1-"+r+"-"+n+"-"+e+"----"+t}generateTraceHeader(e,t,r,n,i,o){if(!("function"==typeof T._A?.btoa))return null;var a={v:[0,1],d:{ty:"Browser",ac:n,ap:i,id:e,tr:t,ti:r}};return o&&n!==o&&(a.d.tk=o),btoa(JSON.stringify(a))}shouldGenerateTrace(e){return this.isDtEnabled()&&this.isAllowedOrigin(e)}isAllowedOrigin(e){var r=!1,n={};if((0,t.Mt)(this.agentIdentifier,"distributed_tracing")&&(n=(0,t.P_)(this.agentIdentifier).distributed_tracing),e.sameOrigin)r=!0;else if(n.allowed_origins instanceof Array)for(var i=0;i<n.allowed_origins.length;i++){var o=(0,Qe.e)(n.allowed_origins[i]);if(e.hostname===o.hostname&&e.protocol===o.protocol&&e.port===o.port){r=!0;break}}return r}isDtEnabled(){var e=(0,t.Mt)(this.agentIdentifier,"distributed_tracing");return!!e&&!!e.enabled}excludeNewrelicHeader(){var e=(0,t.Mt)(this.agentIdentifier,"distributed_tracing");return!!e&&!!e.exclude_newrelic_header}useNewrelicHeaderForCors(){var e=(0,t.Mt)(this.agentIdentifier,"distributed_tracing");return!!e&&!1!==e.cors_use_newrelic_header}useTraceContextHeadersForCors(){var e=(0,t.Mt)(this.agentIdentifier,"distributed_tracing");return!!e&&!!e.cors_use_tracecontext_headers}}var Ke=i(8675);var Je=["load","error","abort","timeout"],et=Je.length,tt=t.Yu.REQ,rt=T._A?.XMLHttpRequest;class nt extends _{constructor(r,n){let i=!(arguments.length>2&&void 0!==arguments[2])||arguments[2];super(r,n,Ke.t,i);const o=(0,t.OP)(this.agentIdentifier);o.xhrWrappable&&(o.features.xhr=!0,this.dt=new Ye(this.agentIdentifier),this.handler=(e,t,r,n)=>(0,b.p)(e,t,r,n,this.ee),this.wrappedFetch=function(e,t){return r=e,me(r);var r}(this.ee),ze(this.ee),function(r,n,i,o){function a(e){var t=this;t.totalCbs=0,t.called=0,t.cbTime=0,t.end=x,t.ended=!1,t.xhrGuids={},t.lastSize=null,t.loadCaptureCalled=!1,t.params=this.params||{},t.metrics=this.metrics||{},e.addEventListener("load",(function(r){A(t,e)}),(0,C.m$)(!1)),Xe.I&&(Xe.I>34||Xe.I<10)||e.addEventListener("progress",(function(e){t.lastSize=e.loaded}),(0,C.m$)(!1))}function s(e){this.params={method:e[0]},O(this,e[1]),this.metrics={}}function c(e,n){var i=(0,t.DL)(r);"xpid"in i&&this.sameOrigin&&n.setRequestHeader("X-NewRelic-ID",i.xpid);var a=o.generateTracePayload(this.parsedOrigin);if(a){var s=!1;a.newrelicHeader&&(n.setRequestHeader("newrelic",a.newrelicHeader),s=!0),a.traceContextParentHeader&&(n.setRequestHeader("traceparent",a.traceContextParentHeader),a.traceContextStateHeader&&n.setRequestHeader("tracestate",a.traceContextStateHeader),s=!0),s&&(this.dt=a)}}function u(e,t){var r=this.metrics,i=e[0],o=this;if(r&&i){var a=Ze(i);a&&(r.txSize=a)}this.startTime=(0,y.zO)(),this.listener=function(e){try{"abort"!==e.type||o.loadCaptureCalled||(o.params.aborted=!0),("load"!==e.type||o.called===o.totalCbs&&(o.onloadCalled||"function"!=typeof t.onload))&&o.end(t)}catch(e){try{n.emit("internal-error",[e])}catch(e){}}};for(var s=0;s<et;s++)t.addEventListener(Je[s],this.listener,(0,C.m$)(!1))}function d(e,t,r){this.cbTime+=e,t?this.onloadCalled=!0:this.called+=1,this.called!==this.totalCbs||!this.onloadCalled&&"function"==typeof r.onload||this.end(r)}function f(e,t){var r=""+We(e)+!!t;this.xhrGuids&&!this.xhrGuids[r]&&(this.xhrGuids[r]=!0,this.totalCbs+=1)}function l(e,t){var r=""+We(e)+!!t;this.xhrGuids&&this.xhrGuids[r]&&(delete this.xhrGuids[r],this.totalCbs-=1)}function h(){this.endTime=(0,y.zO)()}function p(e,t){t instanceof rt&&"load"===e[0]&&n.emit("xhr-load-added",[e[1],e[2]],t)}function g(e,t){t instanceof rt&&"load"===e[0]&&n.emit("xhr-load-removed",[e[1],e[2]],t)}function v(e,t,r){t instanceof rt&&("onload"===r&&(this.onload=!0),("load"===(e[0]&&e[0].type)||this.onload)&&(this.xhrCbStart=(0,y.zO)()))}function m(e,t){this.xhrCbStart&&n.emit("xhr-cb-time",[(0,y.zO)()-this.xhrCbStart,this.onload,t],t)}function b(e){var t,r=e[1]||{};"string"==typeof e[0]?t=e[0]:e[0]&&e[0].url?t=e[0].url:T._A?.URL&&e[0]&&e[0]instanceof URL&&(t=e[0].href),t&&(this.parsedOrigin=(0,Qe.e)(t),this.sameOrigin=this.parsedOrigin.sameOrigin);var n=o.generateTracePayload(this.parsedOrigin);if(n&&(n.newrelicHeader||n.traceContextParentHeader))if("string"==typeof e[0]||T._A?.URL&&e[0]&&e[0]instanceof URL){var i={};for(var a in r)i[a]=r[a];i.headers=new Headers(r.headers||{}),s(i.headers,n)&&(this.dt=n),e.length>1?e[1]=i:e.push(i)}else e[0]&&e[0].headers&&s(e[0].headers,n)&&(this.dt=n);function s(e,t){var r=!1;return t.newrelicHeader&&(e.set("newrelic",t.newrelicHeader),r=!0),t.traceContextParentHeader&&(e.set("traceparent",t.traceContextParentHeader),t.traceContextStateHeader&&e.set("tracestate",t.traceContextStateHeader),r=!0),r}}function w(e,t){this.params={},this.metrics={},this.startTime=(0,y.zO)(),this.dt=t,e.length>=1&&(this.target=e[0]),e.length>=2&&(this.opts=e[1]);var r,n=this.opts||{},i=this.target;"string"==typeof i?r=i:"object"==typeof i&&i instanceof tt?r=i.url:T._A?.URL&&"object"==typeof i&&i instanceof URL&&(r=i.href),O(this,r);var o=(""+(i&&i instanceof tt&&i.method||n.method||"GET")).toUpperCase();this.params.method=o,this.txSize=Ze(n.body)||0}function E(t,r){var n;this.endTime=(0,y.zO)(),this.params||(this.params={}),this.params.status=r?r.status:0,"string"==typeof this.rxSize&&this.rxSize.length>0&&(n=+this.rxSize);var o={txSize:this.txSize,rxSize:n,duration:(0,y.zO)()-this.startTime};i("xhr",[this.params,o,this.startTime,this.endTime,"fetch"],this,e.D.ajax)}function x(t){var r=this.params,n=this.metrics;if(!this.ended){this.ended=!0;for(var o=0;o<et;o++)t.removeEventListener(Je[o],this.listener,!1);r.aborted||(n.duration=(0,y.zO)()-this.startTime,this.loadCaptureCalled||4!==t.readyState?null==r.status&&(r.status=0):A(this,t),n.cbTime=this.cbTime,i("xhr",[r,n,this.startTime,this.endTime,"xhr"],this,e.D.ajax))}}function O(e,t){var r=(0,Qe.e)(t),n=e.params;n.hostname=r.hostname,n.port=r.port,n.protocol=r.protocol,n.host=r.hostname+":"+r.port,n.pathname=r.pathname,e.parsedOrigin=r,e.sameOrigin=r.sameOrigin}function A(e,t){e.params.status=t.status;var r=function(e,t){var r=e.responseType;return"json"===r&&null!==t?t:"arraybuffer"===r||"blob"===r||"json"===r?Ze(e.response):"text"===r||""===r||void 0===r?Ze(e.responseText):void 0}(t,e.lastSize);if(r&&(e.metrics.rxSize=r),e.sameOrigin){var n=t.getResponseHeader("X-NewRelic-App-Data");n&&(e.params.cat=n.split(", ").pop())}e.loadCaptureCalled=!0}n.on("new-xhr",a),n.on("open-xhr-start",s),n.on("open-xhr-end",c),n.on("send-xhr-start",u),n.on("xhr-cb-time",d),n.on("xhr-load-added",f),n.on("xhr-load-removed",l),n.on("xhr-resolved",h),n.on("addEventListener-end",p),n.on("removeEventListener-end",g),n.on("fn-end",m),n.on("fetch-before-start",b),n.on("fetch-start",w),n.on("fn-start",v),n.on("fetch-done",E)}(this.agentIdentifier,this.ee,this.handler,this.dt),this.importAggregator())}}!function(e,t,r){t in e?Object.defineProperty(e,t,{value:r,enumerable:!0,configurable:!0,writable:!0}):e[t]=r}(nt,"featureName",Ke.t);var it=i(6408),ot=i(2628);const{ADD_EVENT_LISTENER:at,BST_RESOURCE:st,BST_TIMER:ct,END:ut,FEATURE_NAME:dt,FN_END:ft,FN_START:lt,learResourceTimings:ht,PUSH_STATE:pt,REMOVE_EVENT_LISTENER:gt,RESOURCE:vt,RESOURCE_TIMING_BUFFER_FULL:mt,START:bt,ORIG_EVENT:yt}=ot;class wt extends _{constructor(r,n){if(super(r,n,dt,!(arguments.length>2&&void 0!==arguments[2])||arguments[2]),!T.il)return;if(!(window.performance&&window.performance.timing&&window.performance.getEntriesByType))return;(0,t.OP)(this.agentIdentifier).features.stn=!0;const i=this.ee;function o(t){if((0,b.p)(st,[window.performance.getEntriesByType(vt)],void 0,e.D.sessionTrace,i),window.performance["c"+ht])try{window.performance[gt](mt,o,!1)}catch(t){}else try{window.performance[gt]("webkit"+mt,o,!1)}catch(t){}}this.timerEE=He(this.ee),this.rafEE=Le(this.ee),Re(this.ee),ke(this.ee),this.ee.on(lt,(function(e,t){e[0]instanceof yt&&(this.bstStart=(0,y.zO)())})),this.ee.on(ft,(function(t,r){var n=t[0];n instanceof yt&&(0,b.p)("bst",[n,r,this.bstStart,(0,y.zO)()],void 0,e.D.sessionTrace,i)})),this.timerEE.on(lt,(function(e,t,r){this.bstStart=(0,y.zO)(),this.bstType=r})),this.timerEE.on(ft,(function(t,r){(0,b.p)(ct,[r,this.bstStart,(0,y.zO)(),this.bstType],void 0,e.D.sessionTrace,i)})),this.rafEE.on(lt,(function(){this.bstStart=(0,y.zO)()})),this.rafEE.on(ft,(function(t,r){(0,b.p)(ct,[r,this.bstStart,(0,y.zO)(),"requestAnimationFrame"],void 0,e.D.sessionTrace,i)})),this.ee.on(pt+bt,(function(e){this.time=(0,y.zO)(),this.startPath=location.pathname+location.hash})),this.ee.on(pt+ut,(function(t){(0,b.p)("bstHist",[location.pathname+location.hash,this.startPath,this.time],void 0,e.D.sessionTrace,i)})),(0,it.W)()?((0,b.p)(st,[window.performance.getEntriesByType("resource")],void 0,e.D.sessionTrace,i),function(){var t=new PerformanceObserver(((t,r)=>{var n=t.getEntries();(0,b.p)(st,[n],void 0,e.D.sessionTrace,i)}));try{t.observe({entryTypes:["resource"]})}catch(e){}}()):at in window.performance&&(window.performance["c"+ht]?window.performance[at](mt,o,(0,C.m$)(!1)):window.performance[at]("webkit"+mt,o,(0,C.m$)(!1))),document[at]("scroll",this.noOp,(0,C.m$)(!1)),document[at]("keypress",this.noOp,(0,C.m$)(!1)),document[at]("click",this.noOp,(0,C.m$)(!1)),this.importAggregator()}noOp(e){}}!function(e,t,r){t in e?Object.defineProperty(e,t,{value:r,enumerable:!0,configurable:!0,writable:!0}):e[t]=r}(wt,"featureName",dt);var Et=i(6486);class xt extends _{constructor(e,t){let r=!(arguments.length>2&&void 0!==arguments[2])||arguments[2];super(e,t,Et.t,r),this.importAggregator()}}!function(e,t,r){t in e?Object.defineProperty(e,t,{value:r,enumerable:!0,configurable:!0,writable:!0}):e[t]=r}(xt,"featureName",Et.t),new class{constructor(t){let r=arguments.length>1&&void 0!==arguments[1]?arguments[1]:(0,v.ky)(16);this.agentIdentifier=r,this.sharedAggregator=new d({agentIdentifier:this.agentIdentifier}),this.features={},this.desiredFeatures=t.features||[],this.desiredFeatures.sort(((t,r)=>e.p[t.featureName]-e.p[r.featureName])),Object.assign(this,(0,a.j)(this.agentIdentifier,t,t.loaderType||"agent")),this.start()}get config(){return{info:(0,t.C5)(this.agentIdentifier),init:(0,t.P_)(this.agentIdentifier),loader_config:(0,t.DL)(this.agentIdentifier),runtime:(0,t.OP)(this.agentIdentifier)}}start(){try{const e=n(this.agentIdentifier);this.desiredFeatures.forEach((t=>{if(e[t.featureName]){const r=(0,s.Z)(t.featureName);r.every((t=>e[t]))||(0,m.Z)(`${t.featureName} is enabled but one or more dependent features has been disabled (${JSON.stringify(r)}). This may cause unintended consequences or missing data...`),this.features[t.featureName]=new t(this.agentIdentifier,this.sharedAggregator)}})),(0,g.Qy)(this.agentIdentifier,this.features,"features")}catch(e){return(0,m.Z)("Failed to initialize instrument classes",e),!1}}}({features:[j,k,wt,nt,ne,xt,Ge],loaderType:"pro"})})(),window.NRBA=o})();</script>
+                    <meta name="robots" content="index, follow">
+                            <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+                    
+    <meta name="description" content="Aktuálna ponuka nehnuteľností zo Slovenska, Európy i USA. Nehnuteľnosti na predaj, prenájom, dražby, byty, rodinné domy a pozemky na reality.sk.">
+    <title>Reality, byty, domy, nehnuteľnosti na predaj a prenájom | Reality.sk</title>
+    <link rel="shortcut icon" href="/build/images/favicon/favicon.ico" type="image/x-icon"/>
+    <link rel="apple-touch-icon" href="/build/images/favicon/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="/build/images/favicon/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="76x76" href="/build/images/favicon/apple-touch-icon-76x76.png"/>
+    <link rel="apple-touch-icon" sizes="114x114"
+          href="/build/images/favicon/apple-touch-icon-114x114.png"/>
+    <link rel="apple-touch-icon" sizes="120x120"
+          href="/build/images/favicon/apple-touch-icon-120x120.png"/>
+    <link rel="apple-touch-icon" sizes="144x144"
+          href="/build/images/favicon/apple-touch-icon-144x144.png"/>
+    <link rel="apple-touch-icon" sizes="152x152"
+          href="/build/images/favicon/apple-touch-icon-152x152.png"/>
+    <link rel="apple-touch-icon" sizes="180x180"
+          href="/build/images/favicon/apple-touch-icon-180x180.png"/>
+
+    
+    <link rel="stylesheet" href="/build/css/style.6ee5ae6b.css">
+    
+    <script type="text/javascript">
+        /* <![CDATA[ */
+        const google_conversion_id = 935168861;
+        const google_custom_params = window.google_tag_params;
+        const google_remarketing_only = true;
+        /* ]]> */
+    </script>
+    <script>function _typeof(t){return(_typeof="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(t){return typeof t}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":typeof t})(t)}!function(){var t=function(){var t,e,o=[],n=window,r=n;for(;r;){try{if(r.frames.__tcfapiLocator){t=r;break}}catch(t){}if(r===n.top)break;r=n.parent}t||(!function t(){var e=n.document,o=!!n.frames.__tcfapiLocator;if(!o)if(e.body){var r=e.createElement("iframe");r.style.cssText="display:none",r.name="__tcfapiLocator",e.body.appendChild(r)}else setTimeout(t,5);return!o}(),n.__tcfapi=function(){for(var t=arguments.length,n=new Array(t),r=0;r<t;r++)n[r]=arguments[r];if(!n.length)return o;"setGdprApplies"===n[0]?n.length>3&&2===parseInt(n[1],10)&&"boolean"==typeof n[3]&&(e=n[3],"function"==typeof n[2]&&n[2]("set",!0)):"ping"===n[0]?"function"==typeof n[2]&&n[2]({gdprApplies:e,cmpLoaded:!1,cmpStatus:"stub"}):o.push(n)},n.addEventListener("message",(function(t){var e="string"==typeof t.data,o={};if(e)try{o=JSON.parse(t.data)}catch(t){}else o=t.data;var n="object"===_typeof(o)?o.__tcfapiCall:null;n&&window.__tcfapi(n.command,n.version,(function(o,r){var a={__tcfapiReturn:{returnValue:o,success:r,callId:n.callId}};t&&t.source&&t.source.postMessage&&t.source.postMessage(e?JSON.stringify(a):a,"*")}),n.parameter)}),!1))};"undefined"!=typeof module?module.exports=t:t()}();</script>
+    <script>
+        window._sp_queue = [];
+        window._sp_ = {
+            config: {
+                accountId: 1688,
+                baseEndpoint: 'https://privacy.reality.sk',
+                custom: {},
+                gdpr: {
+                    groupPmId: 608817
+                },
+                events: {},
+            }
+        }
+    </script>
+    <script src='https://privacy.reality.sk/unified/wrapperMessagingWithoutDetection.js' async></script>
+    <script type="text/javascript">
+        var pp_gemius_use_cmp = true;
+
+(function () {
+    const loaded = {
+        googleAnalytics: false,
+        fbPixel: false,
+        rsz: false,
+        googleDoubleClick: false,
+        azTracker: false,
+        gemius: false,
+    };
+
+
+    function eventTrackerRefresh() {
+        document.dispatchEvent(new Event('eventTracker:refresh'));
+    }
+
+    function loadGoogleAnalytics() {
+    if (loaded.googleAnalytics === true) {
+        return;
+    }
+
+    loaded.googleAnalytics = true;
+
+    (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({
+            'gtm.start':
+                new Date().getTime(),
+            event: 'gtm.js',
+        });
+        const f = d.getElementsByTagName(s)[0];
+        const j = d.createElement(s);
+        const dl = l !== 'dataLayer' ? `&l=${l}` : '';
+        j.async = true;
+        j.src = `https://www.googletagmanager.com/gtm.js?id=${i}${dl}`;
+        f.parentNode.insertBefore(j, f);
+    }(window, document, 'script', 'dataLayer', 'GTM-K5J8Z85'));
+
+    (function (i, s, o, g, r, a, m) {
+        i.GoogleAnalyticsObject = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments);
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+    }(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga'));
+
+    const script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = 'https://www.googleadservices.com/pagead/conversion_async.js';
+    document.getElementsByTagName('head')[0].appendChild(script);
+
+    eventTrackerRefresh();
+}
+
+    function loadFbPixel() {
+    if (loaded.fbPixel === true) {
+        return;
+    }
+
+    loaded.fbPixel = true;
+
+    window.fbAsyncInit = function () {
+        FB.init({
+            appId: '1899709733650016',
+            autoLogAppEvents: true,
+            xfbml: true,
+            version: 'v3.2',
+        });
+    };
+
+    (function (d, s, id) {
+        let js;
+        const fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {
+            return;
+        }
+        js = d.createElement(s);
+        js.id = id;
+        js.src = 'https://connect.facebook.net/sk_SK/sdk.js';
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+
+    !(function (f, b, e, v, n, t, s) {
+        if (f.fbq) return;
+        n = f.fbq = function () {
+            n.callMethod
+                ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
+        };
+        if (!f._fbq) f._fbq = n;
+        n.push = n;
+        n.loaded = !0;
+        n.version = '2.0';
+        n.queue = [];
+        t = b.createElement(e);
+        t.async = !0;
+        t.src = v;
+        s = b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t, s);
+    }(window,
+        document, 'script', 'https://connect.facebook.net/en_US/fbevents.js'));
+
+    window.eventTracker('fbq', ['init', '652779955457172']);
+    window.eventTracker('fbq', ['PageView']);
+
+    eventTrackerRefresh();
+}
+
+    function loadRsz() {
+    if (loaded.rsz === true) {
+        return;
+    }
+    (function (w, d, t) {
+        var gt = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        gt.async = 1;
+        gt.src = 'https://rsz.sk/delivery/sd4.php';
+        gt.async = true;
+        s.parentNode.insertBefore(gt, s);
+        loaded.rsz = true;
+    })(window, document, 'script');
+
+    eventTrackerRefresh();
+}
+
+    function loadGoogleDoubleClick() {
+    if (loaded.googleDoubleClick === true) {
+        return;
+    }
+
+    window.PWT = {}; //Initialize Namespace
+    var googletag = googletag || {};
+    googletag.cmd = googletag.cmd || [];
+    var gptRan = false;
+    PWT.jsLoaded = function() { //PubMatic pwt.js on load callback is used to load GPT
+        loadGPT();
+    };
+    var loadGPT = function() {
+        // Check the gptRan flag
+        if (!gptRan) {
+            gptRan = true;
+            var gads = document.createElement('script');
+            var useSSL = 'https:' == document.location.protocol;
+            gads.src = (useSSL ? 'https:' : 'http:') + '//www.googletagservices.com/tag/js/gpt.js';
+            var node = document.getElementsByTagName('script')[0];
+            node.parentNode.insertBefore(gads, node);
+        }
+    };
+    // Failsafe to call gpt
+    setTimeout(loadGPT, 500);
+
+    (function() {
+        var purl = window.location.href;
+        var url = '//ads.pubmatic.com/AdServer/js/pwt/160856/5265';
+        var profileVersionId = '';
+        if (purl.indexOf('pwtv=') > 0) {
+            var regexp = /pwtv=(.*?)(&|$)/g;
+            var matches = regexp.exec(purl);
+            if (matches.length >= 2 && matches[1].length > 0) {
+                profileVersionId = '/' + matches[1];
+            }
+        }
+        var wtads = document.createElement('script');
+        wtads.async = true;
+        wtads.type = 'text/javascript';
+        wtads.src = url + profileVersionId + '/pwt.js';
+        var node = document.getElementsByTagName('script')[0];
+        node.parentNode.insertBefore(wtads, node);
+    })();
+
+    loaded.googleDoubleClick = true;
+}
+
+    function loadAzTracker() {
+    if (loaded.azTracker === true) {
+        return;
+    }
+
+    var __azTracker = __azTracker || [];
+    window.__azTracker = __azTracker;
+
+        let route = 'homepage';
+    let categoryPage = '';
+    let id;
+    let page;
+    switch (route) {
+    case 'homepage':
+        page = 'hp-reality';
+        id = null;
+        break;
+    case 'foreign-hp':
+        page = 'hp-zahranicne-reality';
+        id = null;
+        break;
+    case 'agency-list':
+        page = 'hp-realitne-kancelarie';
+        id = null;
+        break;
+    case 'agency-detail':
+        page = 'agency';
+        id = '';
+        break;
+    case 'offer-list':
+        page = 'advert-' + categoryPage;
+        id = null;
+        break;
+    case 'offer-detail':
+        page = 'advert';
+        id = '';
+        break;
+    case 'offer-gallery':
+        page = 'advert-fotogaleria';
+        id = '';
+        break;
+    case 'magazin-homepage':
+        page = 'hp-magazin';
+        id = null;
+        break;
+    case 'magazin-category':
+        page = 'magazin-';
+        id = null;
+        break;
+    case 'magazin-detail':
+        page = 'article';
+        id = 0;
+        break;
+    case 'law-forum':
+        page = 'hp-pravna-poradna';
+        id = null;
+        break;
+    case 'taxes-forum':
+        page = 'hp-danova-poradna';
+        id = null;
+        break;
+    case 'law-forum-detail':
+        page = 'article';
+        id = '';
+        break;
+    case 'taxes-forum-detail':
+        page = 'article';
+        id = '';
+        break;
+    }
+
+    (function () {
+        const script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.async = true;
+        script.src = 'https://s.aimg.sk/livemonitor/js/aztracker.js?v=' + '1.0.0';
+        const s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(script, s);
+    }());
+    __azTracker.push({ p: ['setNamingStrategy', 'keep'] });
+    __azTracker.push({ p: ['setProjectName', 'reality'] });
+    if (id !== null) {
+        window.eventTracker('azTracker', {p: ['pageView', page, id]});
+    } else {
+        window.eventTracker('azTracker', {p: ['pageView', page]});
+    }
+
+    eventTrackerRefresh();
+}
+
+    function loadGemius() {
+    if (typeof pp_gemius_identifier === 'undefined') {
+        var pp_gemius_identifier = 'p8XrsLeA7J95QcaJ0qNIV6QO.fO6qu88_jrskNzheg7.r7';
+    }
+    function gemius_pending(i) {
+        window[i] = window[i] || function () {
+            var x = window[i + '_pdata'] = window[i + '_pdata'] || [];
+            x[x.length] = arguments;
+        };
+    };gemius_pending('gemius_hit');
+    gemius_pending('gemius_event');
+    gemius_pending('pp_gemius_hit');
+    gemius_pending('pp_gemius_event');
+    (function (d, t) {
+        try {
+            var gt = d.createElement(t),
+                s = d.getElementsByTagName(t)[0],
+                l = 'http' + ((location.protocol == 'https:') ? 's' : '');
+            gt.setAttribute('async', 'async');
+            gt.setAttribute('defer', 'defer');
+            gt.src = l + '://gask.hit.gemius.pl/xgemius.js';
+            s.parentNode.insertBefore(gt, s);
+        } catch (e) {
+        }
+    })(document, 'script');
+}
+
+
+    if (typeof __tcfapi === 'undefined') {
+        return;
+    }
+
+    __tcfapi('addEventListener', 2, (tcData, success) => {
+        loadGemius();
+
+        if (tcData.gdprApplies === true) {
+            if (success && (tcData.eventStatus === 'tcloaded' || tcData.eventStatus === 'useractioncomplete')) {
+                __tcfapi('getCustomVendorConsents', 2, (vendorConsents, success) => {
+                    if (success) {
+                        if (vendorConsents.grants['5e542b3a4cd8884eb41b5a72'].vendorGrant === true) {
+                            loadGoogleAnalytics();
+                        }
+
+                        if (vendorConsents.grants['5fac56cd1ba05165880458ad'].vendorGrant === true) {
+                            loadFbPixel();
+                        }
+
+                        if (vendorConsents.grants['5f7ee507a236ca2b6e39fba9'].vendorGrant === true) {
+                            loadGoogleDoubleClick();
+                        }
+                    }
+                });
+
+                if (tcData.purpose.consents[3] === true && tcData.purpose.consents[4] === true && tcData.purpose.consents[6] === true) {
+                    loadRsz();
+                    loadAzTracker();
+                }
+            }
+        } else {
+            loadGoogleAnalytics();
+            loadFbPixel();
+            loadRsz();
+            loadGoogleDoubleClick();
+            loadAzTracker();
+        }
+    });
+}());
+
+    </script>
+
+        <script type="text/javascript">
+        adsSec = [];
+        adsPag = ['hp'];
+    </script>
+            
+            
+      <script>
+      var googletag = googletag || {}; googletag.cmd = googletag.cmd || []; var sasSlots = []; var adsPrefix = 'c_'; var sasReqId = (Math.round(Math.random()*1e20)).toString(36);
+      googletag.cmd.push(function () {
+          var mobileTabletOnly = googletag.sizeMapping().addSize([0,0],[[300,250]]).addSize([768,300],[]).build();
+          var responsiveBannerCalc = googletag.sizeMapping().addSize([0,0],[300,250]).addSize([1200,300],[[770,160]]).build();
+          var desktopOnlyST = googletag.sizeMapping().addSize([0,0],[]).addSize([768,300],[[728,90],[728,180]]).addSize([1024,300],[[728,90],[728,180],[970,250],[990,250]]).build();
+          var desktopOnlySB = googletag.sizeMapping().addSize([0,0],[]).addSize([768,300],[[728,90],[728,180]]).addSize([1024,200],[[728,90],[728,180],[970,90],[970,100]]).build();
+          var desktopOnlySQ = googletag.sizeMapping().addSize([0,0],[]).addSize([1024,300],[[300,300],[300,600]]).build();
+          var desktopOnlyBL = googletag.sizeMapping().addSize([0,0],[]).addSize([768,300],[[728, 90],[728, 150]]).build();
+          var desktopOnlySI = googletag.sizeMapping().addSize([0,0],[]).addSize([768,300],[[728,180]]).addSize([992,250],[[728,180],[970,250]]).build();
+          var desktopOnlyML = googletag.sizeMapping().addSize([0,0],[]).addSize([768,300],[[728,90],[728,180]]).addSize([1024,200],[[728,90],[728,180],[970,90],[970,100]]).build();
+  
+          if (adsPag && adsPag[0]) {
+              switch (adsPag[0]) {
+                  case 'hp':
+                      sasSlots['mobile-top'] = googletag.defineSlot('/31040149,22425509359/reality/mobile/mobile-top', [[300,250]], 'div-gpt-ad-reality-mobile-mobile-top').defineSizeMapping(mobileTabletOnly).addService(googletag.pubads());
+                      sasSlots['mobile-middle'] = googletag.defineSlot('/31040149,22425509359/reality/mobile/mobile-middle', [[300,250]], 'div-gpt-ad-reality-mobile-mobile-middle').defineSizeMapping(mobileTabletOnly).addService(googletag.pubads());
+                      sasSlots['mobile-bottom'] = googletag.defineSlot('/31040149,22425509359/reality/mobile/mobile-bottom', [[300,250]], 'div-gpt-ad-reality-mobile-mobile-bottom').defineSizeMapping(mobileTabletOnly).addService(googletag.pubads());
+                      sasSlots['screen-top'] = googletag.defineSlot('/31040149,22425509359/reality/desktop/screen-top', [[728,180],[970,250], [990,250]], 'div-gpt-ad-reality-desktop-screen-top').defineSizeMapping(desktopOnlyST).addService(googletag.pubads());
+                      sasSlots['screen-bottom'] = googletag.defineSlot('/31040149,22425509359/reality/desktop/screen-bottom', [[728,90],[970,90]], 'div-gpt-ad-reality-desktop-screen-bottom').defineSizeMapping(desktopOnlySB).addService(googletag.pubads());
+                      break;
+                  case 'list':
+                      sasSlots['mobile-top'] = googletag.defineSlot('/31040149,22425509359/reality/mobile/mobile-top', [[300,250]], 'div-gpt-ad-reality-mobile-mobile-top').defineSizeMapping(mobileTabletOnly).addService(googletag.pubads());
+                      sasSlots['mobile-middle'] = googletag.defineSlot('/31040149,22425509359/reality/mobile/mobile-middle', [[300,250]], 'div-gpt-ad-reality-mobile-mobile-middle').defineSizeMapping(mobileTabletOnly).addService(googletag.pubads());
+                      sasSlots['mobile-bottom'] = googletag.defineSlot('/31040149,22425509359/reality/mobile/mobile-bottom', [[300,250]], 'div-gpt-ad-reality-mobile-mobile-bottom').defineSizeMapping(mobileTabletOnly).addService(googletag.pubads());
+                      sasSlots['screen-top'] = googletag.defineSlot('/31040149,22425509359/reality/desktop/screen-top', [[728,180],[970,250],[990,250]], 'div-gpt-ad-reality-desktop-screen-top').defineSizeMapping(desktopOnlyST).addService(googletag.pubads());
+                      sasSlots['square'] = googletag.defineSlot('/31040149,22425509359/reality/desktop/square', [[300,300], [300,600]], 'div-gpt-ad-reality-desktop-square').defineSizeMapping(desktopOnlySQ).addService(googletag.pubads());
+                      sasSlots['square-2'] = googletag.defineSlot('/31040149,22425509359/reality/desktop/square-2', [[300,300]], 'div-gpt-ad-reality-desktop-square-2').defineSizeMapping(desktopOnlySQ).addService(googletag.pubads());
+                      sasSlots['banner-list-1'] = googletag.defineSlot('/31040149,22425509359/reality/desktop/banner-list-1', [[728, 90]], 'div-gpt-ad-reality-desktop-banner-list-1').defineSizeMapping(desktopOnlyBL).addService(googletag.pubads());
+                      sasSlots['banner-list-2'] = googletag.defineSlot('/31040149,22425509359/reality/desktop/banner-list-2', [[728, 90], [728, 150]], 'div-gpt-ad-reality-desktop-banner-list-2').defineSizeMapping(desktopOnlyBL).addService(googletag.pubads());
+                      sasSlots['banner-list-3'] = googletag.defineSlot('/31040149,22425509359/reality/desktop/banner-list-3', [[728, 90]], 'div-gpt-ad-reality-desktop-banner-list-3').defineSizeMapping(desktopOnlyBL).addService(googletag.pubads());
+                      break;
+                  case 'detail':
+                      sasSlots['mobile-top'] = googletag.defineSlot('/31040149,22425509359/reality/mobile/mobile-top', [[300,250]], 'div-gpt-ad-reality-mobile-mobile-top').defineSizeMapping(mobileTabletOnly).addService(googletag.pubads());
+                      sasSlots['mobile-bottom'] = googletag.defineSlot('/31040149,22425509359/reality/mobile/mobile-bottom', [[300,250]], 'div-gpt-ad-reality-mobile-mobile-bottom').defineSizeMapping(mobileTabletOnly).addService(googletag.pubads());
+                      sasSlots['screen-top'] = googletag.defineSlot('/31040149,22425509359/reality/desktop/screen-top', [[728,180],[970,250],[990,250]], 'div-gpt-ad-reality-desktop-screen-top').defineSizeMapping(desktopOnlyST).addService(googletag.pubads());
+                      sasSlots['square'] = googletag.defineSlot('/31040149,22425509359/reality/desktop/square', [[300,300]], 'div-gpt-ad-reality-desktop-square').defineSizeMapping(desktopOnlySQ).addService(googletag.pubads());
+                      sasSlots['banner-calc'] = googletag.defineSlot('/31040149,22425509359/reality/responsive/banner-calc', [[300,250], [770,160]], 'div-gpt-ad-reality-responsive-banner-calc').defineSizeMapping(responsiveBannerCalc).addService(googletag.pubads());
+                      break;
+                  case 'magazine-hp':
+                      sasSlots['mobile-top'] = googletag.defineSlot('/31040149,22425509359/reality/mobile/mobile-top', [[300,250]], 'div-gpt-ad-reality-mobile-mobile-top').defineSizeMapping(mobileTabletOnly).addService(googletag.pubads());
+                      sasSlots['mobile-middle'] = googletag.defineSlot('/31040149,22425509359/reality/mobile/mobile-middle', [[300,250]], 'div-gpt-ad-reality-mobile-mobile-middle').defineSizeMapping(mobileTabletOnly).addService(googletag.pubads());
+                      sasSlots['mobile-bottom'] = googletag.defineSlot('/31040149,22425509359/reality/mobile/mobile-bottom', [[300,250]], 'div-gpt-ad-reality-mobile-mobile-bottom').defineSizeMapping(mobileTabletOnly).addService(googletag.pubads());
+                      sasSlots['screen-top'] = googletag.defineSlot('/31040149,22425509359/reality/desktop/screen-top', [[728,180],[970,250]], 'div-gpt-ad-reality-desktop-screen-top').defineSizeMapping(desktopOnlyST).addService(googletag.pubads());
+                      sasSlots['magazin-list-1'] = googletag.defineSlot('/31040149,22425509359/reality/desktop/magazin-list-1', [[728,180],[970,90]], 'div-gpt-ad-reality-desktop-magazin-list-1').defineSizeMapping(desktopOnlyML).addService(googletag.pubads());
+                      sasSlots['magazin-list-2'] = googletag.defineSlot('/31040149,22425509359/reality/desktop/magazin-list-2', [[728,180], [970,90]], 'div-gpt-ad-reality-desktop-magazin-list-2').defineSizeMapping(desktopOnlyML).addService(googletag.pubads());
+                      sasSlots['screen-bottom'] = googletag.defineSlot('/31040149,22425509359/reality/desktop/screen-bottom', [[728,180],[970,90]], 'div-gpt-ad-reality-desktop-screen-bottom').defineSizeMapping(desktopOnlySB).addService(googletag.pubads());
+                      break;
+                  case 'magazine-list':
+                      sasSlots['mobile-top'] = googletag.defineSlot('/31040149,22425509359/reality/mobile/mobile-top', [[300,250]], 'div-gpt-ad-reality-mobile-mobile-top').defineSizeMapping(mobileTabletOnly).addService(googletag.pubads());
+                      sasSlots['mobile-middle'] = googletag.defineSlot('/31040149,22425509359/reality/mobile/mobile-middle', [[300,250]], 'div-gpt-ad-reality-mobile-mobile-middle').defineSizeMapping(mobileTabletOnly).addService(googletag.pubads());
+                      sasSlots['mobile-bottom'] = googletag.defineSlot('/31040149,22425509359/reality/mobile/mobile-bottom', [[300,250]], 'div-gpt-ad-reality-mobile-mobile-bottom').defineSizeMapping(mobileTabletOnly).addService(googletag.pubads());
+                      sasSlots['magazin-list-1'] = googletag.defineSlot('/31040149,22425509359/reality/desktop/magazin-list-1', [[728,180],[970,90]], 'div-gpt-ad-reality-desktop-magazin-list-1').defineSizeMapping(desktopOnlyML).addService(googletag.pubads());
+                      sasSlots['magazin-list-2'] = googletag.defineSlot('/31040149,22425509359/reality/desktop/magazin-list-2', [[728,180],[970,90]], 'div-gpt-ad-reality-desktop-magazin-list-2').defineSizeMapping(desktopOnlyML).addService(googletag.pubads());
+                      sasSlots['screen-bottom'] = googletag.defineSlot('/31040149,22425509359/reality/desktop/screen-bottom', [[728,90],[970,90]], 'div-gpt-ad-reality-desktop-screen-bottom').defineSizeMapping(desktopOnlySB).addService(googletag.pubads());
+                      break;
+                  case 'magazine-detail':
+                      sasSlots['mobile-top'] = googletag.defineSlot('/31040149,22425509359/reality/mobile/mobile-top', [[300,250]], 'div-gpt-ad-reality-mobile-mobile-top').defineSizeMapping(mobileTabletOnly).addService(googletag.pubads());
+                      sasSlots['mobile-middle'] = googletag.defineSlot('/31040149,22425509359/reality/mobile/mobile-middle', [[300,250]], 'div-gpt-ad-reality-mobile-mobile-middle').defineSizeMapping(mobileTabletOnly).addService(googletag.pubads());
+                      sasSlots['mobile-bottom'] = googletag.defineSlot('/31040149,22425509359/reality/mobile/mobile-bottom', [[300,250]], 'div-gpt-ad-reality-mobile-mobile-bottom').defineSizeMapping(mobileTabletOnly).addService(googletag.pubads());
+                      sasSlots['screen-top'] = googletag.defineSlot('/31040149,22425509359/reality/desktop/screen-top', [[728,180],[970,250]], 'div-gpt-ad-reality-desktop-screen-top').defineSizeMapping(desktopOnlyST).addService(googletag.pubads());
+                      sasSlots['screen-bottom'] = googletag.defineSlot('/31040149,22425509359/reality/desktop/screen-bottom', [[728,180],[970,90]], 'div-gpt-ad-reality-desktop-screen-bottom').defineSizeMapping(desktopOnlySB).addService(googletag.pubads());
+                      break;
+              }
+          }
+  
+          var sasRefreshEligible = ['square', 'square-2'];
+          var sasRefreshList = [];
+          setInterval(function(){if(sasRefreshList.length!=0){googletag.pubads().refresh(sasRefreshList);sasRefreshList=[];}},45000);
+          googletag.pubads().addEventListener('impressionViewable', function(e) {
+            var slotId = e.slot.getSlotElementId();
+            var regEx = /div-gpt-ad-(\w*)-(\w*)-([\w-]*)/gm;
+            var slotName = regEx.exec(slotId)[3];
+            if (sasRefreshEligible.indexOf(slotName)>-1 && !!sasSlots[slotName]) {
+              sasRefreshList.push(sasSlots[slotName]);
+            }
+          });
+  
+          function checkUrlForBannerTest() {
+              if (window.location.hash.indexOf('displayTestBanners')>-1) { document.cookie='displayTestBanners=true; max-age=31536000; path=/'; window.location=window.location.href.substr(0, window.location.href.indexOf('#')); }
+              if (window.location.hash.indexOf('hideTestBanners')>-1) { document.cookie='displayTestBanners=true; max-age=0; path=/'; window.location=window.location.href.substr(0, window.location.href.indexOf('#')); }
+          }
+          window.addEventListener('hashchange', checkUrlForBannerTest, false);
+          window.onload = checkUrlForBannerTest;
+          if(document.cookie.indexOf('displayTestBanners=true')>-1) { googletag.pubads().setTargeting('a_oth', ['display-test-banners']); }
+  
+          ['adsPag', 'adsSec', 'adsCid', 'adsCat', 'adsKey', 'adsLoc', 'adsSeg'].forEach(function (param) {if (window[param]) { googletag.pubads().setTargeting(adsPrefix + param.substring(3).toLowerCase(), window[param]); }});
+          
+          googletag.pubads().enableLazyLoad({fetchMarginPercent: -1, renderMarginPercent: 0, mobileScaling: 1.0});
+          googletag.pubads().enableSingleRequest();
+          googletag.pubads().collapseEmptyDivs();
+          googletag.enableServices();
+      }); // 2021-10-01 14:44 / lk
+  </script>
+  <style>.fc-header-image{width:auto;}</style>
+
+
+                                            
+
+
+
+
+
+    
+    
+        <script>
+        let pp_gemius_identifier = 'ndpFND8EoPNOoj0Dt5dUd5ZVXfxdEq9tVUt2GObFqp..37';
+    </script>
+    <script async>
+        window.eventTracker('ga', ['create', "UA-18479085-1", 'auto']);
+        window.eventTracker('ga', ['set', 'anonymizeIp', true]);
+        window.eventTracker('ga', ['require', 'displayfeatures']);
+                window.eventTracker('ga', ['send', 'pageview']);
+        window.eventTracker('ga', ['create', 'UA-122504742-1', 'auto', {
+            'name': 'realitygroup',
+            'allowLinker': true,
+        }]);
+        window.eventTracker('ga', ['realitygroup.set', 'anonymizeIp', true]);
+        window.eventTracker('ga', ['realitygroup.require', 'linker']);
+        window.eventTracker('ga', ['realitygroup.linker:autoLink', ['nehnutelnosti.sk', 'topreality.sk', 'novostavby.sk', 'byty.sk', 'reality.bazar.sk', 'chaty.sk']]);
+        window.eventTracker('ga', ['realitygroup.send', 'pageview']);
+
+        function getCookie(name) {
+            const value = '; ' + document.cookie;
+            const parts = value.split('; ' + name + '=');
+            if (parts.length === 2) {
+                return parts.pop()
+                    .split(';')
+                    .shift();
+            }
+        }
+
+        function deleteCookie(name) {
+            document.cookie = name + '=true;domain=.reality.sk;path=/;max-age=0;';
+        }
+
+                
+
+    </script>
+    <!-- End Facebook Pixel Code -->
+
+            <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Reality.sk",
+        "alternateName": "Reality.sk",
+        "url": "https://www.reality.sk"
+    }
+</script>
+
+        <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Reality.sk",
+        "url": "https://www.reality.sk/",
+        "sameAs": [
+            "https://www.facebook.com/www.reality.sk"
+        ],
+        "contactPoint": [
+            {
+                "@type": "ContactPoint",
+                "telephone": "+421 220 924 187",
+                "contactType": "customer service"
+            }
+        ]
+    }
+</script>
+
+        <link rel="canonical" href="https://www.reality.sk/" />    
+    </head>
+<body class="d-flex flex-column homepage"
+        >
+<div class="filter-locality-fading"></div>
+
+
+<div class="lg-icon"></div>
+
+
+    <nav class="pushy pushy-right">
+    <div class="pushy-content">
+        <div class="pushy-close">
+            <a href="#" class="js-pushy-close">
+                            <svg class="icon icon-dark icon-large">
+        <use xlink:href="/build/spritemap.svg#sprite-close"></use>
+    </svg>
+
+
+            </a>
+        </div>
+        <div class="ui link inverted list">
+            <a class="pushy-item"
+               href="/moj-ucet/prihlasovacie-meno/add"
+               data-load data-toggle="modal">
+                            <svg class="icon icon-dark icon-medium">
+        <use xlink:href="/build/spritemap.svg#sprite-plus"></use>
+    </svg>
+
+
+                Pridať inzerát
+            </a>
+                            <a class="pushy-item" href="/moj-ucet/prihlasovacie-meno" data-load data-toggle="modal">
+                                <svg class="icon icon-dark  icon-medium">
+        <use xlink:href="/build/spritemap.svg#sprite-user"></use>
+    </svg>
+
+
+                    Prihlásiť
+                </a>
+                        
+            <hr/>
+            <a class="pushy-item bubble "
+               href="/hladania/" data-text="0">
+                            <svg class="icon icon-dark icon-medium">
+        <use xlink:href="/build/spritemap.svg#sprite-bell"></use>
+    </svg>
+
+
+                Uložené hľadania
+            </a>
+                        <hr/>
+
+            <a class="pushy-item" href="/realitne-kancelarie/">Realitné kancelárie</a>
+            <a class="pushy-item" href="https://www.narks.sk/">NARKS</a>
+            <a class="pushy-item" href="/novinky/">Magazín</a>
+            <div class="pushy-search">
+                
+<form name="offer_search_id" method="post" action="/hladanie-inzeratu/">
+<div class="form-row align-items-baseline">
+    <input type="text" id="offer_search_id_searchId" name="offer_search_id[searchId]" placeholder="Číslo inzerátu" class="searchOfferByIdInput" data-html="true" data-toogle="tooltip" data-placement="bottom" title="&lt;span class=&quot;search-offer-by-id-input-tooltip&quot;&gt;Zadajte číslo inzerátu&lt;/span&gt;" />
+    <button style=" background: transparent; border: 0; cursor: pointer">            <svg class="icon fill-white">
+        <use xlink:href="/build/spritemap.svg#sprite-search"></use>
+    </svg>
+
+</button>
+</div>
+<input type="hidden" id="offer_search_id__token" name="offer_search_id[_token]" value="f0eda2a.5nHPoOyMsHIVTpzHuKbhGB8Ql-ZSa8VMcfXdaocMrj4.vEeq0N7ewQYmAsiw_sOJLitHpoEDJ_U2F7KvAbZm93fXKZrBm9nFI3YLzQ" /></form>
+
+            </div>
+        </div>
+    </div>
+</nav>
+<div class="site-overlay"></div>
+
+    
+<div class="sticky-navigation-wrapper d-none d-md-block">
+    <ul class="nav sticky-navigation container">
+        <li class="nav-item">
+            <a href="/realitne-kancelarie/" class="nav-link">Realitné kancelárie</a>
+        </li>
+        <li class="nav-item">
+            <a href="https://www.narks.sk/" class="nav-link">NARKS</a>
+        </li>
+                    <li class="nav-item">
+                <a href="/novinky/" class="nav-link">Magazín</a>
+            </li>
+                <li class="nav-item search-item">
+            
+<form name="offer_search_id" method="post" action="/hladanie-inzeratu/">
+<div class="form-row align-items-baseline">
+    <input type="text" id="offer_search_id_searchId" name="offer_search_id[searchId]" placeholder="Číslo inzerátu" class="searchOfferByIdInput" data-html="true" data-toogle="tooltip" data-placement="bottom" title="&lt;span class=&quot;search-offer-by-id-input-tooltip&quot;&gt;Zadajte číslo inzerátu&lt;/span&gt;" />
+    <button style=" background: transparent; border: 0; cursor: pointer">            <svg class="icon fill-white">
+        <use xlink:href="/build/spritemap.svg#sprite-search"></use>
+    </svg>
+
+</button>
+</div>
+<input type="hidden" id="offer_search_id__token" name="offer_search_id[_token]" value="d18153c85b2c8d.7c1L_cltpLMAvkQZKtLgNOCBrT1FowlVYVqr8WtCoMg.t_sujfs_1ccz8hBubLeIAtTWnFoU7zkvBx3Zmloo-YHclR6cvjjR4mP7FQ" /></form>
+
+        </li>
+    </ul>
+</div>
+
+            
+<div class="header hero hero-homepage">
+    <div class="container mb-2">
+        <div class="row align-items-center">
+            <a href="/" class="col-5 col-md-3 brand">
+                                    <h1 class="d-none">Reality.sk</h1>
+                                            <svg class="icon icon-logo">
+        <use xlink:href="/build/spritemap.svg#sprite-logo"></use>
+    </svg>
+
+
+            </a>
+            <ul class="user-action-menu col-7 col-md-9">
+                <li class="nav-item">
+                    <a href="/hladania/" class="bubble nav-link text-dark"
+                       data-text="0">
+                                    <svg class="icon  fill-dark">
+        <use xlink:href="/build/spritemap.svg#sprite-bell"></use>
+    </svg>
+
+
+                        <span class="d-none d-lg-inline-block ">Uložené hľadania</span>
+                    </a>
+                </li>
+                <li class="nav-item group-start d-none d-md-inline-block">
+                    <a href="/moj-ucet/prihlasovacie-meno/add"
+                       class="btn btn-primary btn-sm"
+                                                data-load data-toggle="modal"
+                            >
+                                    <svg class="icon fill-white">
+        <use xlink:href="/build/spritemap.svg#sprite-plus"></use>
+    </svg>
+
+
+                        <b>Pridať inzerát</b>
+                    </a>
+                </li>
+                <li class="nav-item d-none d-md-inline-block">
+
+                </li>
+                <li class="nav-item d-none d-md-inline-block login-menu-button">
+                                            <a href="/moj-ucet/prihlasovacie-meno" class="btn btn-secondary btn-sm" data-load data-toggle="modal">
+                                        <svg class="icon fill-white">
+        <use xlink:href="/build/spritemap.svg#sprite-user"></use>
+    </svg>
+
+
+                            <b>Prihlásiť</b>
+                        </a>
+                                    </li>
+                <li class="nav-item d-inline-block d-md-none">
+                    <a href="#" class="nav-link btn font-weight-bold menu-btn">
+                        Menu
+                                    <svg class="icon fill-secondary icon-right">
+        <use xlink:href="/build/spritemap.svg#sprite-hamburger"></use>
+    </svg>
+
+
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+
+        
+
+<div class="section filter-section">
+    <div class="container">
+        <div class="filter">
+
+            
+<nav class="d-none d-md-flex">
+    <div class="nav nav-tabs" role="tablist">
+        <a class="nav-item nav-link active" id="filter-tab-search"
+           data-toggle="tab" href="/">
+                        <svg class="icon icon-small fill-white">
+        <use xlink:href="/build/spritemap.svg#sprite-search"></use>
+    </svg>
+
+
+            Čo hľadáte?
+        </a>
+                                        <a class="nav-item nav-link " id="filter-tab-foreign"
+           data-toggle="tab" href="/zahranicne-inzeraty/">
+                        <svg class="icon icon-small fill-white">
+        <use xlink:href="/build/spritemap.svg#sprite-earth"></use>
+    </svg>
+
+
+            Zahraničné reality
+        </a>
+    </div>
+</nav>
+
+
+            <div class="tab-content p-3">
+                <div class="filter-dropdown d-md-none js-burger-btn">
+                    <div class="form-control mr-2 tap-input">Čo hľadáte?</div>
+                    <button class="btn btn-primary btn-search"
+                            type="submit">            <svg class="icon  fill-white">
+        <use xlink:href="/build/spritemap.svg#sprite-search"></use>
+    </svg>
+
+</button>
+                </div>
+
+                <div class="align-items-end filter-form js-burger-menu">
+                    
+<div class="filter-header d-md-none">
+    <a href="/" class="">            <svg class="icon icon-logo">
+        <use xlink:href="/build/spritemap.svg#sprite-logo"></use>
+    </svg>
+
+</a>
+    <a href="#" class="js-burger-close btn-close d-md-none">            <svg class="icon fill-dark">
+        <use xlink:href="/build/spritemap.svg#sprite-close"></use>
+    </svg>
+
+</a>
+</div>
+
+                    <nav class="d-md-none nav-filter">
+                                                <a class="nav-item active" id="filter-tab-search" data-toggle="tab"
+                           href="/">
+                            Čo hľadáte?
+                        </a>
+                        <a class="nav-item" id="filter-tab-foreign" data-toggle="tab" href="/zahranicne-inzeraty/">
+                            Zahraničné reality
+                        </a>
+                    </nav>
+                    <div id="search-form" class="p-3 ">
+                        <div data-react-container="SearchFormContainer"
+                             data-react-props='{"isForeign":false}'
+                        >
+                            <div class="spinner-wrapper">
+                                <div class="spinner-box">
+                                    <div class="spinner-border" role="status">
+                                        <span class="sr-only">Načítavam...</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center d-md-none">
+                                                                                                                                                                                                                                                                                                
+                        <a href="/rozsirene-hladanie" class="d-block">
+                                        <svg class="icon fill-secondary">
+        <use xlink:href="/build/spritemap.svg#sprite-search_plus"></use>
+    </svg>
+
+
+                            Rozšírené hľadanie
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+                    <div class="row align-items-center d-none d-md-flex">
+                <div class="col-7 col-md-12 col-lg-7 pt-2">
+                    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+                            {
+                    "@type": "ListItem",
+                    "position": 1,
+                    "name": "Reality.sk",
+                    "item": "https://www.reality.sk/"
+                },                            {
+                    "@type": "ListItem",
+                    "position": 2,
+                    "name": "Realitná inzercia profesionálov. Už 23 rokov na trhu.",
+                    "item": "https://www.reality.sk"
+                }                    ]
+    }
+</script>
+
+
+<ol class="breadcrumb breadcrumb--truncated">
+            <li class="breadcrumb-item">
+                            <a href="/"
+                   title="Reality.sk"
+                   class="breadcrumb-link ">
+                                                        <svg class="icon fill-primary">
+        <use xlink:href="/build/spritemap.svg#sprite-house"></use>
+    </svg>
+
+
+                                        Reality.sk
+                </a>
+                    </li>
+            <li class="breadcrumb-item">
+                            <span class="icon-left" title="Realitná inzercia profesionálov. Už 23 rokov na trhu.">
+                    Realitná inzercia profesionálov. Už 23 rokov na trhu.
+                </span>
+                    </li>
+        </ol>
+
+                </div>
+                <div class="col-5 col-md-12 col-lg-5 text-right mb-3 mb-lg-1">
+                                                                                                                                                                                                                            <a href="/rozsirene-hladanie/"
+                       class="align-middle pr-0 pt-3 pb-3 pl-3 js-extended-search-button"
+                       id="searchExtendButton"
+                       data-basic-url="/rozsirene-hladanie/">
+                                    <svg class="icon fill-secondary mr-1 mb-1">
+        <use xlink:href="/build/spritemap.svg#sprite-search_plus"></use>
+    </svg>
+
+
+                        Rozšírené hľadanie
+                    </a>
+                </div>
+            </div>
+                <hr class="m-0"/>
+    </div>
+</div>
+
+<script type="text/javascript">
+    window.__INITIAL_STATE__ = {
+        app: {
+            locale: 'sk',
+        },
+    };
+</script>
+
+    <div class="zone-wrapper pb-md-3 text-center" data-dfp-zone="reality-desktop-screen-top">
+    <style>#div-gpt-ad-reality-desktop-screen-top > div:first-child { display: inline-block; } </style>
+<div id='div-gpt-ad-reality-desktop-screen-top' style='text-align: center; width: 100%;margin-top: 20px !important'>
+    <script>
+        googletag.cmd.push(function() { googletag.display('div-gpt-ad-reality-desktop-screen-top'); });
+    </script>
+</div>
+
+</div>
+
+    <div class="zone-wrapper pt-2 text-center" data-dfp-zone="reality-mobile-mobile-top">
+    <div id='div-gpt-ad-reality-mobile-mobile-top' style="text-align: center; width: 100%; padding: 10px 0; box-sizing: border-box;">
+    <script>
+        googletag.cmd.push(function() { googletag.display('div-gpt-ad-reality-mobile-mobile-top'); });
+    </script>
+</div>
+
+</div>
+
+    <div class="bg-cool-grey mb-0 mb-sm-4">
+    <div class="container">
+        <section class="widget">
+                            <div class="widget-header">
+                    <h2>Inzeráty s virtuálnou prehliadkou a videom</h2>
+                    <div class="row mb-md-4">
+                                                    <div class="col col-6 col-md-3 mb-4 mb-md-0">
+    <div class="card card-foreign-location">
+        <a href="/presovsky-kraj/virtualne-prehliadky/" class="widget-hp-offers-video-link">
+            <div>
+                    <picture>
+        <source type="image/webp" srcset="images/district/img-presovsky-kraj.webp">
+        <source type="image/jp2" srcset="images/district/img-presovsky-kraj.jp2">
+        <img srcset="images/district/img-presovsky-kraj.png" class="" alt="">
+    </picture>
+
+            </div>
+            <div class="card-body card-body-over-image pb-1">
+                <h2 class="widget-hp-offers-video-title">
+                    Prešovský kraj
+                </h2>
+            </div>
+        </a>
+    </div>
+</div>
+
+                                                    <div class="col col-6 col-md-3 mb-4 mb-md-0">
+    <div class="card card-foreign-location">
+        <a href="/zilinsky-kraj/virtualne-prehliadky/" class="widget-hp-offers-video-link">
+            <div>
+                    <picture>
+        <source type="image/webp" srcset="images/district/img-zilinsky-kraj.webp">
+        <source type="image/jp2" srcset="images/district/img-zilinsky-kraj.jp2">
+        <img srcset="images/district/img-zilinsky-kraj.png" class="" alt="">
+    </picture>
+
+            </div>
+            <div class="card-body card-body-over-image pb-1">
+                <h2 class="widget-hp-offers-video-title">
+                    Žilinský kraj
+                </h2>
+            </div>
+        </a>
+    </div>
+</div>
+
+                                                    <div class="col col-6 col-md-3 mb-4 mb-md-0">
+    <div class="card card-foreign-location">
+        <a href="/kosicky-kraj/virtualne-prehliadky/" class="widget-hp-offers-video-link">
+            <div>
+                    <picture>
+        <source type="image/webp" srcset="images/district/img-kosicky-kraj.webp">
+        <source type="image/jp2" srcset="images/district/img-kosicky-kraj.jp2">
+        <img srcset="images/district/img-kosicky-kraj.png" class="" alt="">
+    </picture>
+
+            </div>
+            <div class="card-body card-body-over-image pb-1">
+                <h2 class="widget-hp-offers-video-title">
+                    Košický kraj
+                </h2>
+            </div>
+        </a>
+    </div>
+</div>
+
+                                                    <div class="col col-6 col-md-3 mb-4 mb-md-0">
+    <div class="card card-foreign-location">
+        <a href="/trnavsky-kraj/virtualne-prehliadky/" class="widget-hp-offers-video-link">
+            <div>
+                    <picture>
+        <source type="image/webp" srcset="images/district/img-trnavsky-kraj.webp">
+        <source type="image/jp2" srcset="images/district/img-trnavsky-kraj.jp2">
+        <img srcset="images/district/img-trnavsky-kraj.png" class="" alt="">
+    </picture>
+
+            </div>
+            <div class="card-body card-body-over-image pb-1">
+                <h2 class="widget-hp-offers-video-title">
+                    Trnavský kraj
+                </h2>
+            </div>
+        </a>
+    </div>
+</div>
+
+                                            </div>
+                    <div class="row">
+                                                    <div class="col col-6 col-md-3 mb-4 mb-md-0">
+    <div class="card card-foreign-location">
+        <a href="/nitriansky-kraj/virtualne-prehliadky/" class="widget-hp-offers-video-link">
+            <div>
+                    <picture>
+        <source type="image/webp" srcset="images/district/img-nitriansky-kraj.webp">
+        <source type="image/jp2" srcset="images/district/img-nitriansky-kraj.jp2">
+        <img srcset="images/district/img-nitriansky-kraj.png" class="" alt="">
+    </picture>
+
+            </div>
+            <div class="card-body card-body-over-image pb-1">
+                <h2 class="widget-hp-offers-video-title">
+                    Nitriansky kraj
+                </h2>
+            </div>
+        </a>
+    </div>
+</div>
+
+                                                    <div class="col col-6 col-md-3 mb-4 mb-md-0">
+    <div class="card card-foreign-location">
+        <a href="/bratislavsky-kraj/virtualne-prehliadky/" class="widget-hp-offers-video-link">
+            <div>
+                    <picture>
+        <source type="image/webp" srcset="images/district/img-bratislavsky-kraj.webp">
+        <source type="image/jp2" srcset="images/district/img-bratislavsky-kraj.jp2">
+        <img srcset="images/district/img-bratislavsky-kraj.png" class="" alt="">
+    </picture>
+
+            </div>
+            <div class="card-body card-body-over-image pb-1">
+                <h2 class="widget-hp-offers-video-title">
+                    Bratislavský kraj
+                </h2>
+            </div>
+        </a>
+    </div>
+</div>
+
+                                                    <div class="col col-6 col-md-3 mb-4 mb-md-0">
+    <div class="card card-foreign-location">
+        <a href="/banskobystricky-kraj/virtualne-prehliadky/" class="widget-hp-offers-video-link">
+            <div>
+                    <picture>
+        <source type="image/webp" srcset="images/district/img-banskobystricky-kraj.webp">
+        <source type="image/jp2" srcset="images/district/img-banskobystricky-kraj.jp2">
+        <img srcset="images/district/img-banskobystricky-kraj.png" class="" alt="">
+    </picture>
+
+            </div>
+            <div class="card-body card-body-over-image pb-1">
+                <h2 class="widget-hp-offers-video-title">
+                    Banskobystrický kraj
+                </h2>
+            </div>
+        </a>
+    </div>
+</div>
+
+                                                    <div class="col col-6 col-md-3 mb-4 mb-md-0">
+    <div class="card card-foreign-location">
+        <a href="/trenciansky-kraj/virtualne-prehliadky/" class="widget-hp-offers-video-link">
+            <div>
+                    <picture>
+        <source type="image/webp" srcset="images/district/img-trenciansky-kraj.webp">
+        <source type="image/jp2" srcset="images/district/img-trenciansky-kraj.jp2">
+        <img srcset="images/district/img-trenciansky-kraj.png" class="" alt="">
+    </picture>
+
+            </div>
+            <div class="card-body card-body-over-image pb-1">
+                <h2 class="widget-hp-offers-video-title">
+                    Trenčiansky kraj
+                </h2>
+            </div>
+        </a>
+    </div>
+</div>
+
+                                            </div>
+                </div>
+                    </section>
+    </div>
+</div>
+
+    <div class="bg-cool-grey mb-4">
+        <div class="container">
+
+            
+    <section class="section">
+                    <div class="section-header">
+                <h2>Najnovšie</h2>
+                <a href="/inzeraty/?order=created_date-newest"
+                   class="text-sm-right text-primary">
+                    Zobraziť všetky
+                </a>
+            </div>
+        
+                    <div class="row">
+            <div class="col-xs-6 col-md-3 mb-4">
+    <div class="card-new card-shadow-on-hover card-border">
+        <a href="/domy/najlacnejsi-rd-v-ba-1-absolutne-jedinecna-ponuka/Red4iypHMlU/">
+            <div class="offer-img-wrapper" style="padding-bottom: 77%">
+                                        <img class="js-lazy img-fluid" data-lazy-src="https://img.unitedclassifieds.sk/foto/MjY4eDIwNi9yZWE=/GKp7pa6IP_fss?st=rt4Seowd47l8NCNOHlwNABAmGaychWz6TcxDUPXXGII&amp;ts=1675879826&amp;e=0"
+         srcset="https://img.unitedclassifieds.sk/foto/MjY4eDIwNi9yZWE=/GKp7pa6IP_fss?st=rt4Seowd47l8NCNOHlwNABAmGaychWz6TcxDUPXXGII&amp;ts=1675879826&amp;e=0 700w, https://img.unitedclassifieds.sk/foto/MjY4eDIwNi9yZWE=/GKp7pa6IP_fss?st=rt4Seowd47l8NCNOHlwNABAmGaychWz6TcxDUPXXGII&amp;ts=1675879826&amp;e=0 1000w, https://img.unitedclassifieds.sk/foto/MjY4eDIwNi9yZWE=/GKp7pa6IP_fss?st=rt4Seowd47l8NCNOHlwNABAmGaychWz6TcxDUPXXGII&amp;ts=1675879826&amp;e=0 1800w" alt="Najlacnejší RD v BA 1 - Absolútne jedinečná ponuka"
+         title="Najlacnejší RD v BA 1 - Absolútne jedinečná ponuka | Reality.sk">
+    <noscript data-lazy-src="https://img.unitedclassifieds.sk/foto/MjY4eDIwNi9yZWE=/GKp7pa6IP_fss?st=rt4Seowd47l8NCNOHlwNABAmGaychWz6TcxDUPXXGII&amp;ts=1675879826&amp;e=0">
+        <img class="img-fluid" src="https://img.unitedclassifieds.sk/foto/MjY4eDIwNi9yZWE=/GKp7pa6IP_fss?st=rt4Seowd47l8NCNOHlwNABAmGaychWz6TcxDUPXXGII&amp;ts=1675879826&amp;e=0" alt="Najlacnejší RD v BA 1 - Absolútne jedinečná ponuka"
+             title="Najlacnejší RD v BA 1 - Absolútne jedinečná ponuka | Reality.sk">
+    </noscript>
+
+                            </div>
+        </a>
+        <div class="card-body">
+            <a href="/domy/najlacnejsi-rd-v-ba-1-absolutne-jedinecna-ponuka/Red4iypHMlU/"
+               class="card-title text-dark">
+                Najlacnejší RD v BA 1 - Absolútne jedinečná ponuka
+            </a>
+            <p class="card-meta">
+                            <svg class="icon fill-secondary icon-small d-none d-sm-inline">
+        <use xlink:href="/build/spritemap.svg#sprite-pin"></use>
+    </svg>
+
+
+                <span class="d-none d-sm-inline">
+                    Bratislava-Staré Mesto
+                    (sk)
+                </span>
+                <span class="card-price float-left float-sm-right text-primary">
+                    440 000 €
+                </span>
+            </p>
+        </div>
+    </div>
+</div>
+
+            <div class="col-xs-6 col-md-3 mb-4">
+    <div class="card-new card-shadow-on-hover card-border">
+        <a href="/domy/rezidencne-byvanie/Re1dsPqPhuj/">
+            <div class="offer-img-wrapper" style="padding-bottom: 77%">
+                                        <img class="js-lazy img-fluid" data-lazy-src="https://img.unitedclassifieds.sk/foto/MjY4eDIwNi9yZWE=/hK-7MBCp9_fss?st=k9iigvh4wMZQpFcPQnqKPgy5iAIjoGDwH9sTgApwTqs&amp;ts=1675845545&amp;e=0"
+         srcset="https://img.unitedclassifieds.sk/foto/MjY4eDIwNi9yZWE=/hK-7MBCp9_fss?st=k9iigvh4wMZQpFcPQnqKPgy5iAIjoGDwH9sTgApwTqs&amp;ts=1675845545&amp;e=0 700w, https://img.unitedclassifieds.sk/foto/MjY4eDIwNi9yZWE=/hK-7MBCp9_fss?st=k9iigvh4wMZQpFcPQnqKPgy5iAIjoGDwH9sTgApwTqs&amp;ts=1675845545&amp;e=0 1000w, https://img.unitedclassifieds.sk/foto/MjY4eDIwNi9yZWE=/hK-7MBCp9_fss?st=k9iigvh4wMZQpFcPQnqKPgy5iAIjoGDwH9sTgApwTqs&amp;ts=1675845545&amp;e=0 1800w" alt="Rezidenčné bývanie"
+         title="Rezidenčné bývanie | Reality.sk">
+    <noscript data-lazy-src="https://img.unitedclassifieds.sk/foto/MjY4eDIwNi9yZWE=/hK-7MBCp9_fss?st=k9iigvh4wMZQpFcPQnqKPgy5iAIjoGDwH9sTgApwTqs&amp;ts=1675845545&amp;e=0">
+        <img class="img-fluid" src="https://img.unitedclassifieds.sk/foto/MjY4eDIwNi9yZWE=/hK-7MBCp9_fss?st=k9iigvh4wMZQpFcPQnqKPgy5iAIjoGDwH9sTgApwTqs&amp;ts=1675845545&amp;e=0" alt="Rezidenčné bývanie"
+             title="Rezidenčné bývanie | Reality.sk">
+    </noscript>
+
+                            </div>
+        </a>
+        <div class="card-body">
+            <a href="/domy/rezidencne-byvanie/Re1dsPqPhuj/"
+               class="card-title text-dark">
+                Rezidenčné bývanie
+            </a>
+            <p class="card-meta">
+                            <svg class="icon fill-secondary icon-small d-none d-sm-inline">
+        <use xlink:href="/build/spritemap.svg#sprite-pin"></use>
+    </svg>
+
+
+                <span class="d-none d-sm-inline">
+                    Jur nad Hronom
+                    (sk)
+                </span>
+                <span class="card-price float-left float-sm-right text-primary">
+                    210 000 €
+                </span>
+            </p>
+        </div>
+    </div>
+</div>
+
+            <div class="col-xs-6 col-md-3 mb-4">
+    <div class="card-new card-shadow-on-hover card-border">
+        <a href="/byty/dvojgarsonka-vo-vrakuni/ReKid-Qcovn/">
+            <div class="offer-img-wrapper" style="padding-bottom: 77%">
+                                        <img class="js-lazy img-fluid" data-lazy-src="https://img.unitedclassifieds.sk/foto/MjY4eDIwNi9yZWE=/72S9Mbhmh_fss?st=9JJKD44IlZhX54lOnjf9ZurImfACkfpcgPtr_SOlZ5k&amp;ts=1675845447&amp;e=0"
+         srcset="https://img.unitedclassifieds.sk/foto/MjY4eDIwNi9yZWE=/72S9Mbhmh_fss?st=9JJKD44IlZhX54lOnjf9ZurImfACkfpcgPtr_SOlZ5k&amp;ts=1675845447&amp;e=0 700w, https://img.unitedclassifieds.sk/foto/MjY4eDIwNi9yZWE=/72S9Mbhmh_fss?st=9JJKD44IlZhX54lOnjf9ZurImfACkfpcgPtr_SOlZ5k&amp;ts=1675845447&amp;e=0 1000w, https://img.unitedclassifieds.sk/foto/MjY4eDIwNi9yZWE=/72S9Mbhmh_fss?st=9JJKD44IlZhX54lOnjf9ZurImfACkfpcgPtr_SOlZ5k&amp;ts=1675845447&amp;e=0 1800w" alt="Dvojgarsónka vo Vrakuni"
+         title="Dvojgarsónka vo Vrakuni | Reality.sk">
+    <noscript data-lazy-src="https://img.unitedclassifieds.sk/foto/MjY4eDIwNi9yZWE=/72S9Mbhmh_fss?st=9JJKD44IlZhX54lOnjf9ZurImfACkfpcgPtr_SOlZ5k&amp;ts=1675845447&amp;e=0">
+        <img class="img-fluid" src="https://img.unitedclassifieds.sk/foto/MjY4eDIwNi9yZWE=/72S9Mbhmh_fss?st=9JJKD44IlZhX54lOnjf9ZurImfACkfpcgPtr_SOlZ5k&amp;ts=1675845447&amp;e=0" alt="Dvojgarsónka vo Vrakuni"
+             title="Dvojgarsónka vo Vrakuni | Reality.sk">
+    </noscript>
+
+                            </div>
+        </a>
+        <div class="card-body">
+            <a href="/byty/dvojgarsonka-vo-vrakuni/ReKid-Qcovn/"
+               class="card-title text-dark">
+                Dvojgarsónka vo Vrakuni
+            </a>
+            <p class="card-meta">
+                            <svg class="icon fill-secondary icon-small d-none d-sm-inline">
+        <use xlink:href="/build/spritemap.svg#sprite-pin"></use>
+    </svg>
+
+
+                <span class="d-none d-sm-inline">
+                    Bratislava-Vrakuňa
+                    (sk)
+                </span>
+                <span class="card-price float-left float-sm-right text-primary">
+                    75 000 €
+                </span>
+            </p>
+        </div>
+    </div>
+</div>
+
+            <div class="col-xs-6 col-md-3 mb-4">
+    <div class="card-new card-shadow-on-hover card-border">
+        <a href="/byty/izba-s-vyhladom/ReDtg-330Zn/">
+            <div class="offer-img-wrapper" style="padding-bottom: 77%">
+                                        <img class="js-lazy img-fluid" data-lazy-src="https://img.unitedclassifieds.sk/foto/MjY4eDIwNi9yZWE=/o_HjOZPbk_fss?st=3BErwnyUPZSCGQtAxmt1vIZ-jdbT6eeEVF-vcl9IjTg&amp;ts=1675836017&amp;e=0"
+         srcset="https://img.unitedclassifieds.sk/foto/MjY4eDIwNi9yZWE=/o_HjOZPbk_fss?st=3BErwnyUPZSCGQtAxmt1vIZ-jdbT6eeEVF-vcl9IjTg&amp;ts=1675836017&amp;e=0 700w, https://img.unitedclassifieds.sk/foto/MjY4eDIwNi9yZWE=/o_HjOZPbk_fss?st=3BErwnyUPZSCGQtAxmt1vIZ-jdbT6eeEVF-vcl9IjTg&amp;ts=1675836017&amp;e=0 1000w, https://img.unitedclassifieds.sk/foto/MjY4eDIwNi9yZWE=/o_HjOZPbk_fss?st=3BErwnyUPZSCGQtAxmt1vIZ-jdbT6eeEVF-vcl9IjTg&amp;ts=1675836017&amp;e=0 1800w" alt="Izba s výhľadom"
+         title="Izba s výhľadom | Reality.sk">
+    <noscript data-lazy-src="https://img.unitedclassifieds.sk/foto/MjY4eDIwNi9yZWE=/o_HjOZPbk_fss?st=3BErwnyUPZSCGQtAxmt1vIZ-jdbT6eeEVF-vcl9IjTg&amp;ts=1675836017&amp;e=0">
+        <img class="img-fluid" src="https://img.unitedclassifieds.sk/foto/MjY4eDIwNi9yZWE=/o_HjOZPbk_fss?st=3BErwnyUPZSCGQtAxmt1vIZ-jdbT6eeEVF-vcl9IjTg&amp;ts=1675836017&amp;e=0" alt="Izba s výhľadom"
+             title="Izba s výhľadom | Reality.sk">
+    </noscript>
+
+                            </div>
+        </a>
+        <div class="card-body">
+            <a href="/byty/izba-s-vyhladom/ReDtg-330Zn/"
+               class="card-title text-dark">
+                Izba s výhľadom
+            </a>
+            <p class="card-meta">
+                            <svg class="icon fill-secondary icon-small d-none d-sm-inline">
+        <use xlink:href="/build/spritemap.svg#sprite-pin"></use>
+    </svg>
+
+
+                <span class="d-none d-sm-inline">
+                    Bratislava-Petržalka
+                    (sk)
+                </span>
+                <span class="card-price float-left float-sm-right text-primary">
+                    260 €
+                </span>
+            </p>
+        </div>
+    </div>
+</div>
+
+    </div>
+
+        
+            </section>
+
+
+        </div>
+    </div>
+    <div class="bg-white pt-4">
+        <div class="container">
+                <section class="section">
+        <div class="section-header">
+            <h2 class="h2 font-weight-bold">Top projekty a ponuky</h2>
+        </div>
+        <div class="row js-slick-top">
+                            
+<div class="col">
+    <div class="card-new card-border">
+        <a href="https://gdesk.hit.gemius.pl/lshitredir/id=bOFFBJ.KWYlW_0ftWlRTE7QY.KmK8SPX6Se4d.OG.6D.K7/fastid=csgepmzakcvyfbhluwhebxuajgkp/stparam=ylcrfoetla/url=https://slovnaft.sk/sk/o-nas/sprava-nehnutelnosti?utm_source=reality.sk&amp;utm_medium=banner&amp;utm_campaign=nehnutelnosti" target="_blank">
+            <div class="offer-img-wrapper" style="padding-bottom: 66.01%">
+                                        <img class="js-lazy img-fluid" data-lazy-src="https://t.aimg.sk/platforma/sH5mp0UjS5liwCs8MH3AizABQh4=/368x241/admin.reality.sk/data/0/anonymous/topoffers/270/TP00100UR2457/img/top/0_7505.jpeg"
+         srcset="https://t.aimg.sk/platforma/sH5mp0UjS5liwCs8MH3AizABQh4=/368x241/admin.reality.sk/data/0/anonymous/topoffers/270/TP00100UR2457/img/top/0_7505.jpeg 700w, https://t.aimg.sk/platforma/sH5mp0UjS5liwCs8MH3AizABQh4=/368x241/admin.reality.sk/data/0/anonymous/topoffers/270/TP00100UR2457/img/top/0_7505.jpeg 1000w, https://t.aimg.sk/platforma/sH5mp0UjS5liwCs8MH3AizABQh4=/368x241/admin.reality.sk/data/0/anonymous/topoffers/270/TP00100UR2457/img/top/0_7505.jpeg 1800w" alt="Nehnuteľnosti na predaj a prenájom"
+         title="Nehnuteľnosti na predaj a prenájom | Reality.sk">
+    <noscript data-lazy-src="https://t.aimg.sk/platforma/sH5mp0UjS5liwCs8MH3AizABQh4=/368x241/admin.reality.sk/data/0/anonymous/topoffers/270/TP00100UR2457/img/top/0_7505.jpeg">
+        <img class="img-fluid" src="https://t.aimg.sk/platforma/sH5mp0UjS5liwCs8MH3AizABQh4=/368x241/admin.reality.sk/data/0/anonymous/topoffers/270/TP00100UR2457/img/top/0_7505.jpeg" alt="Nehnuteľnosti na predaj a prenájom"
+             title="Nehnuteľnosti na predaj a prenájom | Reality.sk">
+    </noscript>
+
+                            </div>
+        </a>
+        <div class="card-body-no-title">
+            <a href="https://gdesk.hit.gemius.pl/lshitredir/id=bOFFBJ.KWYlW_0ftWlRTE7QY.KmK8SPX6Se4d.OG.6D.K7/fastid=csgepmzakcvyfbhluwhebxuajgkp/stparam=ylcrfoetla/url=https://slovnaft.sk/sk/o-nas/sprava-nehnutelnosti?utm_source=reality.sk&amp;utm_medium=banner&amp;utm_campaign=nehnutelnosti" class="card-meta-no-title text-dark"
+               target="_blank">
+                Nehnuteľnosti na predaj a prenájom
+            </a>
+        </div>
+    </div>
+</div>
+
+                    </div>
+    </section>
+
+
+            <div class="zone-wrapper pt-2 text-center" data-dfp-zone="reality-mobile-mobile-middle">
+    <div id='div-gpt-ad-reality-mobile-mobile-middle' style="text-align: center; width: 100%; padding: 10px 0; box-sizing: border-box;">
+    <script>
+        googletag.cmd.push(function() { googletag.display('div-gpt-ad-reality-mobile-mobile-middle'); });
+    </script>
+</div>
+
+</div>
+
+
+            
+<section class="container">
+    <div class="text-center">
+        <h2>Realitná inzercia profesionálov</h2>
+        <span class="text-primary font-weight-bold m-0">Už 23 rokov na trhu</span>
+    </div>
+    <div class="row pt-4 pb-4">
+                    <div class="col-4 col-lg-2 card-new text-dark">
+                <a href="/byty/">
+                    <div class="card-img-top">
+                                    <svg class="icon icon-giant">
+        <use xlink:href="/build/spritemap.svg#sprite-byty"></use>
+    </svg>
+
+
+                    </div>
+                </a>
+                <div class="card-body-wide text-center">
+                    <a href="/byty/">
+                        <h2 class="card-bd-title">Byty</h2>
+                    </a>
+                                            <a href="/byty/1-izbovy-byt/"
+                           class="card-text card-link--special ts-small d-none d-md-block">1 izbový byt</a>
+                                            <a href="/byty/2-izbovy-byt/"
+                           class="card-text card-link--special ts-small d-none d-md-block">2 izbový byt</a>
+                                            <a href="/byty/3-izbovy-byt/"
+                           class="card-text card-link--special ts-small d-none d-md-block">3 izbový byt</a>
+                                            <a href="/byty/4-izbovy-byt/"
+                           class="card-text card-link--special ts-small d-none d-md-block">4 izbový byt</a>
+                                    </div>
+            </div>
+                    <div class="col-4 col-lg-2 card-new text-dark">
+                <a href="/domy/">
+                    <div class="card-img-top">
+                                    <svg class="icon icon-giant">
+        <use xlink:href="/build/spritemap.svg#sprite-domy"></use>
+    </svg>
+
+
+                    </div>
+                </a>
+                <div class="card-body-wide text-center">
+                    <a href="/domy/">
+                        <h2 class="card-bd-title">Domy</h2>
+                    </a>
+                                            <a href="/domy/rodinny-dom/"
+                           class="card-text card-link--special ts-small d-none d-md-block">Rodinný dom</a>
+                                            <a href="/domy/vidiecky-dom/"
+                           class="card-text card-link--special ts-small d-none d-md-block">Vidiecky dom</a>
+                                            <a href="/domy/farmarska-usadlost/"
+                           class="card-text card-link--special ts-small d-none d-md-block">Farmárska usadlosť</a>
+                                    </div>
+            </div>
+                    <div class="col-4 col-lg-2 card-new text-dark">
+                <a href="/pozemky/">
+                    <div class="card-img-top">
+                                    <svg class="icon icon-giant">
+        <use xlink:href="/build/spritemap.svg#sprite-pozemky"></use>
+    </svg>
+
+
+                    </div>
+                </a>
+                <div class="card-body-wide text-center">
+                    <a href="/pozemky/">
+                        <h2 class="card-bd-title">Pozemky</h2>
+                    </a>
+                                            <a href="/pozemky/pozemok-pre-rodinne-domy/"
+                           class="card-text card-link--special ts-small d-none d-md-block">Pozemok pre rodinné domy</a>
+                                            <a href="/pozemky/zahrada/"
+                           class="card-text card-link--special ts-small d-none d-md-block">Záhrada</a>
+                                            <a href="/pozemky/orna-poda/"
+                           class="card-text card-link--special ts-small d-none d-md-block">Orná pôda</a>
+                                            <a href="/pozemky/vinica-chmelnica/"
+                           class="card-text card-link--special ts-small d-none d-md-block">Vinica, chmelnica</a>
+                                    </div>
+            </div>
+                    <div class="col-4 col-lg-2 card-new text-dark">
+                <a href="/chaty-a-chalupy/">
+                    <div class="card-img-top">
+                                    <svg class="icon icon-giant">
+        <use xlink:href="/build/spritemap.svg#sprite-chaty-a-chalupy"></use>
+    </svg>
+
+
+                    </div>
+                </a>
+                <div class="card-body-wide text-center">
+                    <a href="/chaty-a-chalupy/">
+                        <h2 class="card-bd-title">Chaty a chalupy</h2>
+                    </a>
+                                            <a href="/chaty-a-chalupy/chata-drevenica-zrub/"
+                           class="card-text card-link--special ts-small d-none d-md-block">Chata, drevenica, zrub</a>
+                                            <a href="/chaty-a-chalupy/chalupa-rekreacny-domcek/"
+                           class="card-text card-link--special ts-small d-none d-md-block">Chalupa, rekreačný domček</a>
+                                    </div>
+            </div>
+                    <div class="col-4 col-lg-2 card-new text-dark">
+                <a href="/garaze-a-parkovacie-miesta/">
+                    <div class="card-img-top">
+                                    <svg class="icon icon-giant">
+        <use xlink:href="/build/spritemap.svg#sprite-garaze-a-parkovacie-miesta"></use>
+    </svg>
+
+
+                    </div>
+                </a>
+                <div class="card-body-wide text-center">
+                    <a href="/garaze-a-parkovacie-miesta/">
+                        <h2 class="card-bd-title">Garáže a parkovacie miesta</h2>
+                    </a>
+                                            <a href="/garaze-a-parkovacie-miesta/spevnene-plochy/"
+                           class="card-text card-link--special ts-small d-none d-md-block">Parkovacie miesta, parkoviská</a>
+                                            <a href="/garaze-a-parkovacie-miesta/garaz/"
+                           class="card-text card-link--special ts-small d-none d-md-block">Garáže</a>
+                                    </div>
+            </div>
+                    <div class="col-4 col-lg-2 card-new text-dark">
+                <a href="/priestory/">
+                    <div class="card-img-top">
+                                    <svg class="icon icon-giant">
+        <use xlink:href="/build/spritemap.svg#sprite-priestory"></use>
+    </svg>
+
+
+                    </div>
+                </a>
+                <div class="card-body-wide text-center">
+                    <a href="/priestory/">
+                        <h2 class="card-bd-title">Priestory</h2>
+                    </a>
+                                            <a href="/priestory/kancelarie-administrativne-priestory/"
+                           class="card-text card-link--special ts-small d-none d-md-block">Kancelárie, administratívne priestory</a>
+                                            <a href="/priestory/obchodne-priestory/"
+                           class="card-text card-link--special ts-small d-none d-md-block">Obchodné priestory</a>
+                                            <a href="/priestory/restauracne-priestory/"
+                           class="card-text card-link--special ts-small d-none d-md-block">Reštauračné priestory</a>
+                                            <a href="/priestory/priestor-pre-sklad/"
+                           class="card-text card-link--special ts-small d-none d-md-block">Priestor pre sklad</a>
+                                    </div>
+            </div>
+            </div>
+</section>
+
+                            <section class="section hp_magazin" xmlns="http://www.w3.org/1999/html">
+    <h2 class="mb-3">Najnovšie články</h2>
+    <div class="row">
+
+                            <div class="col-12 col-md-6">
+                <div class="card-new">
+                    <a class="magazin-hp-img-wrapper"
+                       href="/clanok/technologie-a-eko-riesenia/5039/recyklovatelny-3d-dom-z-drevenych-pilin/">
+                        <picture>
+                            <img class="card-img-top" src="https://img.aktuality.sk/foto/L2ltZw==/fvXzXHOCRRGtvvw-CB7CGA.jpg?st=9ShbtYEVuaxs7eP_0nivH_JVZhKUwJvWkk-mbqKvdc4&amp;ts=1675897200&amp;e=0"
+                                 data-lazy-src="https://img.aktuality.sk/foto/L2ltZw==/fvXzXHOCRRGtvvw-CB7CGA.jpg?st=9ShbtYEVuaxs7eP_0nivH_JVZhKUwJvWkk-mbqKvdc4&amp;ts=1675897200&amp;e=0"
+                                 alt="Recyklovateľný 3D dom z drevených pilín" title="Recyklovateľný 3D dom z drevených pilín | Reality.sk">
+                        </picture>
+                    </a>
+                    <div class="date-sticker top-left big red">
+                        <div class="day centered aligned">08</div>
+                        <div class="month centered aligned">Feb</div>
+                    </div>
+                    <div class="card-body-overlap text-center position-relative">
+                        <span class="sticker-top-center sticker-type-info">TECHNOLÓGIE A EKO RIEŠENIA</span>
+                        <span class="h4 d-block mb-2">
+                        <a href="/clanok/technologie-a-eko-riesenia/5039/recyklovatelny-3d-dom-z-drevenych-pilin/"
+                           class="text-dark">
+                            Recyklovateľný 3D dom z drevených pilín
+                        </a>
+                    </span>
+                        <p class="card-meta-no-title">
+                            Zoznam materiálov vhodných na tlač 3D domov sa postupne rozrastá. Bežnej betónovej zmesi môžu konkurovať klasické piliny z dreva. Tie poslúžili ako dominantný stavebný prvok pri realizácii domu v jednom z amerických univerzitných kampusov.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        
+        <div class="col-12 col-md-6">
+                            <div class="card-horizontal">
+                    <a href="/clanok/zaujimavosti/5038/ateny-budu-mat-najvacsi-europsky-pobrezny-park-s-klimatickou-funkciou/"
+                       class="magazin-hp-th-wrapper card-img-left">
+                        <picture>
+                            <img src="https://img.aktuality.sk/foto/L2ltZw==/AOTYVTiOR22Mk1rnnqguZw.jpg?st=0Cx8RliZoGQ5ASGAU_x-YYWhDxGxK6qSDpMBTMusJO8&amp;ts=1675897200&amp;e=0"
+                                 data-lazy-src="https://img.aktuality.sk/foto/L2ltZw==/AOTYVTiOR22Mk1rnnqguZw.jpg?st=0Cx8RliZoGQ5ASGAU_x-YYWhDxGxK6qSDpMBTMusJO8&amp;ts=1675897200&amp;e=0" alt="Atény budú mať najväčší európsky pobrežný park s klimatickou funkciou"
+                                 title="Atény budú mať najväčší európsky pobrežný park s klimatickou funkciou | Reality.sk" class="img-fluid float-right float-sm-left">
+                        </picture>
+                        <div class="date-sticker top-right red small">
+                            <div class="day centered aligned">06</div>
+                            <div class="month centered aligned">Feb</div>
+                        </div>
+                    </a>
+
+                    <div class="card-content">
+                        <a href="/clanok/zaujimavosti/5038/ateny-budu-mat-najvacsi-europsky-pobrezny-park-s-klimatickou-funkciou/"
+                           class="card-content-title d-block">
+                            Atény budú mať najväčší európsky pobrežný park s klimatickou funkciou
+                        </a>
+                        <span class="card-content-perex d-none d-lg-block ts-small">
+                            V Grécku sa schyľuje k realizácii jedného z najväčších zelených projektov za posledné roky. Jeho výsledkom bude obrovský pobrežný park s viacúčelovým využitím. Autori projektu sľubujú, že pôjde o najväčší európsky park svojho druhu, navyše s klimatickou funkciou.
+                        </span>
+                    </div>
+                </div>
+                            <div class="card-horizontal">
+                    <a href="/clanok/byvanie-a-rekreacia/5044/17-najlepsich-montovanych-domov-sveta-za-rok-2022/"
+                       class="magazin-hp-th-wrapper card-img-left">
+                        <picture>
+                            <img src="https://img.aktuality.sk/foto/L2ltZw==/7fP6W54PSki1OtJpR9a2PQ.jpg?st=6oyu1Mt5uscG950nIcf3WytFdEkdtPPwvQHeIIgEDBQ&amp;ts=1675897200&amp;e=0"
+                                 data-lazy-src="https://img.aktuality.sk/foto/L2ltZw==/7fP6W54PSki1OtJpR9a2PQ.jpg?st=6oyu1Mt5uscG950nIcf3WytFdEkdtPPwvQHeIIgEDBQ&amp;ts=1675897200&amp;e=0" alt="17 najlepších montovaných domov sveta za rok 2022"
+                                 title="17 najlepších montovaných domov sveta za rok 2022 | Reality.sk" class="img-fluid float-right float-sm-left">
+                        </picture>
+                        <div class="date-sticker top-right red small">
+                            <div class="day centered aligned">03</div>
+                            <div class="month centered aligned">Feb</div>
+                        </div>
+                    </a>
+
+                    <div class="card-content">
+                        <a href="/clanok/byvanie-a-rekreacia/5044/17-najlepsich-montovanych-domov-sveta-za-rok-2022/"
+                           class="card-content-title d-block">
+                            17 najlepších montovaných domov sveta za rok 2022
+                        </a>
+                        <span class="card-content-perex d-none d-lg-block ts-small">
+                            Čas, keď boli montované domy považované za lacné a škaredé, je dávno preč. Dnes sa do nich pustili mnohí talentovaní architekti vo svete a priniesli krásny dizajn v ekologickom prevedení. Nazývajú sa aj modulárne a v drvivej väčšine sú to drevostavby. Pozrite si náš výber tých najzaujímavejších.
+                        </span>
+                    </div>
+                </div>
+                            <div class="card-horizontal">
+                    <a href="/clanok/novostavby/5037/prva-holandska-rezidencna-budova-s-certifikatom-breeam-outstanding/"
+                       class="magazin-hp-th-wrapper card-img-left">
+                        <picture>
+                            <img src="https://img.aktuality.sk/foto/L2ltZw==/k-lSKgGiRYyoPCZRrY6DYw.jpg?st=XTcUWUy6gpJyqaMGULnHOlH-a5caBc4G8vYuA7vEtv8&amp;ts=1675897200&amp;e=0"
+                                 data-lazy-src="https://img.aktuality.sk/foto/L2ltZw==/k-lSKgGiRYyoPCZRrY6DYw.jpg?st=XTcUWUy6gpJyqaMGULnHOlH-a5caBc4G8vYuA7vEtv8&amp;ts=1675897200&amp;e=0" alt="Prvá holandská rezidenčná budova s certifikátom BREEAM Outstanding"
+                                 title="Prvá holandská rezidenčná budova s certifikátom BREEAM Outstanding | Reality.sk" class="img-fluid float-right float-sm-left">
+                        </picture>
+                        <div class="date-sticker top-right red small">
+                            <div class="day centered aligned">01</div>
+                            <div class="month centered aligned">Feb</div>
+                        </div>
+                    </a>
+
+                    <div class="card-content">
+                        <a href="/clanok/novostavby/5037/prva-holandska-rezidencna-budova-s-certifikatom-breeam-outstanding/"
+                           class="card-content-title d-block">
+                            Prvá holandská rezidenčná budova s certifikátom BREEAM Outstanding
+                        </a>
+                        <span class="card-content-perex d-none d-lg-block ts-small">
+                            Čo sa doposiaľ nepodarilo žiadnej holandskej rezidenčnej budove, to napráva nedávno dokončená amsterdamská drevostavba. 21-poschodová stavba získala ako prvá obytná budova v Holandsku zelený certifikát BREEAM s najvyšším hodnotením Outstanding. Zároveň sa zaradila do širšieho zoznamu najvyšších drevostavieb na svete.
+                        </span>
+                    </div>
+                </div>
+                    </div>
+
+    </div>
+</section>
+
+            
+            <div class="zone-wrapper pt-2 text-center" data-dfp-zone="reality-mobile-mobile-bottom">
+    <div id='div-gpt-ad-reality-mobile-mobile-bottom' style="text-align: center; width: 100%; padding: 10px 0; box-sizing: border-box;">
+    <script>
+        googletag.cmd.push(function() { googletag.display('div-gpt-ad-reality-mobile-mobile-bottom'); });
+    </script>
+</div>
+
+</div>
+
+
+        </div>
+    </div>
+
+
+
+
+<footer class="main-footer mt-auto">
+        
+<section class="footer-section footer-quick-links bg-cool-grey">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <p class="d-none d-md-block footer-nav-title footer-nav-title--invert">Užitočné odkazy</p>
+                <a class="d-block d-md-none footer-nav-title footer-nav-title--invert"
+                   data-toggle="collapse" href=".js-footer-quick">Užitočné odkazy
+                                <svg class="icon fill-info icon-small">
+        <use xlink:href="/build/spritemap.svg#sprite-arrow"></use>
+    </svg>
+
+
+                </a>
+            </div>
+        </div>
+                                                                        <div class="row collapse js-footer-quick d-md-flex">
+            <div class="col-6 col-lg-3">
+                <ul class="footer-nav footer-link-list footer-link-list--invert ls-none">
+                    <li>
+                        <a href="/chaty-a-chalupy/predaj/">Chaty na predaj</a>
+                    </li>
+                    <li>
+                        <a href="/domy/predaj/">Domy na predaj</a>
+                    </li>
+                    <li>
+                        <a href="/pozemky/predaj/">Pozemky na predaj</a>
+                    </li>
+                    <li>
+                        <a href="/byty/predaj/">Predaj bytov</a>
+                    </li>
+                    <li>
+                        <a href="/predaj/">Predaj nehnuteľnosti</a>
+                    </li>
+                    <li>
+                        <a href="/drazba/">Dražba</a>
+                    </li>
+                    <li>
+                        <a href="/chaty-a-chalupy/predaj/">Chalupy na predaj</a>
+                    </li>
+                    <li>
+                        <a href="/reality-sukromne-inzeraty/">Súkromná inzercia nehnuteľností</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-6 col-lg-3">
+                <ul class="footer-nav footer-link-list footer-link-list--invert ls-none">
+                    <li>
+                        <a href="/bratislava/">Reality v Bratislave</a>
+                    </li>
+                    <li>
+                        <a href="/kosice/">Reality v Košiciach</a>
+                    </li>
+                    <li>
+                        <a href="/cadca/">Nehnuteľnosti v Čadci</a>
+                    </li>
+                    <li>
+                        <a href="/nitra/">Reality v Nitre</a>
+                    </li>
+                    <li>
+                        <a href="/presov/">Nehnuteľnosti v Prešove</a>
+                    </li>
+                    <li>
+                        <a href="/ruzomberok/">Reality v Ružomberku</a>
+                    </li>
+                    <li>
+                        <a href="/zilina/">Nehnuteľnosti v Žiline</a>
+                    </li>
+                    <li>
+                        <a href="/banska-bystrica/">Reality Banská Bystrica</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-6 col-lg-3">
+                <ul class="footer-nav footer-link-list footer-link-list--invert ls-none">
+                    <li>
+                        <a href="/byty/1-izbovy-byt/bratislava/">1 izbový byt Bratislava</a>
+                    </li>
+                    <li>
+                        <a href="/byty/1-izbovy-byt/trnava/">1 izbový byt Trnava</a>
+                    </li>
+                    <li>
+                        <a href="/byty/1-izbovy-byt/kosice/">1 izbový byt Košice</a>
+                    </li>
+                    <li>
+                        <a href="/byty/1-izbovy-byt/nitra/">1 izbový byt Nitra</a>
+                    </li>
+                    <li>
+                        <a href="/byty/2-izbovy-byt/bratislava/">2 izbový byt Bratislava</a>
+                    </li>
+                    <li>
+                        <a href="/byty/2-izbovy-byt/trnava/">2 izbový byt Trnava</a>
+                    </li>
+                    <li>
+                        <a href="/byty/2-izbovy-byt/kosice/">2 izbový byt Košice</a>
+                    </li>
+                    <li>
+                        <a href="/byty/2-izbovy-byt/nitra/">2 izbový byt Nitra</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-6 col-lg-3">
+                <ul class="footer-nav footer-link-list footer-link-list--invert ls-none overflow-auto">
+                    <li>
+                        <a href="/byty/predaj/povodny-stav/">Byty v pôvodnom stave na predaj</a>
+                    </li>
+                    <li>
+                        <a href="/byty/zilinsky-kraj/novostavba/">Novostavby Žilinský kraj</a>
+                    </li>
+                    <li>
+                        <a href="/byty/bratislava/novostavba/">Novostavby v Bratislave</a>
+                    </li>
+                                                            <li>
+                        <a href="/byty/3-izbovy-byt/nitra/">3 izbový byt v Nitre</a>
+                    </li>
+                    <li>
+                        <a href="/byty/3-izbovy-byt/poprad/">3 izbový byt v Poprade</a>
+                    </li>
+                    <li>
+                        <a href="/byty/3-izbovy-byt/martin/">3 izbový byt v Martine</a>
+                    </li>
+                    <li>
+                        <a href="/byty/2-izbovy-byt/banska-bystrica/predaj/">2 izbový byt v Banskej Bystrici na predaj</a>
+                    </li>
+                    <li>
+                        <a href="/byty/3-izbovy-byt/trencin/novostavba/">3 izbový byt v Trenčíne - novostavba</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+            
+<section class="footer-section">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-6 col-md-4 col-lg-3  order-2 order-md-2 footer-three-columns">
+                <p class="d-none d-md-block footer-nav-title">Inzercia na Reality.sk</p>
+                <a class="d-block d-md-none footer-nav-title"
+                   data-toggle="collapse"
+                   href=".js-footer-info">
+                    Inzercia na Reality.sk
+                                <svg class="icon fill-info icon-small">
+        <use xlink:href="/build/spritemap.svg#sprite-arrow"></use>
+    </svg>
+
+
+                </a>
+
+                <ul class="footer-nav d-md-block collapse list-columns-1 list-columns-lg-1 footer-link-list js-footer-info">
+                    <li><a href="/pravidla/">Podmienky používania</a></li>
+                    <li><a href="/cookies/">Cookies</a></li>
+                    <li><a href="/zasady-ochrany-reality/">GDPR</a></li>
+                    <li><a href="/cennik/">Cenník</a></li>
+                    <li><a href="#" data-toggle="modal-confirm" data-load
+                           data-target="#realsoft-modal">Registrácia realitnej kancelárie</a></li>
+                    <li><a href="/moj-ucet/registracia-sukromny-inzerent">Registrácia súkromní inzerenti</a></li>
+                    <li class="d-none d-md-list-item">
+                        <a href="javascript:void(0)" onclick="window._sp_.gdpr.loadPrivacyManagerModal()">
+                            Nastavenie súkromia
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-6 col-md-4 col-lg-2  order-3 order-md-3  list-border-left-lg footer-three-columns">
+                <p class="d-none d-md-block footer-nav-title">Kontaktné údaje</p>
+                <a class="d-block d-md-none footer-nav-title"
+                   data-toggle="collapse" href=".js-footer-contact">Kontaktné údaje
+                                <svg class="icon fill-info icon-small">
+        <use xlink:href="/build/spritemap.svg#sprite-arrow"></use>
+    </svg>
+
+
+                </a>
+
+                <ul class="footer-nav d-md-block collapse list-columns-1 list-columns-lg-1 footer-link-list js-footer-contact">
+                    <li><a href="/kontakt/">Kontakt</a></li>
+                    <li><a href="https://www.narks.sk/">Info o NARKS</a></li>
+                    <li>
+                        <a href="https://www.narks.sk/clenovia/realitne-kancelarie/">Členovia NARKS</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-12 col-md-4 col-lg-2  order-3 order-md-3  list-border-left-lg footer-three-columns">
+                <p class="d-none d-md-block footer-nav-title">Poradne</p>
+                <a class="d-block d-md-none footer-nav-title"
+                   data-toggle="collapse" href=".js-footer-advice-forum">Poradne
+                                <svg class="icon fill-info icon-small">
+        <use xlink:href="/build/spritemap.svg#sprite-arrow"></use>
+    </svg>
+
+
+                </a>
+
+                <ul class="footer-nav d-md-block collapse footer-advice-forum list-columns-1 list-columns-lg-1 footer-link-list js-footer-advice-forum">
+                    <li><a href="/pravna-poradna/">Právna poradňa</a></li>
+                    <li><a href="/danova-poradna/">Daňová poradňa</a></li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+            <div class="footer-section m-0 p-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="list-border-top-lg"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<section class="footer-section py-3">
+    <div class="container">
+        <div class="row">
+            <div class="col-6 col-lg-3">
+                <ul class="footer-nav footer-link-list ls-none mb-0">
+                    <li><a href="https://sport.aktuality.sk/vysledky/">Športové výsledky online</a></li>
+                    <li><a href="https://www.nehnutelnosti.sk/ocenovanie-nehnutelnosti/">Ocenenie nehnuteľností</a></li>
+                </ul>
+            </div>
+            <div class="col-6 col-lg-3">
+                <ul class="footer-nav footer-link-list ls-none mb-0">
+                    <li><a href="https://www.nehnutelnosti.sk/zoznam-realit/lacne-chalupy-na-predaj/">Lacné chalupy na predaj</a></li>
+                    <li><a href="https://www.azet.sk/">Azet.sk</a></li>
+                </ul>
+            </div>
+            <div class="col-6 col-lg-3">
+                <ul class="footer-nav footer-link-list ls-none mb-0">
+                    <li><a href="https://zive.aktuality.sk/recenzie/">Recenzie IT zariadení</a></li>
+                    <li><a href="https://www.nehnutelnosti.sk/trhove-reporty/">Trhové reporty</a></li>
+                    <li class="d-list-item d-md-none">
+                        <a href="javascript:void(0)" onclick="window._sp_.gdpr.loadPrivacyManagerModal()">
+                            Nastavenie súkromia
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-6 col-lg-3">
+                <ul class="footer-nav footer-link-list ls-none mb-0 overflow-auto">
+                    <li><a href="https://reality.bazar.sk/">Ponuka nehnuteľností na Bazar.sk</a></li>
+                    <li><a href="https://skoda.autobazar.eu/">Škoda auto na predaj</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+            
+<section class="copyright-section">
+    <div class="container">
+        <div class="row align-items-center justify-content-between">
+            <div class="col-auto col-sm-8">
+                <div class="d-flex align-items-baseline">
+                                <svg class="icon icon-logo-uc fill-info">
+        <use xlink:href="/build/spritemap.svg#sprite-logo-uc"></use>
+    </svg>
+
+
+                    <p class="d-none d-sm-block fs-small m-0 ml-3">2010 - 2023 NARKS-INFOSERVIS a.s.</p>
+                </div>
+            </div>
+            <div class="col-auto col-sm-4 text-right">
+                <a href="https://www.facebook.com/www.reality.sk" class="social-icon">
+                                <svg class="icon fill-info icon-huge">
+        <use xlink:href="/build/spritemap.svg#sprite-facebook"></use>
+    </svg>
+
+
+                </a>
+                <a href="https://www.youtube.com/channel/UCAjPov3mLJY2pYRwu5LaIfA" class="social-icon ml-4">
+                                <svg class="icon fill-info icon-huge">
+        <use xlink:href="/build/spritemap.svg#sprite-youtube"></use>
+    </svg>
+
+
+                </a>
+                                                                            </div>
+        </div>
+
+        <div class="row d-flex d-sm-none mt-4">
+            <div class="col-12">
+                <p class="fs-small text-center m-0">2010 - 2023 NARKS-INFOSERVIS a.s.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+    </footer>
+
+
+<button class="js-back-top back-top">
+                <svg class="icon fill-primary">
+        <use xlink:href="/build/spritemap.svg#sprite-top"></use>
+    </svg>
+
+
+</button>
+
+
+<script src="/build/runtime.d94b3b43.js"></script><script src="/build/js/app/ads.fbadf7a3.js"></script>
+<script src="/build/js/app/react.3e548944.js"></script>
+    <script src="/build/js/app/hp.28d57e2b.js"></script>
+
+
+<!-- giosg tag -->
+<script>
+    (function (w, t, f) {
+        var s = 'script', o = '_giosg', h = 'https://service.giosg.com', e, n;
+        e = t.createElement(s);
+        e.async = 1;
+        e.src = h + '/live/';
+        w[o] = w[o] || function () {
+            (w[o]._e = w[o]._e || []).push(arguments)
+        };
+        w[o]._c = f;
+        w[o]._h = h;
+        n = t.getElementsByTagName(s)[0];
+        n.parentNode.insertBefore(e, n);
+    })(window, document, 5898);
+</script>
+<!-- giosg tag -->
+<script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
+</script>
+
+<div class="ie-warning-modal">
+    <div class="ie-warning-modal-content text-center alert text-dark p-4" role="alert">
+        <span class="ie-warning-modal-cancel text-dark">
+                        <svg class="icon fill-info icon-medium">
+        <use xlink:href="/build/spritemap.svg#sprite-close"></use>
+    </svg>
+
+
+        </span>
+        <p class="alert-heading p-0 m-0">
+            Prepáčte, portál reality.sk nepodporuje verziu prehliadača, ktorý používate. Použite prehliadače Chrome, Firefox, Edge alebo Opera.
+        </p>
+    </div>
+</div>
+
+
+<div id="realsoft-modal" class="d-none">
+    
+    <div class="modal-actions">        <button type="button" class="modal-close" data-modal-close aria-label="Close">
+                    <svg class="icon fill-info icon-medium">
+        <use xlink:href="/build/spritemap.svg#sprite-close"></use>
+    </svg>
+
+
+    </button>
+</div>
+    <div class="modal-header">    <div class="modal-title text-center"><h2 class="m-0">Registrácia realitnej kancelárie</h2></div>
+</div>
+    <div class="modal-body">    <p class="m-0">Vkladanie a editácia inzercie sú možné len prostredníctvom realitného softvéru Realsoft. Realsoft Vám umožní správu inzercie, sledovanie výkonnosti Vašej inzercie, export na najnavštevovanejšie inzertné weby aj spravovanie doplnkových služieb z jedného miesta. Bližšie informácie Vám s radosťou poskytne naše obchodné oddelenie.</p>
+</div>
+    <div class="modal-footer">    <div class="button-group px-5">
+        <div class="d-flex flex-fill">
+            <div class="flex-fill pr-1 pr-md-3">
+                <a href="https://www.reality.sk/kontakt/" target="_self"
+                   class="btn btn-secondary w-100">Kontaktovať obchodné oddelenie</a>
+            </div>
+            <div class="flex-fill pl-1 pl-md-3">
+                <a href="https://realsoft.sk/vyskusat-bezplatne#try-free" target="_self"
+                   class="btn btn-primary w-100">Prejsť do Realsoftu</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+<script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","licenseKey":"7c5ab22466","applicationID":"294711128","transactionName":"MVZQbRRZVxAFAkZfDggccUwVTFYOSyJTWg0EUlFSRltWDRATXVoNA0EIGSdIST8nDlxCEwlfXlwUZHEMCQRCVwYDcF1XEkpWDwgEQAxbDlxfXBZZXgYlAkZfDggbGw==","queueTime":0,"applicationTime":133,"atts":"HRFTG1xDRB4=","errorBeacon":"bam.nr-data.net","agent":""}</script></body>
+</html>
