@@ -454,10 +454,11 @@ font-size: 12px;
 
 
  .btn-list{
+   
     font-weight: 500;
     width: 48%;
     transform: translate(-40px, 0px);
-    height: 39px;
+    height: 46px;
     border-radius: 7px;
     font-size: 17px;
     border: none;
