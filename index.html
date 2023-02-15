@@ -132,130 +132,158 @@
     <!-- contact  -->
 
     <contact>
-      <div class="col-lg-12">
+      <div class="bg-white pt-4 pb-5">
         <div class="container">
-          <div class="row">
-            <div class="col-lg-6">
-              <h3 class="contact">Contact us</h3>
-              <form
-                name="sentMessage"
-                novalidate="novalidate"
-                class="messageForm"
-              >
-                <div class="form-row">
-                  <div class="control-group">
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="name"
-                      placeholder="Name and Surname"
-                      required="required"
-                      data-validation-required-message="Please enter your name"
-                    />
-                    <p class="help-block text-danger"></p>
+          <div class="row mb-3 mb-md-0">
+            <div class="col-md-6 col-12 order-1 mb-5">
+              <h2 class="font-weight-bold mb-3">Contact us</h2>
+              <form action="">
+                <div class="row">
+                  <div class="col-12 col-sm-6 col-md-12">
+                    <div class="modal-field form-group">
+                      <input
+                        type="text"
+                        id="contact_fullName"
+                        name="contact[fullName]"
+                        required="required"
+                        class="modal-input form-control"
+                        placeholder="Please enter your name"
+                      />
+                    </div>
+                    <br />
                   </div>
-                  <div class="control-group">
-                    <input
-                      type="email"
-                      class="form-control"
-                      id="number"
-                      placeholder="Tel. number"
-                      required="required"
-                      data-validation-required-message="Please enter your email"
-                    />
-                    <p class="help-block text-danger"></p>
+                  <div class="col-12 col-sm-6 col-md-12">
+                    <div class="modal-field form-group">
+                      <input
+                        type="text"
+                        id="contact_phone"
+                        name="contact[phone]"
+                        required="required"
+                        class="modal-input form-control"
+                        placeholder="Tel. number"
+                      />
+                    </div>
+                    <br />
                   </div>
-                  <div class="control-group">
-                    <input
-                      type="email"
-                      class="form-control"
-                      id="email"
-                      placeholder="E-mail"
-                      required="required"
-                      data-validation-required-message="Please enter your email"
-                    />
-                    <p class="help-block text-danger"></p>
+                  <div class="col-12 col-sm-6 col-md-12">
+                    <div class="modal-field form-group">
+                      <input
+                        type="email"
+                        id="contact_email"
+                        name="contact[email]"
+                        required="required"
+                        class="modal-input form-control"
+                        placeholder="Please enter your email"
+                      />
+                    </div>
+                    <br />
                   </div>
-                </div>
-                <div class="control-group">
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="subject"
-                    placeholder="Trade name"
-                    required="required"
-                    data-validation-required-message="Please enter a subject"
-                  />
-                  <p class="help-block text-danger"></p>
-                </div>
-                <div class="control-group">
-                  <textarea
-                    class="form-control"
-                    id="message"
-                    rows="2"
-                    placeholder="A message"
-                    required="required"
-                    data-validation-required-message="Please enter your message"
-                  ></textarea>
-                  <p class="help-block text-danger"></p>
-                </div>
-
-                <div
-                  class="g-recaptcha"
-                  data-sitekey="6Ldbdg0TAAAAAI7KAf72Q6uagbWzWecTeBWmrCpJ"
-                ></div>
-
-                <div class="button my-4" style="margin: 15px">
-                  <button
-                    type="button"
-                    class="btns btn-danger"
-                    style="width: 100%"
-                  >
-                    Send Message
-                  </button>
+                  <div class="col-12 col-sm-6 col-md-12">
+                    <div class="modal-field form-group">
+                      <input
+                        type="text"
+                        id="contact_company"
+                        name="contact[company]"
+                        class="modal-input form-control"
+                        placeholder="Please enter a subject"
+                      />
+                    </div>
+                    <br />
+                  </div>
+                  <div class="col-12">
+                    <div class="modal-field form-group">
+                      <textarea
+                        id="contact_message"
+                        name="contact[message]"
+                        required="required"
+                        class="modal-input form-control"
+                        placeholder="Please enter your message"
+                      ></textarea>
+                    </div>
+                    <br />
+                  </div>
+                  <div class="col-12">
+                    <div class="modal-field form-group">
+                      <div
+                        id="recaptcha-container"
+                        class="g-recaptcha mt-3 d-flex justify-content-starty col-md-8 mx-auto"
+                        data-sitekey="6LfI3EYUAAAAAHebCBVXcX9Kdhg0j3Adsb0WY8mm"
+                      >
+                        <div style="width: 304px; height: 78px">
+                          <div>
+                            <iframe
+                              title="reCAPTCHA"
+                              src="https://www.google.com/recaptcha/api2/anchor?ar=1&amp;k=6LfI3EYUAAAAAHebCBVXcX9Kdhg0j3Adsb0WY8mm&amp;co=aHR0cHM6Ly93d3cucmVhbGl0eS5zazo0NDM.&amp;hl=en-GB&amp;v=tNAc29ZZrpcOCErva2nr4BS9&amp;size=normal&amp;cb=ix9mts4r4xoo"
+                              width="304"
+                              height="78"
+                              role="presentation"
+                              name="a-nftonbb4lhhz"
+                              frameborder="0"
+                              scrolling="no"
+                              sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox"
+                            ></iframe>
+                          </div>
+                          <textarea
+                            id="g-recaptcha-response"
+                            name="g-recaptcha-response"
+                            class="g-recaptcha-response"
+                            style="
+                              width: 250px;
+                              height: 40px;
+                              border: 1px solid rgb(193, 193, 193);
+                              margin: 10px 25px;
+                              padding: 0px;
+                              resize: none;
+                              display: none;
+                            "
+                          ></textarea>
+                        </div>
+                        <iframe style="display: none"></iframe>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <button
+                      class="btn-list btn-primary1 m-3 w-100 bg-danger text-light"
+                    >
+                      Send a Message
+                    </button>
+                  </div>
                 </div>
               </form>
             </div>
-
-            <div class="col-md-6 col-12 order-4 order-md-2">
+            <d iv class="col-md-6 col-12 order-4 order-md-2">
               <div class="row">
                 <div class="col-12">
-                  <h3 class="font-weight-bold mx-3">Head Office</h3>
+                  <h3 class="font-weight-bold mb-3">Head Office</h3>
                 </div>
                 <div class="col-12 col-sm-6 col-md-12 mb-4">
-                  <div class="d-flex flex-fill align-items-center">
-                    <div class="imag mx-4">
-                      <img src="image/download (1).png" alt="" />
-                    </div>
+                  <div class="d-flex flex-fill align-items-center imag">
+                    <img src="image/icon1.JPG" class="icon-mega mr-4" alt="" />
                     <p class="m-0 text-nowrap">
-                      NARKS - INFOSERVIS as<br />Prievozská 14<br />821 09
+                      NARKS - INFOSERVIS a.s.<br />Prievozská 14<br />821 09
                       Bratislava
                     </p>
                   </div>
                 </div>
-                <div class="col-12 col-sm-6 col-md-12 mb-4">
-                  <div class="d-flex flex-fill align-items-center">
-                    <div class="imag mx-4">
-                      <img src="image/download.png" alt="" />
-                    </div>
 
-                    <div>
-                      <span>Support</span>
-                      <p class="m-0 text-nowrap">info@reality.sk</p>
-                    </div>
+                <div class="col-12 col-sm-6 col-md-12 mb-4">
+                  <div class="d-flex flex-fill align-items-center imag">
+                    <img src="image/icon2.JPG" class="icon-mega mr-4" alt="" />
+                    <p class="m-0 text-nowrap">
+                      Support<br />info@reality.sk<br />
+                    </p>
                   </div>
                 </div>
-                <div class="col-12 col-sm-6 col-md-12 mb-4">
-                  <div class="d-flex flex-fill align-items-center">
-                    <div class="imag mx-4">
-                      <img src="image/images.png" alt="" />
-                    </div>
 
+                <div class="col-12 col-sm-6 col-md-12 mb-4">
+                  <div class="d-flex flex-fill align-items-center imag">
+                    <img src="image/icon3.JPG" class="icon-mega mr-4" alt="" />
                     <p class="m-0 text-nowrap">+421 220 924 187</p>
                   </div>
                 </div>
               </div>
-            </div>
+            </d>
           </div>
         </div>
       </div>
@@ -288,7 +316,7 @@
       <div class="col-lg-12">
         <div class="container">
           <div class="row">
-            <div class="col-lg-3">
+            <div class="col-lg-3 col-sm-6 col-md-6 mb-4">
               <h6>Mgr. Nikola Králiková</h6>
               <div class="col-lg-12">
                 <div class="col-lg-6" style="display: flex">
@@ -297,11 +325,13 @@
                 </div>
                 <div class="col-lg-6" style="display: flex">
                   <h4>@</h4>
-                  <p class="mx-2">nikola.kralikova@unitedclassifieds.sk</p>
+                  <p class="mx-2" style="font-size: 15px">
+                    nikola.kralikova@unitedclassifieds.sk
+                  </p>
                 </div>
               </div>
             </div>
-            <div class="col-lg-3">
+            <div class="col-lg-3 col-sm-6 col-md-6 mb-4">
               <h6>Juraj Laššo</h6>
               <div class="col-lg-12">
                 <div class="col-lg-6" style="display: flex">
@@ -310,11 +340,13 @@
                 </div>
                 <div class="col-lg-6" style="display: flex">
                   <h4>@</h4>
-                  <p class="mx-2">juraj.lasso@unitedclassifieds.sk</p>
+                  <p class="mx-2" style="font-size: 15px">
+                    juraj.lasso@unitedclassifieds.sk
+                  </p>
                 </div>
               </div>
             </div>
-            <div class="col-lg-3">
+            <div class="col-lg-3 col-sm-6 col-md-6 mb-4">
               <h6>Ing. Juraj Zorkóci</h6>
               <div class="col-lg-12">
                 <div class="col-lg-6" style="display: flex">
@@ -323,11 +355,13 @@
                 </div>
                 <div class="col-lg-6" style="display: flex">
                   <h4>@</h4>
-                  <p class="mx-2">juraj.zorkoci@unitedclassifieds.sk</p>
+                  <p class="mx-2" style="font-size: 15px">
+                    juraj.zorkoci@unitedclassifieds.sk
+                  </p>
                 </div>
               </div>
             </div>
-            <div class="col-lg-3">
+            <div class="col-lg-3 col-sm-6 col-md-6 mb-4">
               <h6>Mgr. Daniela Večeríková Hrubová</h6>
               <div class="col-lg-12">
                 <div class="col-lg-6" style="display: flex">
@@ -336,7 +370,9 @@
                 </div>
                 <div class="col-lg-6" style="display: flex">
                   <h4>@</h4>
-                  <p class="mx-2">daniela.vecerikova@unitedclassifieds.sk</p>
+                  <p class="mx-2" style="font-size: 15px">
+                    daniela.vecerikova@unitedclassifieds.sk
+                  </p>
                 </div>
               </div>
             </div>
@@ -347,7 +383,7 @@
 
     <!-- footer  -->
 
-    <footer>
+    <footer style="margin-top: 6rem">
       <div
         class="col-lg-12 bg-dark text-light"
         style="padding-bottom: 4rem; padding-top: 2rem"
@@ -357,15 +393,20 @@
             <div class="col-lg-10 footer">
               <div class="row">
                 <div
-                  class="col-lg-4"
+                  class="col-lg-4 col-sm-6"
                   style="border-right: 1px solid rgb(115, 108, 108)"
                 >
-                  <h5 class="text-light m-2 dropdown">
+                  <h5
+                    class="text-light m-2"
+                    style="font-size: 16px"
+                    data-bs-toggle="dropdown"
+                  >
                     Advertising on Reality.sk
+                    <i class="fa fa-sort-desc d-lg-none" aria-hidden="true"></i>
                   </h5>
 
                   <div class="dropdown-content">
-                    <ul>
+                    <ul class="drops">
                       <li>Terms of Use</li>
                       <li>Cookies</li>
                       <li>GDPR</li>
@@ -375,22 +416,89 @@
                       <li>Privacy settings</li>
                     </ul>
                   </div>
+
+                  <!-- dropdown  -->
+                  <div class="d-lg-none">
+                    <div class="dropdown-content">
+                      <ul
+                        class="dropdown-menu bg-dark"
+                        aria-labelledby="dropdownMenuButton1"
+                      >
+                        <li>Terms of Use</li>
+                        <li>Cookies</li>
+                        <li>GDPR</li>
+                        <li>Price List</li>
+                        <li>Registration of a real estate agency</li>
+                        <li>Registration private advertisers</li>
+                        <li>Privacy settings</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <!-- end  -->
                 </div>
+
                 <div
-                  class="col-lg-3"
+                  class="col-lg-3 col-sm-6"
                   style="border-right: 1px solid rgb(115, 108, 108)"
                 >
-                  <h5 class="text-light m-2">Contact information</h5>
-                  <ul>
-                    <li>Contact</li>
-                    <li>Info about NARKS</li>
-                    <li>NARKS membesrs</li>
-                  </ul>
+                  <h5
+                    class="text-light m-2 text-secondary"
+                    data-bs-toggle="dropdown"
+                    style="font-size: 16px"
+                  >
+                    Contact information
+                    <i class="fa fa-sort-desc d-lg-none" aria-hidden="true"></i>
+                  </h5>
+                  <div class="dropdown-content">
+                    <ul class="drops">
+                      <li>Contact</li>
+                      <li>Info about NARKS</li>
+                      <li>NARKS membesrs</li>
+                    </ul>
+                  </div>
+                  <!-- dropdown  -->
+                  <div class="d-lg-none">
+                    <div class="dropdown-content">
+                      <ul
+                        class="dropdown-menu bg-dark"
+                        aria-labelledby="dropdownMenuButton1"
+                      >
+                        <li>Contact</li>
+                        <li>Info about NARKS</li>
+                        <li>NARKS membesrs</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <!-- end  -->
                 </div>
-                <div class="col-lg-3">
-                  <h5 class="text-light m-2">Advisory</h5>
-                  <li>Legal advice</li>
-                  <li>tax consultancy</li>
+                <div class="col-lg-3 col-sm-6">
+                  <h5
+                    class="text-light m-2"
+                    data-bs-toggle="dropdown"
+                    style="font-size: 16px"
+                  >
+                    Advisory
+                    <i class="fa fa-sort-desc d-lg-none" aria-hidden="true"></i>
+                  </h5>
+                  <div class="dropdown-content">
+                    <ul class="drops">
+                      <li>Legal advice</li>
+                      <li>tax consultancy</li>
+                    </ul>
+                  </div>
+                  <!-- dropdown  -->
+                  <div class="d-lg-none">
+                    <div class="dropdown-content">
+                      <ul
+                        class="dropdown-menu bg-dark"
+                        aria-labelledby="dropdownMenuButton1"
+                      >
+                        <li>Legal advice</li>
+                        <li>tax consultancy</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <!-- end  -->
                 </div>
               </div>
             </div>
@@ -398,39 +506,38 @@
           </div>
         </div>
       </div>
-    </footer>
 
-    <!-- Copyright Start -->
-    <div class="container-fluid copyright py-4">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12 text-center text-md-start mb-3 mb-md-0">
-            <div class="row">
-              <div class="col-lg-10">
-                <div class="row">
-                  <div class="col-lg-3">
-                    <div class="icon">
-                      <h3 style="line-height: 1px">United ©</h3>
-                      <h3>Classifieds</h3>
+      <!-- Copyright Start -->
+      <div class="container-fluid copyright py-4">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12 text-center text-md-start mb-3 mb-md-0">
+              <div class="row">
+                <div class="col-lg-10">
+                  <div class="row">
+                    <div class="col-lg-3">
+                      <div class="icon">
+                        <h3 style="line-height: 1px">United ©</h3>
+                        <h3>Classifieds</h3>
+                      </div>
+                    </div>
+                    <div class="col-lg-7 d-sm-block fs-small">
+                      <p>2010 - 2023 NARKS-INFOSERVIS as</p>
                     </div>
                   </div>
-                  <div class="col-lg-7 d-sm-block fs-small">
-                    <p>2010 - 2023 NARKS-INFOSERVIS as</p>
-                  </div>
                 </div>
-              </div>
-              <div class="col-lg-2">
-                <div class="social">
-                  <a href=""><i class="fa fa-youtube"></i></a>
-                  <a href=""><li class="fa fa-facebook-f"></li></a>
+                <div class="col-lg-2">
+                  <div class="social">
+                    <a href=""><i class="fa fa-youtube"></i></a>
+                    <a href=""><li class="fa fa-facebook-f"></li></a>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-
+    </footer>
     <!-- Bootstrap Bundle with Popper -->
 
     <script
