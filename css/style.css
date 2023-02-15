@@ -319,7 +319,9 @@ h4 {
     .right_menu{
         display: block;
     }
+
 }
+
 #menu{
     padding: 8.5px 0.75rem !important;
     background-color: hsla(0,0%,100%,.5);
@@ -415,7 +417,7 @@ font-size: 12px;
 
 .imag
 {
-    width: 46px;
+    width: 5rem;
 }
 
 .imag img{
@@ -451,35 +453,24 @@ font-size: 12px;
 }
 
 
-.btn-list{
-    width: 20rem;
-    height: 3rem;
-    border-radius: 11px;
-    font-size: 20px;
-    font-weight: 600;
+ .btn-list{
+    font-weight: 500;
+    width: 48%;
+    transform: translate(-40px, 0px);
+    height: 39px;
+    border-radius: 7px;
+    font-size: 17px;
     border: none;
 }
 
-.g-recaptcha
+@media (min-width: 100px) and (max-width: 768px)
 {
-    margin-left: 12px;
+    .drops
+    {
+      display:none ;
+    }
 }
 
-
-/* 
-@media only screen and (max-width: 600px) {
-    .closebtn {
-      display: block;
-    }
-
-    .contact{
-        margin: 12px;
-    }
-
-    .messageForm{
-        margin-inline: 9px;
-    }
-  } */
 
   @media screen and (width: 600px) {
     .closebtn {
@@ -501,17 +492,70 @@ font-size: 12px;
         font-size: 12px;
       }
 
+      .drops
+      {
+        display: none;
+      }
+
   }
   
 
 
-/*   
-@media only screen and (max-width: 600px) {
+.dropdown-content ul
+{
+color: rgb(177, 183, 177);
 
-    .icon{
-        transform: translate(-214px, 5px);
+}
+
+.dropdown-content ul li{
+    font-size: 15px;
+}
+
+@media (min-width:600px) {
+    .btn-list {
+        transform: translate(-21px, 0px);
     }
-  } */
+}
 
 
 
+@media (min-width: 768px){
+
+    .ml-md-5, .mx-md-5 {
+        margin-left: 3rem!important;
+    }
+}
+.btn-secondary1 {
+    color: #fff !important;
+    background-color: #25282a !important;
+    border-color: #25282a !important;
+}
+@media only screen and (min-width: 767px){
+
+    .seller {
+        font-size: 1rem !important;
+    }
+}
+.icon-medium {
+    width: 1.1rem;
+    height: 1.1rem;
+}
+.mr-2, .mx-2 {
+    margin-right: 0.5rem!important;
+}
+.center .d-flex{
+    align-items: center;
+}
+@media only screen and (min-width: 767px){
+
+    .seller-contact {
+        font-size: .9rem!important;
+    }
+}
+.text-nowrap{
+    white-space: nowrap !important;
+}
+
+.dropdown-toggle{
+    background: none;
+}
