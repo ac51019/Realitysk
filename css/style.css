@@ -94,6 +94,12 @@ html {
     padding: 0 3px !important;
 }
 
+@media (min-width: 50px) and (max-width: 576px){
+    .container{
+        transform: translate(35px, 0px);
+    }
+}
+
 .row_header {
     background-color: rgba(50, 53, 59, .9);
     width: 100%;
