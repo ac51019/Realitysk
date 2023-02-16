@@ -482,9 +482,9 @@ font-size: 12px;
         list-style-type: none;
     }
 
-    .change{
-        display: none;
-    }
+   .change{
+    display: none !important;
+   }
 
     .dd{
         display: none;
@@ -520,7 +520,21 @@ font-size: 12px;
     .seller {
         font-size: 1rem !important;
     }
+
+  
 }
+
+@media (min-width: 50px) and (max-width: 768px) {
+    .change{
+        display: none;
+    }
+}
+@media (min-width: 769px) and (max-width: 1000px) {
+    .drive{
+        display: none;
+    }
+}
+
 
 .icon-medium {
     width: 1.1rem;
@@ -577,7 +591,13 @@ font-size: 12px;
         padding-top: 1.875rem;
         padding-bottom: 1.875rem;
     }
+
+    .asd{
+        display: none !important;
+       }
 }
+
+
 
 .footer-nav-title {
     font-size: 16px;
@@ -675,6 +695,3 @@ a:hover {
     position: relative;
     bottom: 2px;
 }
-
-
-
