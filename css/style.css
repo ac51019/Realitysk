@@ -96,7 +96,7 @@ html {
 
 @media (min-width: 50px) and (max-width: 576px){
     .container{
-        transform: translate(35px, 0px);
+        transform: translate(2rem, 0px);
     }
 }
 
