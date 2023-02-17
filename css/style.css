@@ -660,6 +660,15 @@ font-size: 12px;
     .asd{
         display: none !important;
        }
+
+      
+}
+
+@media (min-width: 1020px) and (max-width: 1400px) {
+    .border-line
+    {
+     border-right: 1px solid rgb(115, 108, 108);
+    }
 }
 
 
