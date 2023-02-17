@@ -107,7 +107,6 @@ html {
     margin-bottom: 0;
 }
 
-
 .row_header li {
     list-style-type: none;
     cursor: pointer;
@@ -531,7 +530,7 @@ font-size: 12px;
         flex-direction: column;
     }
     .aa{
-        width: 15rem;
+        width: 13rem;
     }
 
     .footer-three-columns a .fill-info,.fa-sort-down {
@@ -624,7 +623,7 @@ font-size: 12px;
     white-space: nowrap !important;
 }
 
-/* footer start here  */
+
 .main-footer {
     position: relative;
     bottom: 0;
@@ -758,3 +757,6 @@ a:hover {
     position: relative;
     bottom: 2px;
 }
+
+
+
