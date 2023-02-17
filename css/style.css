@@ -521,6 +521,9 @@ font-size: 12px;
 
 @media (min-width: 50px) and (max-width: 379px) {
 
+    .container{
+        margin-left: 12px;
+    }
     .footer-three-columns {
         width: 100%;
         flex: 0 0 100%;
