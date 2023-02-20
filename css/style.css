@@ -865,6 +865,13 @@ a:hover {
 }
 
 
+@media (min-width: 767px) and (max-width: 1400px) {
+    .margin1 {
+        height: 45px;
+        margin-bottom: 15px;
+    }
+    
+}
 
 
 
