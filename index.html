@@ -31,7 +31,7 @@
 
     <script src="https://www.google.com/recaptcha/api.js"></script>
 
-    <title>Assignment</title>
+    <title>Assignment final</title>
   </head>
 
   <body>
@@ -54,7 +54,7 @@
         <div class="container mb-2">
           <div class="row">
             <a href="" class="col-5 col-md-3">
-              <img src="./image/logo.JPG" alt="File" />
+              <img src="./image/mylogo.JPG" alt="File" />
             </a>
             <ul class="col-7 col-md-9">
               <li>
@@ -129,318 +129,291 @@
         </div>
       </div>
     </header>
-    <!-- contact  -->
 
-    <contact>
-      <div class="bg-white pt-4 pb-5">
-        <div class="container">
-          <div class="row mb-3 mb-md-0">
-            <div class="col-md-6 col-12 order-1 mb-5">
-              <h2 class="font-weight-bold mb-3">Contact us</h2>
-              <form action="">
-                <div class="row">
-                  <div class="col-12 col-sm-6 col-md-12">
-                    <div class="form-floating modal-field form-group">
-                      <input
-                        type="text"
-                        id="contact_fullName"
-                        name="contact[fullName]"
-                        required="required"
-                        class="modal-input form-control"
-                        placeholder="Please enter your name"
-                      />
-                      <label for="name" style="color: rgb(187, 189, 191)"
-                        >Name and Surname</label
-                      >
-                    </div>
-                    <br />
-                  </div>
-                  <div class="col-12 col-sm-6 col-md-12">
-                    <div class="form-floating modal-field form-group">
-                      <input
-                        type="text"
-                        id="contact_phone"
-                        name="contact[phone]"
-                        required="required"
-                        class="modal-input form-control"
-                        placeholder="Tel. number"
-                      />
-                      <label for="name" style="color: rgb(187, 189, 191)"
-                        >Tel. number</label
-                      >
-                    </div>
-                    <br />
-                  </div>
-                  <div class="col-12 col-sm-6 col-md-12">
-                    <div class="form-floating modal-field form-group">
-                      <input
-                        type="email"
-                        id="contact_email"
-                        name="contact[email]"
-                        required="required"
-                        class="modal-input form-control"
-                        placeholder="Please enter your email"
-                      />
-                      <label for="name" style="color: rgb(187, 189, 191)"
-                        >E-mail</label
-                      >
-                    </div>
-                    <br />
-                  </div>
-                  <div class="col-12 col-sm-6 col-md-12">
-                    <div class="form-floating modal-field form-group">
-                      <input
-                        type="text"
-                        id="contact_company"
-                        name="contact[company]"
-                        class="modal-input form-control"
-                        placeholder="Please enter a subject"
-                      />
-                      <label for="name" style="color: rgb(187, 189, 191)"
-                        >Please enter a subject</label
-                      >
-                    </div>
-                    <br />
-                  </div>
-                  <div class="col-12">
-                    <div class="form-floating modal-field form-group">
-                      <textarea
-                        id="contact_message"
-                        name="contact[message]"
-                        required="required"
-                        class="modal-input form-control"
-                        placeholder="Please enter your message"
-                      ></textarea>
-                      <label for="name" style="color: rgb(187, 189, 191)"
-                        >A message</label
-                      >
-                    </div>
-                    <br />
-                  </div>
-                  <div class="col-12">
-                    <div class="form-floating modal-field form-group">
-                      <div
-                        id="recaptcha-container"
-                        class="g-recaptcha mt-3 d-flex justify-content-starty col-md-8 mx-auto"
-                        data-sitekey="6LfI3EYUAAAAAHebCBVXcX9Kdhg0j3Adsb0WY8mm"
-                      >
-                        <div style="width: 304px; height: 78px">
-                          <div>
-                            <iframe
-                              title="reCAPTCHA"
-                              src="https://www.google.com/recaptcha/api2/anchor?ar=1&amp;k=6LfI3EYUAAAAAHebCBVXcX9Kdhg0j3Adsb0WY8mm&amp;co=aHR0cHM6Ly93d3cucmVhbGl0eS5zazo0NDM.&amp;hl=en-GB&amp;v=tNAc29ZZrpcOCErva2nr4BS9&amp;size=normal&amp;cb=ix9mts4r4xoo"
-                              width="304"
-                              height="78"
-                              role="presentation"
-                              name="a-nftonbb4lhhz"
-                              frameborder="0"
-                              scrolling="no"
-                              sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox"
-                            ></iframe>
-                          </div>
-                          <textarea
-                            id="g-recaptcha-response"
-                            name="g-recaptcha-response"
-                            class="g-recaptcha-response"
-                            style="
-                              width: 250px;
-                              height: 40px;
-                              border: 1px solid rgb(193, 193, 193);
-                              margin: 10px 25px;
-                              padding: 0px;
-                              resize: none;
-                              display: none;
-                            "
-                          ></textarea>
-                        </div>
-                        <iframe style="display: none"></iframe>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-12">
-                    <button
-                      class="btn-list btn-primary1 w-100 bg-danger text-light"
-                    >
-                      Send a Message
-                    </button>
-                  </div>
-                </div>
-              </form>
-            </div>
-            <div class="col-md-6 col-12 order-4 order-md-2 sm-none md-none">
-              <div class="change">
-                <div class="row">
-                  <div class="col-12">
-                    <h3 class="font-weight-bold mb-3">Head Office</h3>
-                  </div>
-                  <div class="col-12 col-sm-6 col-md-12 mb-4">
-                    <div class="d-flex flex-fill align-items-center imag">
-                      <img
-                        src="image/icon1.JPG"
-                        class="icon-mega mr-4"
-                        alt=""
-                      />
-                      <p class="m-3 text-nowrap">
-                        NARKS - INFOSERVIS a.s.<br />Prievozská 14<br />821 09
-                        Bratislava
-                      </p>
-                    </div>
-                  </div>
-
-                  <div class="col-12 col-sm-6 col-md-12 mb-4">
-                    <div class="d-flex flex-fill align-items-center imag">
-                      <img
-                        src="image/icon2.JPG"
-                        class="icon-mega mr-4"
-                        alt=""
-                      />
-                      <p class="m-3 text-nowrap">
-                        Support<br />info@reality.sk<br />
-                      </p>
-                    </div>
-                  </div>
-
-                  <div class="col-12 col-sm-6 col-md-12 mb-4">
-                    <div class="d-flex flex-fill align-items-center imag">
-                      <img
-                        src="image/icon3.JPG"
-                        class="icon-mega mr-4"
-                        alt=""
-                      />
-                      <p class="m-3 text-nowrap">+421 220 924 187</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </contact>
-
-    <!-- shopping  -->
-
-    <shopping>
-      <div class="col-lg-12">
-        <div class="container">
-          <div class="col-lg-10" style="margin-top: -4rem; margin-bottom: 4rem">
-            <div class="row">
-              <div class="col-lg-4">
-                <h4><b>Shopping Department</b></h4>
-              </div>
-              <div class="col-lg-6">
-                <button class="bg-dark text-light btn-lists">
-                  Price List of service
-                </button>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-2"></div>
-        </div>
-      </div>
-    </shopping>
-
-    <!-- contact  -->
-    <contact>
-      <div class="col-lg-12">
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-3 col-sm-6 col-md-6 mb-4">
-              <h6 style="font-weight: 700">Mgr. Nikola Králiková</h6>
-              <div class="col-lg-12">
-                <div class="col-lg-6" style="display: flex">
-                  <h5><i class="fa fa-phone" aria-hidden="true"></i></h5>
-                  <p class="mx-2">0917 397 258</p>
-                </div>
-                <div class="col-lg-6" style="display: flex">
-                  <h4>@</h4>
-                  <p class="mx-2" style="font-size: 15px">
-                    nikola.kralikova@unitedclassifieds.sk
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-3 col-sm-6 col-md-6 mb-4">
-              <h6 style="font-weight: 700">Juraj Laššo</h6>
-              <div class="col-lg-12">
-                <div class="col-lg-6" style="display: flex">
-                  <h5><i class="fa fa-phone" aria-hidden="true"></i></h5>
-                  <p class="mx-2">0915 898 046</p>
-                </div>
-                <div class="col-lg-6" style="display: flex">
-                  <h4>@</h4>
-                  <p class="mx-2" style="font-size: 15px">
-                    juraj.lasso@unitedclassifieds.sk
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-3 col-sm-6 col-md-6 mb-4">
-              <h6 style="font-weight: 700">Ing. Juraj Zorkóci</h6>
-              <div class="col-lg-12">
-                <div class="col-lg-6" style="display: flex">
-                  <h5><i class="fa fa-phone" aria-hidden="true"></i></h5>
-                  <p class="mx-2">0905 713 318</p>
-                </div>
-                <div class="col-lg-6" style="display: flex">
-                  <h4>@</h4>
-                  <p class="mx-2" style="font-size: 15px">
-                    juraj.zorkoci@unitedclassifieds.sk
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-3 col-sm-6 col-md-6 mb-4">
-              <h6 style="font-weight: 700">Mgr. Daniela Večeríková Hrubová</h6>
-              <div class="col-lg-12">
-                <div class="col-lg-6" style="display: flex">
-                  <h5><i class="fa fa-phone" aria-hidden="true"></i></h5>
-                  <p class="mx-2">0905 439 699</p>
-                </div>
-                <div class="col-lg-6" style="display: flex">
-                  <h4>@</h4>
-                  <p class="mx-2" style="font-size: 15px">
-                    daniela.vecerikova@unitedclassifieds.sk
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </contact>
-
-    <!-- responsive  -->
-    <div class="col-lg-12 drive">
+    <div class="bg-white pt-4 pb-5">
       <div class="container">
-        <div class="col-md-6 col-12 order-4 order-md-2 d-lg-none">
-          <div class="row">
-            <div class="col-12">
-              <h3 class="font-weight-bold mb-3">Head Office</h3>
+        <div class="row mb-3 mb-md-0">
+          <div class="col-md-6 col-12 order-1 mb-5">
+            <h2 class="font-weight-bold mb-3">Contact us</h2>
+            <form action="">
+              <div class="row">
+                <div class="col-12 col-sm-6 col-md-12">
+                  <div class="form-floating modal-field form-group">
+                    <input
+                      type="text"
+                      id="contact_fullName"
+                      name="contact[fullName]"
+                      required="required"
+                      class="modal-input form-control"
+                      placeholder="Name and Surname"
+                      style="height: 2px"
+                    />
+                    <label
+                      for="name"
+                      style="color: rgb(187, 189, 191); font-size: 14px"
+                      >Name and Surname</label
+                    >
+                  </div>
+                  <!-- <br /> -->
+                </div>
+
+                <div class="col-12 col-sm-6 col-md-12">
+                  <div class="form-floating modal-field form-group">
+                    <input
+                      type="text"
+                      id="contact_phone"
+                      name="contact[phone]"
+                      required="required"
+                      class="modal-input form-control"
+                      placeholder="Tel. number"
+                      style="height: 2px"
+                    />
+                    <label
+                      for="name"
+                      style="color: rgb(187, 189, 191); font-size: 14px"
+                      >Tel. number</label
+                    >
+                  </div>
+                  <!-- <br /> -->
+                </div>
+                <div class="col-12 col-sm-6 col-md-12">
+                  <div class="form-floating modal-field form-group">
+                    <input
+                      type="email"
+                      id="contact_email"
+                      name="contact[email]"
+                      required="required"
+                      class="modal-input form-control"
+                      placeholder="Enter Your E-mail"
+                      style="height: 2px"
+                    />
+                    <label
+                      for="name"
+                      style="color: rgb(187, 189, 191); font-size: 14px"
+                      >Enter Your E-mail</label
+                    >
+                  </div>
+                  <!-- <br /> -->
+                </div>
+                <div class="col-12 col-sm-6 col-md-12">
+                  <div class="form-floating modal-field form-group">
+                    <input
+                      type="text"
+                      id="contact_company"
+                      name="contact[company]"
+                      class="modal-input form-control"
+                      placeholder="Enter a Subject"
+                      style="height: 2px"
+                    />
+                    <label
+                      for="name"
+                      style="color: rgb(187, 189, 191); font-size: 14px"
+                      >Enter a subject</label
+                    >
+                  </div>
+                  <!-- <br /> -->
+                </div>
+                <div class="col-12">
+                  <div class="form-floating modal-field form-group">
+                    <textarea
+                      id="contact_message"
+                      name="contact[message]"
+                      required="required"
+                      class="modal-input form-control"
+                      placeholder="A message"
+                      style="height: 2px"
+                    ></textarea>
+                    <label
+                      for="name"
+                      style="color: rgb(187, 189, 191); font-size: 14px"
+                      >A message</label
+                    >
+                  </div>
+                  <!-- <br /> -->
+                </div>
+                <div class="col-12">
+                  <div class="modal-field form-group">
+                    <div
+                      id="recaptcha-container"
+                      class="g-recaptcha mt-3 d-flex justify-content-starty col-md-8 mx-auto"
+                      data-sitekey="6LfI3EYUAAAAAHebCBVXcX9Kdhg0j3Adsb0WY8mm"
+                    >
+                      <div style="width: 304px; height: 78px">
+                        <div>
+                          <iframe
+                            title="reCAPTCHA"
+                            src="https://www.google.com/recaptcha/api2/anchor?ar=1&amp;k=6LfI3EYUAAAAAHebCBVXcX9Kdhg0j3Adsb0WY8mm&amp;co=aHR0cHM6Ly93d3cucmVhbGl0eS5zazo0NDM.&amp;hl=en-GB&amp;v=tNAc29ZZrpcOCErva2nr4BS9&amp;size=normal&amp;cb=ix9mts4r4xoo"
+                            width="304"
+                            height="78"
+                            role="presentation"
+                            name="a-nftonbb4lhhz"
+                            frameborder="0"
+                            scrolling="no"
+                            sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox"
+                          ></iframe>
+                        </div>
+                        <textarea
+                          id="g-recaptcha-response"
+                          name="g-recaptcha-response"
+                          class="g-recaptcha-response"
+                          style="
+                            width: 250px;
+                            height: 40px;
+                            border: 1px solid rgb(193, 193, 193);
+                            margin: 10px 25px;
+                            padding: 0px;
+                            resize: none;
+                            display: none;
+                          "
+                        ></textarea>
+                      </div>
+                      <iframe style="display: none"></iframe>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <button class="btn btn-primary1 btn-big w-100">
+                    Send a message
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="col-md-6 col-12 order-4 order-md-2">
+            <div class="row">
+              <div class="col-12">
+                <h3 class="font-weight-bold mb-3">Head Office</h3>
+              </div>
+              <div class="col-12 col-sm-6 col-md-12 mb-4">
+                <div class="d-flex flex-fill align-items-center">
+                  <img src="image/icon1.JPG" class="icon-mega mr-4" alt="" />
+                  <p class="m-0 text-nowrap">
+                    NARKS - INFOSERVIS a.s.<br />Prievozská 14<br />821 09
+                    Bratislava
+                  </p>
+                </div>
+              </div>
+              <div class="col-12 col-sm-6 col-md-12 mb-4 right">
+                <div class="d-flex flex-fill align-items-center justify">
+                  <img src="image/icon2.JPG" class="icon-mega mr-4" alt="" />
+                  <div>
+                    <span>Support</span>
+                    <p class="m-0 text-nowrap">info@reality.sk</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-sm-6 col-md-12 mb-4">
+                <div class="d-flex flex-fill align-items-center">
+                  <img src="image/icon3.JPG" class="icon-mega mr-4" alt="" />
+                  <p class="m-0 text-nowrap">+421 220 924 187</p>
+                </div>
+              </div>
             </div>
-            <div class="col-12 col-sm-6 col-md-12 mb-4">
-              <div class="d-flex flex-fill align-items-center imag">
-                <img src="image/icon1.JPG" class="icon-mega mr-4" alt="" />
-                <p class="m-3 text-nowrap">
-                  NARKS - INFOSERVIS a.s.<br />Prievozská 14<br />821 09
-                  Bratislava
+          </div>
+          <div class="col-12 mb-5 order-2 order-md-3">
+            <div
+              class="d-flex flex-fill flex-column flex-md-row align-items-start align-items-md-center"
+            >
+              <h2 class="mb-3 mb-md-0">Shopping Department</h2>
+              <div class="text-right">
+                <a
+                  href=""
+                  target="_blank"
+                  class="ml-md-5 btn btn-big btn-secondary1"
+                >
+                  Price List of service
+                </a>
+              </div>
+            </div>
+          </div>
+          <div
+            class="col-12 d-flex flex-wrap justify-content-start order-3 mb-5"
+          >
+            <div class="col-12 col-sm-6 col-lg-3 p-0 my-3 center">
+              <h2 class="seller mb-3">Mgr. Nikola Králiková</h2>
+              <div class="d-flex mb-3">
+                <img
+                  src="image/phone.JPG"
+                  class="icon icon-medium mr-2"
+                  alt="File"
+                />
+                <p class="m-0 text-nowrap seller-contact">0917 397 258</p>
+              </div>
+              <div class="d-flex">
+                <img
+                  src="image/at.JPG"
+                  class="icon icon-medium mr-2"
+                  alt="File"
+                />
+                <p class="m-0 text-nowrap seller-contact">
+                  nikola.kralikova@unitedclassifieds.sk
                 </p>
               </div>
             </div>
 
-            <div class="col-12 col-sm-6 col-md-12 mb-4">
-              <div class="d-flex flex-fill align-items-center imag">
-                <img src="image/icon2.JPG" class="icon-mega mr-4" alt="" />
-                <p class="m-3 text-nowrap">
-                  Support<br />info@reality.sk<br />
+            <div class="col-12 col-sm-6 col-lg-3 p-0 my-3 center">
+              <h2 class="seller mb-3">Juraj Laššo</h2>
+              <div class="d-flex mb-3">
+                <img
+                  src="image/phone.JPG"
+                  class="icon icon-medium mr-2"
+                  alt="File"
+                />
+                <p class="m-0 text-nowrap seller-contact">0915 898 046</p>
+              </div>
+              <div class="d-flex">
+                <img
+                  src="image/at.JPG"
+                  class="icon icon-medium mr-2"
+                  alt="File"
+                />
+                <p class="m-0 text-nowrap seller-contact">
+                  juraj.lasso@unitedclassifieds.sk
                 </p>
               </div>
             </div>
 
-            <div class="col-12 col-sm-6 col-md-12 mb-4">
-              <div class="d-flex flex-fill align-items-center imag">
-                <img src="image/icon3.JPG" class="icon-mega mr-4" alt="" />
-                <p class="m-3 text-nowrap">+421 220 924 187</p>
+            <div class="col-12 col-sm-6 col-lg-3 p-0 my-3 center">
+              <h2 class="seller mb-3">Ing. Juraj Zorkóci</h2>
+              <div class="d-flex mb-3">
+                <img
+                  src="image/phone.JPG"
+                  class="icon icon-medium mr-2"
+                  alt="File"
+                />
+                <p class="m-0 text-nowrap seller-contact">0905 713 318</p>
+              </div>
+              <div class="d-flex">
+                <img
+                  src="image/at.JPG"
+                  class="icon icon-medium mr-2"
+                  alt="File"
+                />
+                <p class="m-0 text-nowrap seller-contact">
+                  juraj.zorkoci@unitedclassifieds.sk
+                </p>
+              </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-lg-3 p-0 my-3 center">
+              <h2 class="seller mb-3">Mgr. Daniela Večeríková Hrubová</h2>
+              <div class="d-flex mb-3">
+                <img
+                  src="image/phone.JPG"
+                  class="icon icon-medium mr-2"
+                  alt="File"
+                />
+                <p class="m-0 text-nowrap seller-contact">0905 439 699</p>
+              </div>
+              <div class="d-flex">
+                <img
+                  src="image/at.JPG"
+                  class="icon icon-medium mr-2"
+                  alt="File"
+                />
+                <p class="m-0 text-nowrap seller-contact">
+                  daniela.vecerikova@unitedclassifieds.sk
+                </p>
               </div>
             </div>
           </div>
@@ -450,22 +423,22 @@
 
     <!-- footer  -->
     <footer class="main-footer mt-auto">
-      <section class="footer-section" style="margin-top: 4rem">
+      <section class="footer-section">
         <div class="container">
           <div class="row">
             <div
               class="col-6 col-md-4 col-lg-3 order-2 order-md-2 footer-three-columns border-line"
             >
               <p class="d-none d-md-block footer-nav-title">
-                Advertising on Reality.sk
+                Inzercia na Reality.sk
               </p>
-              <a class="d-block d-md-none footer-nav-title aa">
-                Advertising on Reality.sk
+              <a class="d-block d-md-none footer-nav-title">
+                Inzercia na Reality.sk
                 <i class="fa-solid fa-sort-down" id="firstIcon"></i>
               </a>
 
               <ul
-                class="footer-nav d-md-block collapse list-columns-1 list-columns-lg-1 footer-link-list js-footer-info line"
+                class="footer-nav d-md-block collapse list-columns-1 list-columns-lg-1 footer-link-list js-footer-info"
                 id="firstUL"
               >
                 <li><a href="">Terms of Use</a></li>
@@ -475,7 +448,7 @@
                 <li><a href="">Registration of a real estate agency</a></li>
                 <li><a href="">Registration private advertisers</a></li>
                 <li class="d-md-list-item">
-                  <a href=""> Privacy settings </a>
+                  <a href="">Privacy settings</a>
                 </li>
               </ul>
             </div>
@@ -515,16 +488,12 @@
                 id="thirdUL"
               >
                 <li><a href="">Legal advice</a></li>
-                <li><a href="">tax consultancy</a></li>
+                <li><a href="">Tax consultancy</a></li>
               </ul>
             </div>
           </div>
         </div>
       </section>
-
-      <!-- footer   -->
-
-      <!-- copyright  -->
 
       <section class="copyright-section">
         <div class="container">
@@ -575,6 +544,7 @@
         </div>
       </section>
     </footer>
+
     <!-- Bootstrap Bundle with Popper -->
 
     <script
